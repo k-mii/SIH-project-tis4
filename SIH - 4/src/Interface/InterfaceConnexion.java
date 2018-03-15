@@ -144,23 +144,23 @@ public class InterfaceConnexion extends javax.swing.JFrame {
         String identification = DB_Link.Identification(TextField_Identifiant.getText(),TextField_Password.getText());
         //le if sera du type if(identification=="secretaire"){...}else if(identification=="PH"){...}else{erreur}
         //autant de else if que de personnel différents
-        if(identification=="secretaire"){  
+        if(identification.toUpperCase().equals("SE")){  
            SA_Accueil sa_accueil = new SA_Accueil();
            sa_accueil.setVisible(true);
            this.dispose();    
-       }else if(identification=="PH"){
+       }else if(identification.toUpperCase().equals("PH")){
            PH_Accueil ph_accueil = new PH_Accueil();
            ph_accueil.setVisible(true);
             this.dispose(); 
-       }else if(identification =="UR") {
+       }else if(identification.toUpperCase().equals("UR")) {
            URGENCE_Accueil ur_accueil = new URGENCE_Accueil();
             ur_accueil.setVisible(true);
             this.dispose(); 
-       }else if(identification =="IN") {
+       }else if(identification.toUpperCase().equals("IN")) {
            INFIRMIER_Accueil in_accueil = new INFIRMIER_Accueil(); 
             in_accueil.setVisible(true);
             this.dispose(); 
-       }else if(identification =="AN") {
+       }else if(identification.toUpperCase().equals("IN")) {
             ANESTHESISTE_Accueil an_accueil = new ANESTHESISTE_Accueil();
             an_accueil.setVisible(true);
             this.dispose(); 

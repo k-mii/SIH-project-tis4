@@ -30,7 +30,7 @@ public class DB_Link {
     static ResultSet rst;
     
     public static void main(String[] args) {
-        DM_ane.AjouterPrescription("ceci est une prescription efficace",3,3);
+        
         
                 
         
