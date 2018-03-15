@@ -38,9 +38,9 @@ public class DB_Link {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 /* TEST console */   System.out.println("Drivers Check"); 
-            String url="jdbc:mysql://localhost:3306/sih-v5";   // a modifier en fonction du nom de la BDD définitive
+            String url="jdbc:mysql://localhost:3306/sih-v6";   // a modifier en fonction du nom de la BDD définitive
             String usr="root"; // a modifier en fonction du nom du usr pr l'acces a la DB
-            String password=""; // a modifier en fonction du mdp du usr pr l'acces a la DB
+            String password="sihsql"; // a modifier en fonction du mdp du usr pr l'acces a la DB
             Connection cnx=DriverManager.getConnection(url,usr,password);
 /* TEST console */    System.out.println("Connexion Check");
             return cnx;       
