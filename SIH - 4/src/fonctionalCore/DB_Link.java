@@ -29,24 +29,18 @@ public class DB_Link {
     static Statement st;
     static ResultSet rst;
     
-    public static void main(String[] args) {
-        
-        
-                
-        
-    }
+    
     
 /************************************************************
                  FONCTION DE CONNEXION A LA DB               
 ************************************************************/      
-     public static Connection connecterDB(){
-/* TEST console */    System.out.println("Méthode DB_Link.connecterDB()");        
+     public static Connection connecterDB(){      
         try{
             Class.forName("com.mysql.jdbc.Driver");
 /* TEST console */   System.out.println("Drivers Check"); 
-            String url="jdbc:mysql://localhost:3306/sih-v6";   // a modifier en fonction du nom de la BDD définitive
-            String usr="root";
-            String password="sihsql";
+            String url="jdbc:mysql://localhost:3306/sih-v5";   // a modifier en fonction du nom de la BDD définitive
+            String usr="root"; // a modifier en fonction du nom du usr pr l'acces a la DB
+            String password=""; // a modifier en fonction du mdp du usr pr l'acces a la DB
             Connection cnx=DriverManager.getConnection(url,usr,password);
 /* TEST console */    System.out.println("Connexion Check");
             return cnx;       
@@ -62,12 +56,10 @@ public class DB_Link {
 /****************************************************************
                     METHODE D'IDENTIFICATION                     
 ****************************************************************/  
-    public static String Identification(String id, String mdp){  
-/* TEST console */    System.out.println("Méthode DB_Link.Identification");        
+    public static String Identification(String id, String mdp){
         
         String type;
         
-        // Modifier les requete en fonction des tables de la BDD définitive
         String error ="Erreur : Conexion à la base de données impossible. ";
         String querySec="SELECT * FROM secretaire WHERE id_connec='"+id+"'AND mdp= PASSWORD('"+mdp+"')";
         String queryPh="SELECT * FROM ph WHERE id_connec='"+id+"'AND mdp=PASSWORD('"+mdp+"')";
@@ -88,7 +80,7 @@ public class DB_Link {
                     rst=st.executeQuery(queryPh);
                     rst.next();
                     if(rst.getRow()== 1){  
-                        String fonction =rst.getString("Specialite") ; // Récupère la string de la colonne "spécialite" de la BDD
+                        String fonction =rst.getString("Specialite") ; 
                         if(fonction.equals("urgence")){
                             type = "UR"; 
                             return type;
@@ -121,14 +113,146 @@ public class DB_Link {
     
 
  
+/*************************************************************
+                      DEFINIR CODE POSTAL                     
+*************************************************************/
+public static ArrayList DefinirListeCodePostal(){
+    ArrayList<String> list_CP = new ArrayList<String>();
+    try{ 
+        String query="SELECT ville_code_postal FROM villes_france_free ORDER BY ville_code_postal";
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        rst=st.executeQuery(query);
+        while(rst.next()){
+                list_CP.add(rst.getString("ville_code_postal"));
+        } 
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    return list_CP;
+}
+
+/********************************************************
+                      DEFINIR VILLE                      
+********************************************************/
+public static ArrayList DefinirListeVille(String cp){
+    ArrayList <String> listVille= new ArrayList();
+    try{ 
+        String query="SELECT ville_nom_reel FROM villes_france_free WHERE ville_code_postal='"+cp+"'";
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        rst=st.executeQuery(query);
+        while(rst.next()){
+            listVille.add(rst.getString("ville_nom_reel"));
+        }    
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    
+    return listVille;
+}
+
+
+/********************************************************
+                      DEFINIR SERVICE                    
+********************************************************/
+public static ArrayList DefinirListService(){
+    ArrayList<String> listDesServices = new ArrayList();
+     try{ 
+        String query="SELECT nom FROM service ORDER BY nom";
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        rst=st.executeQuery(query);
+        while(rst.next()){
+            listDesServices.add(rst.getString("nom"));
+        }    
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    
+    return listDesServices;
+}
 
 
 
+public static void AjouterPrescription(String prescri,int id_dmane,int id_dmcli){
 
+  
+    try{ 
+        String query="INSERT INTO prescription VALUE('"+prescri+"')";
+        
+/*TEST CONSOLE*/      System.out.println("La requete pour l'insertion d'une prescription : "+query);   
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        st.executeUpdate(query);
+       
+        // recupère l'id de la prescription
+        String query2="Select id_prescription FROM prescription WHERE prescri=LOWER('"+prescri+"')";
+        rst=st.executeQuery(query2);
+        rst.next();
+        int idDeLaPrescri =rst.getInt("id_prescription");
+/*TEST console*/ System.out.println("id de la prescription : "+idDeLaPrescri);
 
+       // lier a dm anesthesie
+       
+        String query3="INSERT INTO prescription-iddmane VALUES('"+idDeLaPrescri+"','"+id_dmane+"')";
+        st.executeUpdate(query3);
+        
+        
+         //laison avec dm clinique
+    
+    String query4="INSERT INTO prescription-iddmcli  VALUES ('"+idDeLaPrescri+"','"+id_dmcli+"')";
+    st.executeUpdate(query4);
+        
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    
+   
+    
+}
 
+/****************************AJOUTER OBSERVATION*********************************/
 
+public static void AjouterObservation(String obs,int id_dmane,int id_dmcli, int id_dmmt){
+    
+    try{ 
+        String query="INSERT INTO observation VALUE('"+obs+"')";
+        
+/*TEST CONSOLE*/      System.out.println("La requete pour l'insertion d'une observation : "+query);   
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        st.executeUpdate(query);
+       
+        // recupère l'id de l'observation
+        String query2="Select id_observation FROM observation WHERE obs=LOWER('"+obs+"')";
+        rst=st.executeQuery(query2);
+        rst.next();
+        int idDeLObs =rst.getInt("id_observation");
+/*TEST console*/ System.out.println("id de l'observation : "+idDeLObs);
 
+       // lier a dm anesthesie
+       
+        String query3="INSERT INTO observation-iddmane VALUES('"+idDeLObs+"','"+id_dmane+"')";
+        st.executeUpdate(query3);
+        
+        
+         //liaison avec dm clinique
+    
+    String query4="INSERT INTO observation-iddmcli  VALUES ('"+idDeLObs+"','"+id_dmcli+"')";
+    st.executeUpdate(query4);
+    
+    // liaison avec dm medico tehnique
+    
+      String query5="INSERT INTO observation-iddmmt  VALUES ('"+idDeLObs+"','"+id_dmmt+"')";
+    st.executeUpdate(query5);
+        
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    
+    
+}
 
 
 

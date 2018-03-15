@@ -10,13 +10,16 @@ package fonctionalCore;
  * @author Clément
  */
 public enum Service {
-     urgence,
-
-  oncologie,
-
-  pediatrie,
-
-  anesthesie,
-  
-  cardiologie;
+    urgence,
+    oncologie,
+    geriatrie,
+    pediatrie,
+    anesthesie,
+    cardiologie,
+    psychiatrie;
+    
+    
+    
+    
+    
 }
