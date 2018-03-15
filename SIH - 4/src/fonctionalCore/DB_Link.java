@@ -4,7 +4,8 @@
                   AYANT UNE CONNEXION AVEC LA BASE DE DONNEES                          
                                                                                        
  *************************************************************************************/
-
+//uuuuinioninoipnponuiiiiiiiiiiiiiiih
+//iubliubiubioybiybpiy
 package fonctionalCore; 
 
 import fonctionalCore.*;
