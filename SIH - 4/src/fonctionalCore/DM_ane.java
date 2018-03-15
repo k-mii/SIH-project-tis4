@@ -35,7 +35,7 @@ public static void AjouterPrescription(String prescri,int id_dmane,int id_dmcli)
 
   
     try{ 
-        String query="INSERT INTO prescription VALUE('"+prescri+"')";
+        String query="INSERT INTO prescription(prescri) VALUE('"+prescri+"')";
         
 /*TEST CONSOLE*/      System.out.println("La requete pour l'insertion d'une prescription : "+query);   
         cnx=connecterDB();
@@ -47,17 +47,18 @@ public static void AjouterPrescription(String prescri,int id_dmane,int id_dmcli)
         rst=st.executeQuery(query2);
         rst.next();
         int idDeLaPrescri =rst.getInt("id_prescription");
+        
 /*TEST console*/ System.out.println("id de la prescription : "+idDeLaPrescri);
 
        // lier a dm anesthesie
        
-        String query3="INSERT INTO prescription-iddmane VALUES('"+idDeLaPrescri+"','"+id_dmane+"')";
-        st.executeUpdate(query3);
+        String query3="INSERT INTO `prescription-iddmane`(`id_prescription`, `id_DMane`) VALUES("+idDeLaPrescri+","+id_dmane+")";
+        st.executeUpdate(query3);System.out.println("execute");
         
         
          //laison avec dm clinique
     
-    String query4="INSERT INTO prescription-iddmcli  VALUES ('"+idDeLaPrescri+"','"+id_dmcli+"')";
+    String query4="INSERT INTO `prescription-iddmcli`(`id_prescription`, `id_DMcli`) VALUES("+idDeLaPrescri+","+id_dmcli+")";
     st.executeUpdate(query4);
         
     }catch(SQLException e){

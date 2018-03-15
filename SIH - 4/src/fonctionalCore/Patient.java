@@ -110,6 +110,9 @@ public class Patient extends Personne {
     public void setVille(String ville) { this.ville = ville;}
     
     
+    
+    
+    
     public static ArrayList rechercherPatient(String nom, String prenom, String ipp){
 /* TEST console */    System.out.println("Méthode DB_Link.rechercherPatient()");    
     

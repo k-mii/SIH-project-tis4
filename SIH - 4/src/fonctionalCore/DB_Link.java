@@ -29,7 +29,12 @@ public class DB_Link {
     static Statement st;
     static ResultSet rst;
     
-    
+    public static void main(String[] args) {
+        DM_ane.AjouterPrescription("ceci est une prescription efficace",3,3);
+        
+                
+        
+    }
     
 /************************************************************
                  FONCTION DE CONNEXION A LA DB               
@@ -39,9 +44,9 @@ public class DB_Link {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 /* TEST console */   System.out.println("Drivers Check"); 
-            String url="jdbc:mysql://localhost:3306/sih-v5";   // a modifier en fonction du nom de la BDD définitive
+            String url="jdbc:mysql://localhost:3306/sih-v6";   // a modifier en fonction du nom de la BDD définitive
             String usr="root";
-            String password="";
+            String password="sihsql";
             Connection cnx=DriverManager.getConnection(url,usr,password);
 /* TEST console */    System.out.println("Connexion Check");
             return cnx;       
