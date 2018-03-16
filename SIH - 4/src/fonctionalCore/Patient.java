@@ -287,24 +287,60 @@ public class Patient extends Personne {
 ***********************************************************************/
     public static String NouvelleAdmission(String ipp,int hospi_consult,String date,String id_ph,String motifAdmission, String service ){
         try{
-            
-            String query="INSERT INTO sejour(IPP,hospitalisation,dateEntree,idPHref,motifAdmission) VALUE ('"+Integer.parseInt(ipp)+"','"+hospi_consult+"','"+date+"','"+Integer.parseInt(id_ph)+"','"+motifAdmission+"'";
+ /*TEST CONSOLE*/ System.out.println(" methode nouvelle admission ");            
+            String query="INSERT INTO sejour(IPP,hospitalisation,dateEntree,idPHref,motifAdmission) VALUE ('"+Integer.parseInt(ipp)+"','"+hospi_consult+"','"+date+"','"+Integer.parseInt(id_ph)+"','"+motifAdmission+"')";
+/*TEST CONSOLE*/ System.out.println(" requete insertion sejour: "+query);        
             cnx=connecterDB();
             st=cnx.createStatement();
             st.executeUpdate(query);
+            ArrayList<Service> listService = Service.AfficherServices();
+            int idService=0;
+            for (Service s : listService){
+                if(s.getNom_service().equals(service)){
+                     idService = s.getId_service();
+                }
+            }
             
             if(hospi_consult==1){
-                ArrayList<Localisation> listDesLoca =DefinirListChambre(service);
+                ArrayList<Localisation> listDesLoca =DefinirListChambre(service);                            
                 boolean estOccupe=true;
                 int i =0;
-                int id_LocationInnocupe;
+                String id_LocationInnocupe="";
                 int sizeList = listDesLoca.size();
                 while (estOccupe==true && i<=sizeList){
                     if(listDesLoca.get(i).getIpp()==null){
                         estOccupe=false;
-                        id_LocationInnocupe=i;
+                        id_LocationInnocupe=listDesLoca.get(i).getId_loca();
                     }
                     i++;
+                }
+                // secteur = la ou est le patient
+                // service la ou il devrait etre
+                if(i==sizeList && estOccupe==true){ // si pas lit disponible dans le service
+                    ArrayList<Localisation> listDeTtLoca =DefinirListChambre();
+                    boolean estOccupe2=true;
+                    int j =0;
+                    String id_LocationInnocupe2="";
+                    int sizeList2 = listDeTtLoca.size();
+                    while (estOccupe2==true && j<=sizeList2){
+                        if(listDeTtLoca.get(j).getIpp()==null){
+                            estOccupe2=false;
+                            id_LocationInnocupe2=listDeTtLoca.get(j).getId_loca();
+                        }
+                        i++;
+                    }
+                    query = "UPDATE localisation SET Service='"+idService+"', IPP='"+ipp+"' WHERE id_localisation='"+id_LocationInnocupe2+"'";   
+ /*TEST CONSOLE */       System.out.println("requete insertion loca: "+query);           
+                    cnx=connecterDB();
+                    st=cnx.createStatement();
+                    st.executeUpdate(query);
+                }else{
+                    query = "UPDATE localisation SET Service='"+idService+"', IPP='"+ipp+"' WHERE id_localisation='"+id_LocationInnocupe+"'";   
+  /*TEST CONSOLE */       System.out.println("requete insertion localisation: "+query);                    
+                    cnx=connecterDB();
+                    st=cnx.createStatement();
+                    st.executeUpdate(query);
+                    
                 }
                 return "Le pastient à bien été admis en hospitalisation.";
             }else{

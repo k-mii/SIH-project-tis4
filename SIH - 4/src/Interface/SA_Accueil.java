@@ -1731,8 +1731,8 @@ public class SA_Accueil extends javax.swing.JFrame {
             Text_NumTel1.setText(monPatient.getnTel());
             Text_Adresse.setText(monPatient.getAdresse());
 
-            ComboBox_CP.setSelectedItem(monPatient.getCode_postal());
-
+            ComboBox_CP.setSelectedItem(monPatient.getCode_postal());            
+ 
             Text_MedecinGeneralist.setText(monPatient.getMedecin());
 
             String idDeLaPersDeConf = monPatient.getId_confiance();
@@ -1741,7 +1741,7 @@ public class SA_Accueil extends javax.swing.JFrame {
                 maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
                 Text_PrenomContact.setText(maPersConf.getPrenom());
                 Text_NomContact.setText(maPersConf.getNom());
-                Text_AdresseContact.setText(maPersConf.getAdresse());
+                Text_AdresseContact.setText(maPersConf.getAdresse());              
                 ComboBox_CPContact.setSelectedItem(maPersConf.getCode_postal());
                 Text_NumTelContact.setText(maPersConf.getnTel());
                 Text_RelationContact.setText(maPersConf.getRelation());
@@ -1865,23 +1865,28 @@ public class SA_Accueil extends javax.swing.JFrame {
                     ENREGISTRER NOUVELLE ADMISSION                 
 ******************************************************************/
     private void Btn_EnregistrerAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_EnregistrerAdmissionActionPerformed
-        String motifAdmission = Text_MotifAdmission.getText();
-       
-        String date =Text_AdmissionAAAA.getText()+"-"+Text_AdmissionMM.getText()+"-"+Text_AdmissionJJ.getText()+" "+Text_AdmissionHeure.getText()+":"+Text_AdmissionMin.getText()+":"+dateAndTime.getSeconds();
-        int ligne = ComboBox_NomMedecin.getSelectedIndex();
-        PH lePH = listPh.get(ligne);
-        
-        String service = (String)ComboBox_Service.getSelectedItem();
-        int hospi_consult=1;
-        if(Radio_Consult.isSelected()){
-            hospi_consult=0;
+        if(Text_MotifAdmission.equals("")){
+            JFrame frame = new JFrame();
+           JOptionPane.showMessageDialog(frame, "Veuillez saisir un motif d'admission");
+        }else{
+            String motifAdmission = Text_MotifAdmission.getText();
+
+            String date =Text_AdmissionAAAA.getText()+"-"+Text_AdmissionMM.getText()+"-"+Text_AdmissionJJ.getText()+" "+Text_AdmissionHeure.getText()+":"+Text_AdmissionMin.getText()+":"+dateAndTime.getSeconds();
+            int ligne = ComboBox_NomMedecin.getSelectedIndex();
+            PH lePH = listPh.get(ligne);
+
+            String service = (String)ComboBox_Service.getSelectedItem();
+            int hospi_consult=1;
+            if(Radio_Consult.isSelected()){
+                hospi_consult=0;
+            }
+
+            String message = Patient.NouvelleAdmission(monPatient.getIpp(),hospi_consult,date,lePH.getId_PH(),motifAdmission,service );
+
+
+           JFrame frame = new JFrame();
+           JOptionPane.showMessageDialog(frame, message);
         }
-        
-        String message = Patient.NouvelleAdmission(monPatient.getIpp(),hospi_consult,date,lePH.getId_PH(),motifAdmission,service );
-        
-        
-       JFrame frame = new JFrame();
-       JOptionPane.showMessageDialog(frame, "Le patient à bien été admis.");
     }//GEN-LAST:event_Btn_EnregistrerAdmissionActionPerformed
 
     

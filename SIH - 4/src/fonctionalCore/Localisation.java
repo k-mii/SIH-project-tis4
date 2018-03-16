@@ -42,9 +42,11 @@ public class Localisation {
       DEFINIR LISTE CHAMBRE DISPO DANS UN SERVICE        
 ********************************************************/
     public static ArrayList DefinirListChambre(String service){
+ /*TEST CONSOLE */   System.out.println(" definirlistcahambre(service)");    
         ArrayList<Localisation> listDesLoca = new ArrayList();
          try{ 
             String query="SELECT * FROM localisation WHERE Secteur='"+service+"'";
+ /* test console*/  System.out.println("requete recuperer liste des chambre du service "+service +" :"+query);         
             cnx=connecterDB();
             st=cnx.createStatement();
             rst=st.executeQuery(query);
@@ -57,6 +59,27 @@ public class Localisation {
         }    
         return listDesLoca;
     }
+    
+    
+     public static ArrayList DefinirListChambre(){
+        ArrayList<Localisation> listDesLoca = new ArrayList();
+         try{ 
+            String query="SELECT * FROM localisation";
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            while(rst.next()){
+                Localisation laLoca = new Localisation(rst.getString("id_localisation"),rst.getString("lit"),rst.getString("chambre"),rst.getString("Secteur"),rst.getString("Service"),rst.getString("IPP"));
+                listDesLoca.add(laLoca);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }    
+        return listDesLoca;
+    }
+    
+    
+    
 
     /**
      * @return the id_loca
