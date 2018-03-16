@@ -4,8 +4,7 @@
                   AYANT UNE CONNEXION AVEC LA BASE DE DONNEES                          
                                                                                        
  *************************************************************************************/
-//uuuuinioninoipnponuiiiiiiiiiiiiiiih
-//iubliubiubioybiybpiy
+
 package fonctionalCore; 
 
 import fonctionalCore.*;
@@ -158,21 +157,24 @@ public static ArrayList DefinirListeVille(String cp){
                       DEFINIR SERVICE                    
 ********************************************************/
 public static ArrayList DefinirListService(){
-    ArrayList<String> listDesServices = new ArrayList();
+    ArrayList<Service> listDesServices = new ArrayList();
      try{ 
-        String query="SELECT nom FROM service ORDER BY nom";
+        String query="SELECT * FROM service ORDER BY nom";
+/*TEST CONSOLE*/ System.out.println("requete pour afficher liste des service : "+query);
         cnx=connecterDB();
         st=cnx.createStatement();
         rst=st.executeQuery(query);
         while(rst.next()){
-            listDesServices.add(rst.getString("nom"));
+            Service leService = new Service(Integer.parseInt(rst.getString("id_service")),rst.getString("nom"));
+            listDesServices.add(leService);
         }    
     }catch(SQLException e){
         System.out.println(e.getMessage());
-    }
-    
+    }    
     return listDesServices;
 }
+
+
 
 
 
