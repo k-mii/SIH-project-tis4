@@ -317,4 +317,20 @@ public class Patient extends Personne {
     }
 
 
+public static int generIPP(){
+    Date dateAndTime = Calendar.getInstance().getTime();
+    int annee = dateAndTime.getYear();
+
+    int digit = annee % 100;
+
+                    String lipp = Integer.toString(digit);
+                    int nbDePatientCetteAnnee = Patient.CountLeNombreDePatientCetteAnnee(digit);
+                    int numDePatient = nbDePatientCetteAnnee + 1;
+                    int log = (int) (log10((numDePatient)) + 1);
+                    int nbDeChiffreAAjouter = 7 - log;
+                    for (int i = 0; i < nbDeChiffreAAjouter; i++) {
+                        lipp = lipp + "0";}
+                     lipp = lipp + (numDePatient + 1);
+                    int IPP = Integer.parseInt(lipp);
+                    return IPP;}
 }
