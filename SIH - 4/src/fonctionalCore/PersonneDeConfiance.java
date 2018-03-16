@@ -121,7 +121,11 @@ public class PersonneDeConfiance extends Personne{
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+   
     
+/***********************************************************************
+                     AJOUTER UNE PERSONNE A CONTACTER                   
+***********************************************************************/
 public static int AjouterPersonneDeConfiance(String prenom,String nom, String adresse, String cp, String ville, String numTel, String relation){
   int idDeLaPers=0;
     try{ 

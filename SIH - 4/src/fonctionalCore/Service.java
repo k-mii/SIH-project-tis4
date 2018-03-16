@@ -9,16 +9,25 @@ package fonctionalCore;
  *
  * @author Clément
  */
-public enum Service {
-    urgence,
-    oncologie,
-    geriatrie,
-    pediatrie,
-    anesthesie,
-    cardiologie,
-    psychiatrie;
+public class Service {
+    private int id_service;
+    private String nom_service;
+
+    public Service(int id_service,String nom_service){
+        this.id_service=id_service;
+        this.nom_service=nom_service;
+    }
     
-    
+    public Service(){
+        
+    }
+
+
+    public int getId_service() { return id_service;}
+    public void setId_service(int id_service) {this.id_service = id_service;}
+
+    public String getNom_service() {return nom_service;}
+    public void setNom_service(String nom_service) {this.nom_service = nom_service;}
     
     
     

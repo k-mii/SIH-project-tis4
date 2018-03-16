@@ -2249,7 +2249,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Text_MotifAdmission"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="ComboBox_Service">
@@ -2300,6 +2299,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Enregistrer"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_EnregistrerAdmissionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

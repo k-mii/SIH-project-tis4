@@ -4,8 +4,7 @@
                   AYANT UNE CONNEXION AVEC LA BASE DE DONNEES                          
                                                                                        
  *************************************************************************************/
-//uuuuinioninoipnponuiiiiiiiiiiiiiiih
-//iubliubiubioybiybpiy
+
 package fonctionalCore; 
 
 import fonctionalCore.*;
@@ -39,7 +38,7 @@ public class DB_Link {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 /* TEST console */   System.out.println("Drivers Check"); 
-            String url="jdbc:mysql://localhost:3306/sih-v5";   // a modifier en fonction du nom de la BDD définitive
+            String url="jdbc:mysql://localhost:3306/sih-v6";   // a modifier en fonction du nom de la BDD définitive
             String usr="root"; // a modifier en fonction du nom du usr pr l'acces a la DB
             String password=""; // a modifier en fonction du mdp du usr pr l'acces a la DB
             Connection cnx=DriverManager.getConnection(url,usr,password);
@@ -158,21 +157,24 @@ public static ArrayList DefinirListeVille(String cp){
                       DEFINIR SERVICE                    
 ********************************************************/
 public static ArrayList DefinirListService(){
-    ArrayList<String> listDesServices = new ArrayList();
+    ArrayList<Service> listDesServices = new ArrayList();
      try{ 
-        String query="SELECT nom FROM service ORDER BY nom";
+        String query="SELECT * FROM service ORDER BY nom";
+/*TEST CONSOLE*/ System.out.println("requete pour afficher liste des service : "+query);
         cnx=connecterDB();
         st=cnx.createStatement();
         rst=st.executeQuery(query);
         while(rst.next()){
-            listDesServices.add(rst.getString("nom"));
+            Service leService = new Service(Integer.parseInt(rst.getString("id_service")),rst.getString("nom"));
+            listDesServices.add(leService);
         }    
     }catch(SQLException e){
         System.out.println(e.getMessage());
-    }
-    
+    }    
     return listDesServices;
 }
+
+
 
 
 
