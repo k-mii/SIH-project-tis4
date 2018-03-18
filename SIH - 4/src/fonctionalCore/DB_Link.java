@@ -353,5 +353,53 @@ TEST CONSOLE     System.out.println("La requete pour l'obtention desséjours: "+
     
     // lien youtube pour les autres truc : https://www.youtube.com/watch?v=tAcBNuuRnQc
     
-    
+    public static Personne Identification2(String id, String mdp){
+        
+        Personne p = new Personne();
+        
+        String error ="Erreur : Conexion à la base de données impossible. ";
+        String querySec="SELECT * FROM secretaire WHERE id_connec='"+id+"'AND mdp= PASSWORD('"+mdp+"')";
+        String queryPh="SELECT * FROM ph WHERE id_connec='"+id+"'AND mdp=PASSWORD('"+mdp+"')";
+        String queryIn="SELECT * FROM infirmier WHERE id_connec='"+id+"'AND mdp=PASSWORD('"+mdp+"')";
+        
+        try{ 
+            cnx=connecterDB();
+            if(cnx ==null){
+                p.setNom(error);
+                return p;
+            }else{
+                st=cnx.createStatement();
+                rst=st.executeQuery(querySec);
+                rst.next();
+                if(rst.getRow()== 1){                 
+                    p = new Secretaire(null,null,rst.getString("nom"), rst.getString("prenom"),null,null);
+                    return p; 
+                }else{ 
+                    rst=st.executeQuery(queryPh);
+                    rst.next();
+                    if(rst.getRow()== 1){  
+                        p= new PH(rst.getString("id_PH"),rst.getString("Specialite"),rst.getString("nom"),rst.getString("prenom"),rst.getString("ntel"));
+                        return p;
+                    }else{
+                        rst=st.executeQuery(queryIn);
+                        rst.next();
+                        if(rst.getRow()== 1){                 
+                            p = new Infirmier(null,null, rst.getString("service"),rst.getString("nom"),rst.getString("prenom"),null,null); 
+                            return p;
+                        }else{
+                           p.setNom("Erreur : Identifiant ou mot de passe incorrect.");
+                           return p;
+                                
+                        }
+                    }
+                }
+            }
+            
+        }catch(SQLException e){
+            System.out.println( e.getMessage());
+            p.setNom(e.getMessage());
+            return p;
+        }
+        
+    }
 }

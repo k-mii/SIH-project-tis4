@@ -1,6 +1,10 @@
 package fonctionalCore;
 
-import java.util.Vector;
+import static fonctionalCore.DB_Link.cnx;
+import static fonctionalCore.DB_Link.connecterDB;
+import static fonctionalCore.DB_Link.rst;
+import static fonctionalCore.DB_Link.st;
+import java.sql.SQLException;
 
 
 public class Personne {

@@ -6,8 +6,9 @@
  *************************************************************************************/
 package Interface;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import fonctionalCore.Patient;
+import static fonctionalCore.Patient.AjouterPatient;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -64,7 +65,8 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         textNom = new javax.swing.JTextField();
         textPrenom = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        comboBox_MotifAdmission = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        motifAdmi = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,7 +116,9 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         jLabel5.setText("Motif d'admission : ");
 
-        comboBox_MotifAdmission.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        motifAdmi.setColumns(20);
+        motifAdmi.setRows(5);
+        jScrollPane2.setViewportView(motifAdmi);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,7 +130,7 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Btn_Enregistrer))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(297, 297, 297)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,11 +154,13 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
                                         .addComponent(textPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboBox_MotifAdmission, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 134, Short.MAX_VALUE)))
+                                .addComponent(jLabel5)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,11 +178,11 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(textNom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBox_MotifAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(126, 126, 126)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Btn_Enregistrer, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -209,7 +215,13 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
 *****************************************************/  
     private void Btn_EnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_EnregistrerActionPerformed
         JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé en urgence.");
+        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé en urgence.");        
+        int IPP=Patient.generIPP();
+        SimpleDateFormat form= new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+        Date auj= new Date();
+        
+        Patient.AjouterPatient(IPP, textPrenom.getText(), textNom.getText(), null, null, null, null, null, null, null, null, null, 0);
+        Patient.NouvelleAdmission(IPP, HAND_CURSOR, auj, id_ph, motifAdmission, service);
         this.dispose();
     }//GEN-LAST:event_Btn_EnregistrerActionPerformed
 
@@ -220,13 +232,14 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Enregistrer;
-    private javax.swing.JComboBox<String> comboBox_MotifAdmission;
     private javax.swing.JRadioButton inconnu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea motifAdmi;
     private javax.swing.JRadioButton nouveau;
     private javax.swing.JTextField textNom;
     private javax.swing.JTextField textPrenom;

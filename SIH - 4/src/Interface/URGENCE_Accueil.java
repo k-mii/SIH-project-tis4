@@ -1,10 +1,8 @@
-/**************************************************************************************
-                                                                                       
-                      LA CLASSE SUIVANTE CORRESPOND A L'INTERFACES                     
-                                D'ACCUEIL DES URGENCES                                 
-                                                                                       
- *************************************************************************************/
-
+/** ************************************************************************************
+ *
+ * LA CLASSE SUIVANTE CORRESPOND A L'INTERFACES
+ * D'ACCUEIL DES URGENCES  *
+ ************************************************************************************ */
 package Interface;
 
 import fonctionalCore.Acte_Infirmier;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
- 
+
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -29,23 +27,22 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author camille
  */
 public class URGENCE_Accueil extends javax.swing.JFrame {
+
     String nom_fichier_image = "Background02.png";
-    
-     
+
     public static void main(String[] args) {
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
                     URGENCE_Accueil connexion = new URGENCE_Accueil();
-                    
+
                 } catch (Exception ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -53,17 +50,20 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
             }
         });
     }
-/****************************************************************
-                            CONSTRUCTEUR                         
-****************************************************************/ 
+
+    /**
+     * **************************************************************
+     * CONSTRUCTEUR                         
+***************************************************************
+     */
     public URGENCE_Accueil() {
-        
+
         super("Connexion");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setExtendedState(URGENCE_Accueil.MAXIMIZED_BOTH); 
+        setExtendedState(URGENCE_Accueil.MAXIMIZED_BOTH);
         initComponents();
         Dimension sizeBckgrd = this.getSize();
-        Label_bckgrd.setSize(sizeBckgrd);       
+        Label_bckgrd.setSize(sizeBckgrd);
         pack();
         this.setVisible(true);
         Panel_Accueil.setVisible(true);
@@ -72,7 +72,20 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         Button_Accueil.setIcon(warnIcon);
         AccueilUrgenceCréerAdmission.setText("<html>Créer<br />Admission</html>");
         AccueilUrgenceVoirInfos.setText("<html>Voir<br/>Information</html>");
+        ArrayList<Patient> listeDesPatients = Patient.rechercherPatient("A", "A", "A");
 
+        DefaultTableModel model = new DefaultTableModel();
+        AccueilPHTableau.setModel(model);
+        model.addColumn("Nom");
+        model.addColumn("Prenom");
+        model.addColumn("Date de Naissance");
+        model.addColumn("Adresse");
+
+        for (Patient p : listeDesPatients) {
+            System.out.println(p.getNom() + " " + p.getPrenom());
+            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
+            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+        }
     }
 
     /**
@@ -301,21 +314,22 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-  
-    
-/******************************************************
-                        RETOUR ACCUEIL                 
- /****************************************************/ 
+
+    /**
+     * ****************************************************
+     * RETOUR ACCUEIL                 
+ /***************************************************
+     */
     private void Button_AccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AccueilActionPerformed
-       Panel_Accueil.setVisible(true);
-    //   PanelInfoPatient.setVisible(false);
+        Panel_Accueil.setVisible(true);
+        //   PanelInfoPatient.setVisible(false);
     }//GEN-LAST:event_Button_AccueilActionPerformed
 
-
- /*****************************************************
-                       DECONNEXION                     
- *****************************************************/  
+    /**
+     * ***************************************************
+     * DECONNEXION                     
+ ****************************************************
+     */
     private void Button_DeconexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_DeconexionActionPerformed
         InterfaceConnexion connexion;
         try {
@@ -325,19 +339,20 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(URGENCE_Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_Button_DeconexionActionPerformed
 
-    
-/*****************************************************
-                  RECHERCHER UN PATIENT               
-*****************************************************/  
+    /**
+     * ***************************************************
+     * RECHERCHER UN PATIENT               
+****************************************************
+     */
     private void AccueilUrgenceRechercherPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceRechercherPatientActionPerformed
-          if(AccueilUrgenceNom.getText().equals("") && AccueilUrgencePrenom.getText().equals("")){
+        if (AccueilUrgenceNom.getText().equals("") && AccueilUrgencePrenom.getText().equals("")) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom ou le prenom du patient.");
 
-        }else{
+        } else {
             ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(AccueilUrgenceNom.getText(), AccueilUrgencePrenom.getText(), "");
 
             DefaultTableModel model = new DefaultTableModel();
@@ -356,51 +371,50 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
             // clear les 3 zone de texte
             AccueilUrgenceNom.setText("");
             AccueilUrgencePrenom.setText("");
-       }
-       
+        }
+
     }//GEN-LAST:event_AccueilUrgenceRechercherPatientActionPerformed
 
-/*****************************************************
-            VOIR INFO PATIENT SELECTIONNE             
-*****************************************************/  
+    /**
+     * ***************************************************
+     * VOIR INFO PATIENT SELECTIONNE             
+****************************************************
+     */
     private void AccueilUrgenceVoirInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceVoirInfosActionPerformed
-         Patient patientR=null;
-         if(AccueilPHTableau.getSelectedRow()==-1){
+        Patient patientR = null;
+        if (AccueilPHTableau.getSelectedRow() == -1) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "Aucun patient n'est selectioné.");
-        }else{
-          
+        } else {
 
             int ligne = AccueilPHTableau.getSelectedRow();
             String nom = (String) AccueilPHTableau.getValueAt(ligne, 0);
             String prenom = (String) AccueilPHTableau.getValueAt(ligne, 1);
             String dateNaiss = (String) AccueilPHTableau.getValueAt(ligne, 2);
             patientR = Patient.AfficherInfoPatient(nom, prenom, dateNaiss);
-
-        }
-        
-        
-        
-        URGENCE_Detail_Patient ur_patient = new URGENCE_Detail_Patient(patientR);
+            URGENCE_Detail_Patient ur_patient = new URGENCE_Detail_Patient(patientR);
             ur_patient.setVisible(true);
-            
-            
-             this.dispose();
+            this.dispose();
+        }
+
+
     }//GEN-LAST:event_AccueilUrgenceVoirInfosActionPerformed
 
-    
-/*****************************************************
-      ADMISSION URGENCE DU PATIENT SELECTIONE         
-*****************************************************/  
+    /**
+     * ***************************************************
+     * ADMISSION URGENCE DU PATIENT SELECTIONE         
+****************************************************
+     */
     private void AccueilUrgenceCréerAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceCréerAdmissionActionPerformed
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé en urgence.");
     }//GEN-LAST:event_AccueilUrgenceCréerAdmissionActionPerformed
 
-    
-/*****************************************************
-           CREER UN NOUVEAU PATIENT EN URGENCE        
-*****************************************************/   
+    /**
+     * ***************************************************
+     * CREER UN NOUVEAU PATIENT EN URGENCE        
+****************************************************
+     */
     private void AccueilUrgenceCréerPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceCréerPatientActionPerformed
         URGENCE_NewPatient ur_newp = new URGENCE_NewPatient();
         ur_newp.setVisible(true);
