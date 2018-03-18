@@ -170,9 +170,9 @@ public class Patient extends Personne {
          return listDesPatient;
     }  
 
-    /***********************************************************
+/***********************************************************
                          AJOUTER UN PATIENT                     
-    ***********************************************************/
+***********************************************************/
 
     public static String AjouterPatient(int IPP,String prenom, String nom,String tel, String nomnNaiss,String lieuNaiss, String medG,String adresse,String cp, String ville, String dateNaiss, String sexe, int idPersConf){
 
@@ -192,7 +192,7 @@ public class Patient extends Personne {
 
 
 
-    /***********************************************************************
+/***********************************************************************
                       AFFICHER LES INFO DU PATIENT SELECTIONNER             
     ***********************************************************************/
     public static Patient AfficherInfoPatient(String nom, String prenom,String dateNaiss){
@@ -224,9 +224,9 @@ public class Patient extends Personne {
         }
     }
 
-    /*************************************************************
+/*************************************************************
                       COMPTER NB DE PATIENT CETTE ANNEE           
-    *************************************************************/
+*************************************************************/
     public static int CountLeNombreDePatientCetteAnnee(int annee){
         int nbPatient=0;
 
@@ -253,13 +253,11 @@ public class Patient extends Personne {
 ***********************************************************************/
     public static String ModifierPatient (String ipp,String nom,String prenom, String tel, String nomNaiss,String lieuNaiss, String medG,String adresse,String cp, String ville, String dateNaiss, String sexe){
         try{
-            String query = "UPDATE patient SET nom = LOWER('"+nom+"'),prenom =LOWER('"+prenom+"'), ntel='"+tel+"', nomnaissance='"+nomNaiss+"',lieunaissance='"+lieuNaiss+"',medecinG='"+medG+"',adresse='"+adresse+"',datenaissance='"+dateNaiss+"',sexe='"+sexe+"',code_postal='"+cp+"',ville='"+ville+"' WHERE IPP='"+Integer.parseInt(ipp)+"'";
-    /*TEST CONSOLE*/  System.out.println("La requete de la modification du patient :"+query);     
+            String query = "UPDATE patient SET nom = LOWER('"+nom+"'),prenom =LOWER('"+prenom+"'), ntel='"+tel+"', nomnaissance='"+nomNaiss+"',lieunaissance='"+lieuNaiss+"',medecinG='"+medG+"',adresse='"+adresse+"',datenaissance='"+dateNaiss+"',sexe='"+sexe+"',code_postal='"+cp+"',ville='"+ville+"' WHERE IPP='"+Integer.parseInt(ipp)+"'";    
             cnx=connecterDB();
             st=cnx.createStatement();
             st.executeUpdate(query);
 
-    /*TEST CONSOLE*/ System.out.println("MODIF PERSONNE OK");
             return "Les modifications ont bien été enregistrés.";
 
         }catch(SQLException e){
@@ -274,10 +272,8 @@ public class Patient extends Personne {
                           NOUVELLE ADMISSION                            
 ***********************************************************************/
     public static String NouvelleAdmission(String ipp,int hospi_consult,String date,String id_ph,String motifAdmission, String service ){
-        try{
- /*TEST CONSOLE*/ System.out.println(" methode nouvelle admission ");            
-            String query="INSERT INTO sejour(IPP,hospitalisation,dateEntree,idPHref,motifAdmission) VALUE ('"+Integer.parseInt(ipp)+"','"+hospi_consult+"','"+date+"','"+Integer.parseInt(id_ph)+"','"+motifAdmission+"')";
-/*TEST CONSOLE*/ System.out.println(" requete insertion sejour: "+query);        
+        try{          
+            String query="INSERT INTO sejour(IPP,hospitalisation,dateEntree,idPHref,motifAdmission) VALUE ('"+Integer.parseInt(ipp)+"','"+hospi_consult+"','"+date+"','"+Integer.parseInt(id_ph)+"','"+motifAdmission+"')";     
             cnx=connecterDB();
             st=cnx.createStatement();
             st.executeUpdate(query);
@@ -341,4 +337,33 @@ public class Patient extends Personne {
     }
 
 
+    public static Localisation afficherLocalisationPatient(String ipp){
+        Localisation locaDuPatient = new Localisation();
+        try{
+            String query="SELECT * FROM localisation WHERE IPP='"+ipp+"'";
+
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+
+            locaDuPatient.setChambre(rst.getString("chambre"));
+            locaDuPatient.setId_loca(rst.getString("id_localisation"));
+            locaDuPatient.setIpp(ipp);
+            locaDuPatient.setLit(rst.getString("lit"));
+            locaDuPatient.setSecteur(rst.getString("Secteur"));
+            locaDuPatient.setService(Service.AfficherServices(rst.getString("Service")));
+           
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+                
+                
+        return locaDuPatient;
+    }
+    
+    
+    
 }

@@ -50,7 +50,21 @@ public class PH extends Personne {
         return listPH;
     }
 
+     public static String AfficherNomPH(String idph){
+        String query="";
+        query ="SELECT * FROM ph WHERE id_PH='"+idph+"'";
+        try{
+            cnx=DB_Link.connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            return rst.getString("nom");
     
+        }catch(SQLException e){
+           System.out.println(e.getMessage());
+           return "";
+        }
+    }
     
     public String getSpecialite() {return specialite;}
     public void setSpecialite(String specialite) {this.specialite = specialite;}

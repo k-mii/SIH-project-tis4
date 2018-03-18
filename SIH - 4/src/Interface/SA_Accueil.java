@@ -61,18 +61,23 @@ public class SA_Accueil extends javax.swing.JFrame {
 
         /* Initialisation du tableau avec la liste des patients */
         ArrayList<Patient> listeDesPatients = Patient.rechercherPatient("A", "A", "A");
-
+              
         DefaultTableModel model = new DefaultTableModel();
         jTable1.setModel(model);
         model.addColumn("Nom");
         model.addColumn("Prenom");
         model.addColumn("Date de Naissance");
         model.addColumn("Adresse");
+        model.addColumn("Service/Chambre");
 
         for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            Localisation loca = Localisation.TrouverPatient(p.getIpp());
+            String localisation="";
+            if(!loca.getSecteur().equals("NA")&&!loca.getChambre().equals("NA")){
+                localisation=loca.getSecteur()+" Cham. "+loca.getChambre();
+            }
+            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); 
+            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse,localisation});
         }
 
         /* Image btn accueil */

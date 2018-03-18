@@ -159,12 +159,12 @@ public class PH_Accueil extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        Tableau_prescription = new javax.swing.JTable();
         AjouterPrescription = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        Tableau_ActeInf = new javax.swing.JTable();
         Res = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
@@ -291,7 +291,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                             .addComponent(jLabel89)
                             .addComponent(jLabel90)
                             .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 47, Short.MAX_VALUE))
+                        .addGap(0, 124, Short.MAX_VALUE))
                     .addComponent(spe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(chambre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -589,19 +589,6 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel71)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NomContact, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel84)
-                        .addGap(11, 11, 11)
-                        .addComponent(relationContact)
-                        .addContainerGap())
-                    .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel77)
                         .addGap(7, 7, 7)
                         .addComponent(CPContact, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -613,14 +600,29 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jLabel75)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(adresseContact, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NomContact, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel84)
+                                .addGap(11, 11, 11)
+                                .addComponent(relationContact))
                             .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jLabel85)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(telContact, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel15Layout.createSequentialGroup()
+                                        .addComponent(jLabel75)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(adresseContact, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel15Layout.createSequentialGroup()
+                                        .addComponent(jLabel85)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(telContact, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,17 +705,18 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel34.setForeground(new java.awt.Color(102, 102, 102));
         jLabel34.setText("Prescriptions");
 
-        jTable3.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable3.setForeground(new java.awt.Color(102, 102, 102));
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_prescription.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_prescription.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_prescription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"1", "60mg Morphine", "18/03/2018", null}
             },
             new String [] {
                 "Numéro Prescription", "Prescription", "Date", "Prescripteur"
             }
         ));
-        jScrollPane2.setViewportView(jTable3);
+        Tableau_prescription.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(Tableau_prescription);
 
         AjouterPrescription.setBackground(new java.awt.Color(255, 255, 255));
         AjouterPrescription.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
@@ -761,9 +764,9 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(102, 102, 102));
         jLabel35.setText("Actes Infirmiers");
 
-        jTable4.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable4.setForeground(new java.awt.Color(102, 102, 102));
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_ActeInf.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_ActeInf.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_ActeInf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -771,7 +774,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 "Prescription", "Etat", "Date", "Soignant", "Résultats"
             }
         ));
-        jScrollPane3.setViewportView(jTable4);
+        jScrollPane3.setViewportView(Tableau_ActeInf);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -780,7 +783,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel35)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -813,7 +816,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -954,7 +957,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1000,7 +1003,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel39)
@@ -1033,7 +1036,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1076,7 +1079,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38)
                             .addComponent(jLabel7))
-                        .addGap(0, 700, Short.MAX_VALUE))
+                        .addGap(0, 777, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ValiderLettreSortie, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1142,7 +1145,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
                     .addComponent(jScrollPane9)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1358,9 +1361,9 @@ public class PH_Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_AccueilActionPerformed
 
 
- /*****************************************************
-                       DECONNEXION                     
- *****************************************************/  
+/*****************************************************
+                       DECONNEXION                    
+*****************************************************/  
     private void Button_DeconexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_DeconexionActionPerformed
         InterfaceConnexion connexion;
         try {
@@ -1372,12 +1375,11 @@ public class PH_Accueil extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_Button_DeconexionActionPerformed
-
+ 
     
-    
-    
-    
-    // INFORMATION DU PATIENT
+/*****************************************************
+               INFORMATION DU PATIENT                 
+*****************************************************/  
     private void Btn_InformationPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_InformationPatientActionPerformed
         if(Table_ListPatient.getSelectedRow()==-1){
             JFrame frame = new JFrame();
@@ -1390,10 +1392,10 @@ public class PH_Accueil extends javax.swing.JFrame {
             Icon warnIcon = new ImageIcon(resource);
             Button_Accueil.setIcon(warnIcon);
 
-            int ligne = jTable1.getSelectedRow();
-            String nom = (String) jTable1.getValueAt(ligne, 0);
-            String prenom = (String) jTable1.getValueAt(ligne, 1);
-            String dateNaiss = (String) jTable1.getValueAt(ligne, 2);
+            int ligne = Table_ListPatient.getSelectedRow();
+            String nom = (String) Table_ListPatient.getValueAt(ligne, 0);
+            String prenom = (String) Table_ListPatient.getValueAt(ligne, 1);
+            String dateNaiss = (String) Table_ListPatient.getValueAt(ligne, 2);
             monPatient = Patient.AfficherInfoPatient(nom, prenom, dateNaiss);
 
             Label_Titre.setText("Information Patient : "+prenom+" "+nom);
@@ -1417,7 +1419,47 @@ public class PH_Accueil extends javax.swing.JFrame {
                 villeContact.setText(maPersConf.getVille());
                 telContact.setText(maPersConf.getnTel());
                 relationContact.setText(maPersConf.getRelation());
-            }   
+            }  
+            
+            Localisation locaDuPatient = Patient.afficherLocalisationPatient(monPatient.getIpp());
+            spe.setText(locaDuPatient.getService());
+            secteur.setText(locaDuPatient.getSecteur());
+            chambre.setText(locaDuPatient.getChambre());
+            lit.setText(locaDuPatient.getLit());
+            
+    
+                    
+                    
+            ArrayList<Prescription> listePrescription = Prescription.afficherPrescription(monPatient.getIpp());
+      
+            DefaultTableModel model = new DefaultTableModel();
+            model.setRowCount(0);
+            Tableau_prescription.setModel(model);
+            model.addColumn("Numéro de Prescription");
+            model.addColumn("Préscription");
+            model.addColumn("Date");
+            model.addColumn("Prescripteur");
+
+            for (Prescription p : listePrescription) {
+                model.addRow(new Object[]{p.getId_prescription(), p.getPrescri(), p.getDate(), "Dr "+p.getPh()});
+            }
+            
+            
+            ArrayList<Acte_Infirmier> listActeInf = Acte_Infirmier.afficherActe(monPatient.getIpp());
+            
+            DefaultTableModel model2 = new DefaultTableModel();
+            model2.setRowCount(0);
+            model2 = new DefaultTableModel();
+            Tableau_ActeInf.setModel(model2);
+            model2.addColumn("Acte");
+            model2.addColumn("Résultat");
+            model2.addColumn("Date");
+            model2.addColumn("Soigant");
+
+            for (Acte_Infirmier ac : listActeInf) {
+                model2.addRow(new Object[]{ac.getActe(), ac.getResultat(), ac.getDate(), ac.getInfirmier()});
+            }
+
         }
         
     }//GEN-LAST:event_Btn_InformationPatientActionPerformed
@@ -1515,7 +1557,7 @@ public class PH_Accueil extends javax.swing.JFrame {
          RESULTAT - AJOUTER UN RESULTAT               
 *****************************************************/  
     private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
-        if (jTable4.getSelectedRow() == 1) { // mettre -1
+        if (Tableau_ActeInf.getSelectedRow() == 1) { // mettre -1
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
         } else {
@@ -1710,7 +1752,7 @@ public class PH_Accueil extends javax.swing.JFrame {
         // Maj Tableau Liste des Prescriptions 
  //       Infos infos = new Infos();
         DefaultTableModel listePrescription;
-        listePrescription = (DefaultTableModel) this.jTable3.getModel();
+        listePrescription = (DefaultTableModel) this.Tableau_prescription.getModel();
         int n = listePrescription.getRowCount();
         for (int i = n - 1; i >= 0; --i) {
             listePrescription.removeRow(i);
@@ -1726,7 +1768,7 @@ public class PH_Accueil extends javax.swing.JFrame {
 */
         // MaJ Tableau Liste des Actes Infirmiers
         DefaultTableModel listeActe;
-        listeActe = (DefaultTableModel) this.jTable4.getModel();
+        listeActe = (DefaultTableModel) this.Tableau_ActeInf.getModel();
         int m = listeActe.getRowCount();
         for (int i = m - 1; i >= 0; --i) {
             listeActe.removeRow(i);
@@ -1870,6 +1912,8 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel PrenomContact;
     private javax.swing.JPanel Res;
     private javax.swing.JTable Table_ListPatient;
+    private javax.swing.JTable Tableau_ActeInf;
+    private javax.swing.JTable Tableau_prescription;
     private javax.swing.JTextField Text_RshNomPatient;
     private javax.swing.JTextField Text_RshPrenomPatient;
     private javax.swing.JButton ValiderLettreSortie;
@@ -1930,8 +1974,6 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTextArea jTextArea1;

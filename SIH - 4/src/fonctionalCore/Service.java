@@ -57,6 +57,26 @@ public class Service {
     
     }
     
+    public static String AfficherServices(String id_serv){
+        String service ="";
+        String query="";
+        query ="SELECT * FROM service WHERE id_service ='"+id_serv+"'";
+        try{
+            cnx=DB_Link.connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            
+            service = rst.getString("nom");   
+            return service;
+             
+        }catch(SQLException e){
+           System.out.println(e.getMessage());
+           return e.getMessage();
+        }
+        
+    
+    }
     
     
 }

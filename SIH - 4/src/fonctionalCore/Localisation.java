@@ -41,12 +41,10 @@ public class Localisation {
 /********************************************************
       DEFINIR LISTE CHAMBRE DISPO DANS UN SERVICE        
 ********************************************************/
-    public static ArrayList DefinirListChambre(String service){
- /*TEST CONSOLE */   System.out.println(" definirlistcahambre(service)");    
+    public static ArrayList DefinirListChambre(String service){ 
         ArrayList<Localisation> listDesLoca = new ArrayList();
          try{ 
-            String query="SELECT * FROM localisation WHERE Secteur='"+service+"'";
- /* test console*/  System.out.println("requete recuperer liste des chambre du service "+service +" :"+query);         
+            String query="SELECT * FROM localisation WHERE Secteur='"+service+"'";      
             cnx=connecterDB();
             st=cnx.createStatement();
             rst=st.executeQuery(query);
@@ -60,7 +58,9 @@ public class Localisation {
         return listDesLoca;
     }
     
-    
+/********************************************************
+                    DEFINIR LISTE CHAMBRE                
+********************************************************/ 
      public static ArrayList DefinirListChambre(){
         ArrayList<Localisation> listDesLoca = new ArrayList();
          try{ 
@@ -78,7 +78,33 @@ public class Localisation {
         return listDesLoca;
     }
     
-    
+/********************************************************
+              LOCALISATION DU PATIENT X                  
+********************************************************/ 
+     public static Localisation TrouverPatient(String ipp){
+        Localisation loca =new Localisation();
+        try{ 
+            String query="SELECT * FROM localisation WHERE IPP='"+ipp+"'";
+            String chambre ="NA";
+            String secteur ="NA";
+            System.out.println(query);
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();          
+            if(rst.getRow()>= 1){
+                chambre =rst.getString("chambre");
+                secteur =rst.getString("secteur");
+            }
+            
+            loca.setChambre(chambre);
+            loca.setSecteur(secteur);
+              
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }    
+        return loca;
+    }
     
 
     /**
