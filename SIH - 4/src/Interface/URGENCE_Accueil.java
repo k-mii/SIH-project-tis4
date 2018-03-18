@@ -410,7 +410,7 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
                   RECHERCHER UN PATIENT               
 *****************************************************/  
     private void AccueilUrgenceRechercherPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceRechercherPatientActionPerformed
-
+        
     }//GEN-LAST:event_AccueilUrgenceRechercherPatientActionPerformed
 
 /*****************************************************
