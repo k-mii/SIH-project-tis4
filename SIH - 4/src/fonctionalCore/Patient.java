@@ -117,7 +117,7 @@ public class Patient extends Personne {
 /************************************************************
                         RECHERCHER UN PATIENT                    
     ************************************************************/      
-    public static ArrayList rechercherPatient(String nom, String prenom, String ipp){   
+    public static ArrayList<Patient> rechercherPatient(String nom, String prenom, String ipp){   
         ArrayList <Patient> listDesPatient = new ArrayList();
         String query="";
 
@@ -370,7 +370,7 @@ public class Patient extends Personne {
     
     
     
-=======
+
 public static int generIPP(){
     Date dateAndTime = Calendar.getInstance().getTime();
     int annee = dateAndTime.getYear();

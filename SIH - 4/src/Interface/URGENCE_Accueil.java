@@ -7,41 +7,25 @@
 
 package Interface;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+import fonctionalCore.Acte_Infirmier;
+import fonctionalCore.Localisation;
+import fonctionalCore.Main;
+import fonctionalCore.Patient;
+import fonctionalCore.PersonneDeConfiance;
+import fonctionalCore.Prescription;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.Icon;
  
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,8 +36,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class URGENCE_Accueil extends javax.swing.JFrame {
     String nom_fichier_image = "Background02.png";
-     
     
+     
+    public static void main(String[] args) {
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URGENCE_Accueil connexion = new URGENCE_Accueil();
+                    
+                } catch (Exception ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
+    }
 /****************************************************************
                             CONSTRUCTEUR                         
 ****************************************************************/ 
@@ -94,19 +93,11 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         AccueilUrgenceVoirInfos = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         AccueilUrgenceRechercherPatient = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         AccueilPHTableau = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         AccueilUrgenceNom = new javax.swing.JTextField();
         AccueilUrgencePrenom = new javax.swing.JTextField();
-        AccueilUrgenceMois = new javax.swing.JTextField();
-        AccueilUrgenceJour1 = new javax.swing.JTextField();
-        AccueilUrgenceAnnee = new javax.swing.JTextField();
-        AccueilUrgenceIPP = new javax.swing.JTextField();
         Label_bckgrd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -181,14 +172,6 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Prénom :");
 
-        jLabel5.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Date de Naissance :");
-
-        jLabel6.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel6.setText("IPP :");
-
         AccueilUrgenceRechercherPatient.setBackground(new java.awt.Color(255, 255, 255));
         AccueilUrgenceRechercherPatient.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AccueilUrgenceRechercherPatient.setForeground(new java.awt.Color(102, 102, 102));
@@ -229,14 +212,6 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(AccueilPHTableau);
 
-        jLabel7.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("//");
-
-        jLabel8.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setText("//");
-
         AccueilUrgenceNom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AccueilUrgenceNom.setForeground(new java.awt.Color(102, 102, 102));
         AccueilUrgenceNom.setText("Nom");
@@ -244,22 +219,6 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
         AccueilUrgencePrenom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AccueilUrgencePrenom.setForeground(new java.awt.Color(102, 102, 102));
         AccueilUrgencePrenom.setText("Prenom");
-
-        AccueilUrgenceMois.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AccueilUrgenceMois.setForeground(new java.awt.Color(102, 102, 102));
-        AccueilUrgenceMois.setText("JJ");
-
-        AccueilUrgenceJour1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AccueilUrgenceJour1.setForeground(new java.awt.Color(102, 102, 102));
-        AccueilUrgenceJour1.setText("JJ");
-
-        AccueilUrgenceAnnee.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AccueilUrgenceAnnee.setForeground(new java.awt.Color(102, 102, 102));
-        AccueilUrgenceAnnee.setText("JJ");
-
-        AccueilUrgenceIPP.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AccueilUrgenceIPP.setForeground(new java.awt.Color(102, 102, 102));
-        AccueilUrgenceIPP.setText("IPP");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,7 +229,6 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -281,33 +239,13 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
                                     .addComponent(AccueilUrgenceCréerPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(AccueilUrgenceCréerAdmission, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AccueilUrgenceNom, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(AccueilUrgenceJour1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
-                                .addGap(16, 16, 16)
-                                .addComponent(AccueilUrgenceMois, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addGap(12, 12, 12)
-                                .addComponent(AccueilUrgenceAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(AccueilUrgenceIPP))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AccueilUrgencePrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AccueilUrgenceNom, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AccueilUrgencePrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 98, Short.MAX_VALUE)
                         .addComponent(AccueilUrgenceRechercherPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -322,22 +260,7 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AccueilUrgencePrenom)
                     .addComponent(AccueilUrgenceRechercherPatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(AccueilUrgenceMois, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(AccueilUrgenceJour1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(AccueilUrgenceAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(AccueilUrgenceIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(68, 68, 68)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(AccueilUrgenceCréerPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,16 +333,59 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
                   RECHERCHER UN PATIENT               
 *****************************************************/  
     private void AccueilUrgenceRechercherPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceRechercherPatientActionPerformed
-        
+          if(AccueilUrgenceNom.getText().equals("") && AccueilUrgencePrenom.getText().equals("")){
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom ou le prenom du patient.");
+
+        }else{
+            ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(AccueilUrgenceNom.getText(), AccueilUrgencePrenom.getText(), "");
+
+            DefaultTableModel model = new DefaultTableModel();
+            AccueilPHTableau.setModel(model);
+            model.addColumn("Nom");
+            model.addColumn("Prenom");
+            model.addColumn("Date de Naissance");
+            model.addColumn("Adresse");
+
+            for (Patient p : listeDesPatients) {
+                System.out.println(p.getNom() + " " + p.getPrenom());
+                String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
+                model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            }
+
+            // clear les 3 zone de texte
+            AccueilUrgenceNom.setText("");
+            AccueilUrgencePrenom.setText("");
+       }
+       
     }//GEN-LAST:event_AccueilUrgenceRechercherPatientActionPerformed
 
 /*****************************************************
             VOIR INFO PATIENT SELECTIONNE             
 *****************************************************/  
     private void AccueilUrgenceVoirInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccueilUrgenceVoirInfosActionPerformed
-        URGENCE_Detail_Patient ur_detP =new URGENCE_Detail_Patient();
-        ur_detP.setVisible(true);
-        this.dispose();
+         Patient patientR=null;
+         if(AccueilPHTableau.getSelectedRow()==-1){
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Aucun patient n'est selectioné.");
+        }else{
+          
+
+            int ligne = AccueilPHTableau.getSelectedRow();
+            String nom = (String) AccueilPHTableau.getValueAt(ligne, 0);
+            String prenom = (String) AccueilPHTableau.getValueAt(ligne, 1);
+            String dateNaiss = (String) AccueilPHTableau.getValueAt(ligne, 2);
+            patientR = Patient.AfficherInfoPatient(nom, prenom, dateNaiss);
+
+        }
+        
+        
+        
+        URGENCE_Detail_Patient ur_patient = new URGENCE_Detail_Patient(patientR);
+            ur_patient.setVisible(true);
+            
+            
+             this.dispose();
     }//GEN-LAST:event_AccueilUrgenceVoirInfosActionPerformed
 
     
@@ -448,12 +414,8 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
     JTextField resultat2;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AccueilPHTableau;
-    private javax.swing.JTextField AccueilUrgenceAnnee;
     private javax.swing.JButton AccueilUrgenceCréerAdmission;
     private javax.swing.JButton AccueilUrgenceCréerPatient;
-    private javax.swing.JTextField AccueilUrgenceIPP;
-    private javax.swing.JTextField AccueilUrgenceJour1;
-    private javax.swing.JTextField AccueilUrgenceMois;
     private javax.swing.JTextField AccueilUrgenceNom;
     private javax.swing.JTextField AccueilUrgencePrenom;
     private javax.swing.JButton AccueilUrgenceRechercherPatient;
@@ -464,10 +426,6 @@ public class URGENCE_Accueil extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Accueil;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
