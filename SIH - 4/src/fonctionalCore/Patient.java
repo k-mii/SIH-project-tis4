@@ -33,7 +33,7 @@ public class Patient extends Personne {
     private String code_postal;
     private String ville;
 
-    public Patient(String ipp, String nom, String prenom, String nTel, String nomNaiss, String lieuNaiss, String med, String adresse, String dateNaiss, Sexe sexe, String persConf, String cp, String ville) {
+    public Patient(String ipp, String nom, String prenom, String nTel, String nomNaiss, String lieuNaiss, String med, String adresse, String dateNaiss, String sexe, String persConf, String cp, String ville) {
          super(nom, prenom,nTel, sexe );
         this.ipp=ipp;
        
@@ -111,44 +111,32 @@ public class Patient extends Personne {
     public void setVille(String ville) { this.ville = ville;}
     
     
-    /************************************************************
+/************************************************************
                         RECHERCHER UN PATIENT                    
     ************************************************************/      
     public static ArrayList rechercherPatient(String nom, String prenom, String ipp){   
-
         ArrayList <Patient> listDesPatient = new ArrayList();
         String query="";
 
-        if(nom.equals("") && prenom.equals("") && ipp.equals("")){
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom, le prenom ou l'IPP du patient.");
-
-        }else if(nom.equals("A") && prenom.equals("A") && ipp.equals("A")){
+        if(nom.equals("A") && prenom.equals("A")){
             query ="SELECT * FROM patient ORDER BY nom, prenom";
 
-
         }else if(!nom.equals("") && prenom.equals("") && ipp.equals("")){
-            System.out.println("NOM");
             query ="SELECT * FROM patient WHERE nom=LOWER('"+nom+"') ORDER BY nom, prenom";
 
         }else if(!nom.equals("") && !prenom.equals("") && ipp.equals("")){
-            System.out.println("NOM + PRENOM");
             query ="SELECT * FROM patient WHERE nom=LOWER('"+nom+"') AND prenom=LOWER('"+prenom+"') ORDER BY nom, prenom";
 
         }else if(!nom.equals("") && prenom.equals("") && !ipp.equals("")){
-            System.out.println("NOM + IPP");
             query ="SELECT * FROM patient WHERE nom=LOWER('"+nom+"') AND IPP='"+ipp+"' ORDER BY nom, prenom";
 
         }else if(nom.equals("") && !prenom.equals("") && ipp.equals("")){
-            System.out.println("PRENOM");
             query ="SELECT * FROM patient WHERE prenom=LOWER('"+prenom+"') ORDER BY nom, prenom ";
 
         }else if(nom.equals("") && !prenom.equals("") && !ipp.equals("")){
-            System.out.println("PRENOM + IPP");
             query ="SELECT * FROM patient WHERE prenom=LOWER('"+prenom+"') AND IPP='"+ipp+"' ORDER BY nom, prenom";
 
         }else if(nom.equals("") && prenom.equals("") && !ipp.equals("")){
-            System.out.println("IPP");
             query ="SELECT * FROM patient WHERE IPP='"+ipp+"' ORDER BY nom, prenom";
         }
 
@@ -167,7 +155,7 @@ public class Patient extends Personne {
                 p.setPrenom(rst.getString("prenom"));
                 p.setNomDeNaissance(rst.getString("nomnaissance"));
                 p.setnTel( rst.getString("ntel"));
-                p.setSexe(Sexe.valueOf(rst.getString("sexe")));
+                p.setSexe(rst.getString("sexe"));
                 p.setMedecin(rst.getString("medecinG"));
                 p.setVille(rst.getString("ville"));
                 p.setCode_postal(rst.getString("code_postal"));
@@ -225,8 +213,8 @@ public class Patient extends Personne {
             String ville =rst.getString("ville");
             String cp = rst.getString("code_postal");
             String persConf=rst.getString("id_confiance");
-            Sexe sexePc= Sexe.valueOf(sexeP);
-            Patient monPatient = new Patient(ippP,nom,prenom,nTelP,nomNaissP,lieuNaissP,medP,adresseP,dateNaiss,sexePc, persConf,cp,ville);
+ 
+            Patient monPatient = new Patient(ippP,nom,prenom,nTelP,nomNaissP,lieuNaissP,medP,adresseP,dateNaiss,sexeP, persConf,cp,ville);
             return monPatient;
 
         }catch(SQLException e){

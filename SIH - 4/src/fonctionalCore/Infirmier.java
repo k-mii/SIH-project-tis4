@@ -10,7 +10,7 @@ public class Infirmier extends Personne {
 
   public String service;
 
-    public Infirmier(String id_connec, String mdp, String service,String nom, String prenom, String nTel, Sexe sexe) {
+    public Infirmier(String id_connec, String mdp, String service,String nom, String prenom, String nTel, String sexe) {
         super(nom, prenom,  nTel,  sexe);
           
         this.id_connec = id_connec;

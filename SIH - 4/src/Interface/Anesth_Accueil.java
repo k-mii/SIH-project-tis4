@@ -1,12 +1,13 @@
 /**************************************************************************************
                                                                                        
                       LA CLASSE SUIVANTE CORRESPOND AUX INTERFACES                     
-                                       DU PH                                                              
+                                       D un anesthesiste                                                             
  *************************************************************************************/
 
 package Interface;
 
-import fonctionalCore.*;
+import Interface.InterfaceConnexion;
+import Interface.SA_Accueil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -21,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -48,18 +48,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author camille
  */
-public class PH_Accueil extends javax.swing.JFrame {
+public class Anesth_Accueil extends javax.swing.JFrame {
     String nom_fichier_image = "Background02.png";
      
     
 /****************************************************************
                             CONSTRUCTEUR                         
 ****************************************************************/ 
-    public PH_Accueil() {
+    public Anesth_Accueil() {
         
         super("Connexion");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setExtendedState(PH_Accueil.MAXIMIZED_BOTH); 
+        setExtendedState(Anesth_Accueil.MAXIMIZED_BOTH); 
         initComponents();
         Dimension sizeBckgrd = this.getSize();
         Label_bckgrd.setSize(sizeBckgrd);       
@@ -73,25 +73,8 @@ public class PH_Accueil extends javax.swing.JFrame {
         Button_Accueil.setIcon(warnIcon);
         AjouterPrescription.setText("<html>Nouvelle<br />Prescription</html>");
         AjouterResultat.setText("<html>Ajouter<br />Résultat</html>");
-        AdmettreHospitalisation.setText("<html>Admettre<br />Hospitalisation</html>");
+        
         AjouterObservation.setText("<html>Ajouter<br />Observation</html>");
-        
-        
-        
-        ArrayList<Patient> listeDesPatients = Patient.rechercherPatient("A", "A", "A");
-
-        DefaultTableModel model = new DefaultTableModel();
-        Table_ListPatient.setModel(model);
-        model.addColumn("Nom");
-        model.addColumn("Prenom");
-        model.addColumn("Date de Naissance");
-        model.addColumn("Adresse");
-
-        for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
-        }
 
 
     }
@@ -137,9 +120,11 @@ public class PH_Accueil extends javax.swing.JFrame {
         PatientPHVille = new javax.swing.JLabel();
         PatientPHCP = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
+        PatientPHPays = new javax.swing.JLabel();
         PatientPHTelephone = new javax.swing.JLabel();
-        PatientPHSexe = new javax.swing.JLabel();
+        PatientPHNom1 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel71 = new javax.swing.JLabel();
         jLabel72 = new javax.swing.JLabel();
@@ -151,16 +136,18 @@ public class PH_Accueil extends javax.swing.JFrame {
         CPContact = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         villeContact = new javax.swing.JLabel();
+        PaysContact = new javax.swing.JLabel();
         telContact = new javax.swing.JLabel();
         relationContact = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
         jpanel150 = new javax.swing.JPanel();
+        AjouterPrescription = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        AjouterPrescription = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -169,7 +156,6 @@ public class PH_Accueil extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         AjouterResultat = new javax.swing.JButton();
-        AdmettreHospitalisation = new javax.swing.JButton();
         AjouterResultat1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -193,7 +179,7 @@ public class PH_Accueil extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
         jLabel44 = new javax.swing.JLabel();
-        Label_Titre = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         Panel_Accueil = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table_ListPatient = new javax.swing.JTable();
@@ -202,7 +188,7 @@ public class PH_Accueil extends javax.swing.JFrame {
         Text_RshNomPatient = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Text_RshPrenomPatient = new javax.swing.JTextField();
-        Button_RechercherPatient = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         Label_bckgrd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -291,7 +277,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                             .addComponent(jLabel89)
                             .addComponent(jLabel90)
                             .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 47, Short.MAX_VALUE))
+                        .addGap(0, 124, Short.MAX_VALUE))
                     .addComponent(spe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(chambre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -411,20 +397,30 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel66.setForeground(new java.awt.Color(102, 102, 102));
         jLabel66.setText("Code Postal :");
 
+        jLabel67.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel67.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
+        jLabel67.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel67.setText("Pays :");
+
         jLabel68.setBackground(new java.awt.Color(255, 255, 255));
         jLabel68.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(102, 102, 102));
         jLabel68.setText("Telephone :");
+
+        PatientPHPays.setBackground(new java.awt.Color(255, 255, 255));
+        PatientPHPays.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        PatientPHPays.setForeground(new java.awt.Color(102, 102, 102));
+        PatientPHPays.setText("PatientPHPays");
 
         PatientPHTelephone.setBackground(new java.awt.Color(255, 255, 255));
         PatientPHTelephone.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         PatientPHTelephone.setForeground(new java.awt.Color(102, 102, 102));
         PatientPHTelephone.setText("PatientPHTelephone");
 
-        PatientPHSexe.setBackground(new java.awt.Color(255, 255, 255));
-        PatientPHSexe.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        PatientPHSexe.setForeground(new java.awt.Color(102, 102, 102));
-        PatientPHSexe.setText("PatientPHSexe");
+        PatientPHNom1.setBackground(new java.awt.Color(255, 255, 255));
+        PatientPHNom1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        PatientPHNom1.setForeground(new java.awt.Color(102, 102, 102));
+        PatientPHNom1.setText("PatientPHNom1");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -448,17 +444,21 @@ public class PH_Accueil extends javax.swing.JFrame {
                         .addGap(63, 63, 63)
                         .addComponent(jLabel53)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PatientPHIPP, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                        .addComponent(PatientPHIPP, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel57)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PatientPHSexe)
+                                .addComponent(PatientPHNom1)
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabel59)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PatientPHDateNaissance))
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel67)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PatientPHPays, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -490,7 +490,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addComponent(jLabel57)
                     .addComponent(PatientPHDateNaissance)
                     .addComponent(jLabel59)
-                    .addComponent(PatientPHSexe))
+                    .addComponent(PatientPHNom1))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel61)
@@ -501,7 +501,11 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addComponent(PatientPHCP)
                     .addComponent(jLabel63)
                     .addComponent(PatientPHVille))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel67)
+                    .addComponent(PatientPHPays))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
                     .addComponent(PatientPHTelephone))
@@ -561,6 +565,11 @@ public class PH_Accueil extends javax.swing.JFrame {
         villeContact.setForeground(new java.awt.Color(102, 102, 102));
         villeContact.setText("villeContact");
 
+        PaysContact.setBackground(new java.awt.Color(255, 255, 255));
+        PaysContact.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        PaysContact.setForeground(new java.awt.Color(102, 102, 102));
+        PaysContact.setText("PaysContact");
+
         telContact.setBackground(new java.awt.Color(255, 255, 255));
         telContact.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         telContact.setForeground(new java.awt.Color(102, 102, 102));
@@ -581,6 +590,11 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel85.setForeground(new java.awt.Color(102, 102, 102));
         jLabel85.setText("Telephone :");
 
+        jLabel86.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel86.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel86.setText("Pays :");
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -595,7 +609,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                        .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel84)
                         .addGap(11, 11, 11)
@@ -609,7 +623,11 @@ public class PH_Accueil extends javax.swing.JFrame {
                         .addComponent(jLabel79)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(villeContact, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 278, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(jLabel86)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PaysContact, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
@@ -642,7 +660,9 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addComponent(jLabel77)
                     .addComponent(CPContact)
                     .addComponent(jLabel79)
-                    .addComponent(villeContact))
+                    .addComponent(villeContact)
+                    .addComponent(jLabel86)
+                    .addComponent(PaysContact))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel85)
@@ -695,6 +715,16 @@ public class PH_Accueil extends javax.swing.JFrame {
 
         jpanel150.setBackground(new java.awt.Color(255, 255, 255));
 
+        AjouterPrescription.setBackground(new java.awt.Color(255, 255, 255));
+        AjouterPrescription.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        AjouterPrescription.setForeground(new java.awt.Color(102, 102, 102));
+        AjouterPrescription.setText("NouvelPrescription");
+        AjouterPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterPrescriptionActionPerformed(evt);
+            }
+        });
+
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102)));
         jPanel9.setPreferredSize(new java.awt.Dimension(678, 214));
@@ -715,16 +745,6 @@ public class PH_Accueil extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable3);
 
-        AjouterPrescription.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterPrescription.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterPrescription.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterPrescription.setText("NouvelPrescription");
-        AjouterPrescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterPrescriptionActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -733,23 +753,18 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())
-                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjouterPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(AjouterPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -780,7 +795,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel35)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -792,7 +807,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -800,20 +815,24 @@ public class PH_Accueil extends javax.swing.JFrame {
         jpanel150.setLayout(jpanel150Layout);
         jpanel150Layout.setHorizontalGroup(
             jpanel150Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel150Layout.createSequentialGroup()
+            .addGroup(jpanel150Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpanel150Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE))
+                .addGroup(jpanel150Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(AjouterPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jpanel150Layout.setVerticalGroup(
             jpanel150Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanel150Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpanel150Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AjouterPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -832,27 +851,17 @@ public class PH_Accueil extends javax.swing.JFrame {
         AjouterResultat.setBackground(new java.awt.Color(255, 255, 255));
         AjouterResultat.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AjouterResultat.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat.setText("Demander Prestation");
+        AjouterResultat.setText("Demander Résultat");
         AjouterResultat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterResultatActionPerformed(evt);
             }
         });
 
-        AdmettreHospitalisation.setBackground(new java.awt.Color(255, 255, 255));
-        AdmettreHospitalisation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AdmettreHospitalisation.setForeground(new java.awt.Color(102, 102, 102));
-        AdmettreHospitalisation.setText("Admettre Hospitalisation");
-        AdmettreHospitalisation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdmettreHospitalisationActionPerformed(evt);
-            }
-        });
-
         AjouterResultat1.setBackground(new java.awt.Color(255, 255, 255));
         AjouterResultat1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AjouterResultat1.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat1.setText("Demander Résultat");
+        AjouterResultat1.setText("Demander Prestation");
         AjouterResultat1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterResultat1ActionPerformed(evt);
@@ -917,15 +926,13 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel36)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AdmettreHospitalisation))
+                        .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -934,11 +941,10 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                .addGap(16, 16, 16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout ResLayout = new javax.swing.GroupLayout(Res);
@@ -954,7 +960,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -982,6 +988,29 @@ public class PH_Accueil extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(jTable2);
 
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel39)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         AjouterObservation.setBackground(new java.awt.Color(255, 255, 255));
         AjouterObservation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AjouterObservation.setForeground(new java.awt.Color(102, 102, 102));
@@ -992,48 +1021,26 @@ public class PH_Accueil extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjouterObservation)
-                        .addGap(33, 33, 33))))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(AjouterObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(AjouterObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(AjouterObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1044,11 +1051,11 @@ public class PH_Accueil extends javax.swing.JFrame {
 
         jLabel38.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel38.setText("Lettre de Sortie");
+        jLabel38.setText("Lettre de correspondance");
 
         jLabel7.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Tapez la lettre de sortie ci-dessous :");
+        jLabel7.setText("Tapez la lettre de correspondance ci-dessous :");
 
         ValiderLettreSortie.setBackground(new java.awt.Color(255, 255, 255));
         ValiderLettreSortie.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
@@ -1071,16 +1078,20 @@ public class PH_Accueil extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38)
                             .addComponent(jLabel7))
-                        .addGap(0, 700, Short.MAX_VALUE))
+                        .addGap(0, 718, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ValiderLettreSortie, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel16Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1089,14 +1100,17 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addComponent(jLabel38)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                 .addComponent(ValiderLettreSortie, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                    .addContainerGap(62, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(63, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("LETTRE DE SORTIE", jPanel16);
+        jTabbedPane1.addTab("CORRESPONDANCE", jPanel16);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1142,7 +1156,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
                     .addComponent(jScrollPane9)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1158,7 +1172,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addComponent(jLabel44)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jLabel43)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1184,31 +1198,31 @@ public class PH_Accueil extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HISTORIQUE", jPanel7);
 
-        Label_Titre.setBackground(new java.awt.Color(255, 255, 255));
-        Label_Titre.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
-        Label_Titre.setForeground(new java.awt.Color(102, 102, 102));
-        Label_Titre.setText("Information Patient : + Nom Prenom patient");
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Information Patient : + Nom Prenom patient");
 
         javax.swing.GroupLayout PanelInfoPatientLayout = new javax.swing.GroupLayout(PanelInfoPatient);
         PanelInfoPatient.setLayout(PanelInfoPatientLayout);
         PanelInfoPatientLayout.setHorizontalGroup(
             PanelInfoPatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelInfoPatientLayout.createSequentialGroup()
-                .addGap(258, 258, 258)
-                .addComponent(Label_Titre, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(340, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoPatientLayout.createSequentialGroup()
+                .addContainerGap(453, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(260, 260, 260))
             .addGroup(PanelInfoPatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelInfoPatientLayout.createSequentialGroup()
-                    .addGap(58, 58, 58)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(147, Short.MAX_VALUE)))
+                    .addGap(121, 121, 121)
+                    .addComponent(jTabbedPane1)
+                    .addGap(122, 122, 122)))
         );
         PanelInfoPatientLayout.setVerticalGroup(
             PanelInfoPatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInfoPatientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Label_Titre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(650, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(581, Short.MAX_VALUE))
             .addGroup(PanelInfoPatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelInfoPatientLayout.createSequentialGroup()
                     .addGap(68, 68, 68)
@@ -1261,15 +1275,10 @@ public class PH_Accueil extends javax.swing.JFrame {
         Text_RshPrenomPatient.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         Text_RshPrenomPatient.setForeground(new java.awt.Color(102, 102, 102));
 
-        Button_RechercherPatient.setBackground(new java.awt.Color(255, 255, 255));
-        Button_RechercherPatient.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        Button_RechercherPatient.setForeground(new java.awt.Color(102, 102, 102));
-        Button_RechercherPatient.setText("Rechercher");
-        Button_RechercherPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_RechercherPatientActionPerformed(evt);
-            }
-        });
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(102, 102, 102));
+        jButton1.setText("Rechercher");
 
         javax.swing.GroupLayout Panel_AccueilLayout = new javax.swing.GroupLayout(Panel_Accueil);
         Panel_Accueil.setLayout(Panel_AccueilLayout);
@@ -1291,7 +1300,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                                 .addGap(70, 70, 70)
                                 .addComponent(Text_RshPrenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Button_RechercherPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(Btn_InformationPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1307,7 +1316,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Text_RshPrenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Button_RechercherPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1333,28 +1342,8 @@ public class PH_Accueil extends javax.swing.JFrame {
                         RETOUR ACCUEIL                 
  /****************************************************/ 
     private void Button_AccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AccueilActionPerformed
-
-        Panel_Accueil.setVisible(true);
-        PanelInfoPatient.setVisible(false);
-
-        ArrayList<Patient> listeDesPatients = Patient.rechercherPatient("A", "A", "A");
-
-        DefaultTableModel model = new DefaultTableModel();
-        Table_ListPatient.setModel(model);
-        model.addColumn("Nom");
-        model.addColumn("Prenom");
-        model.addColumn("Date de Naissance");
-        model.addColumn("Adresse");
-
-        for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
-        }
-
-        URL resource = SA_Accueil.class.getResource("/Images/AccueilOn.png");
-        Icon warnIcon = new ImageIcon(resource);
-        Button_Accueil.setIcon(warnIcon);
+       Panel_Accueil.setVisible(true);
+       PanelInfoPatient.setVisible(false);
     }//GEN-LAST:event_Button_AccueilActionPerformed
 
 
@@ -1368,7 +1357,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             connexion.setVisible(true);
             this.dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(PH_Accueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Anesth_Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_Button_DeconexionActionPerformed
@@ -1379,70 +1368,9 @@ public class PH_Accueil extends javax.swing.JFrame {
     
     // INFORMATION DU PATIENT
     private void Btn_InformationPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_InformationPatientActionPerformed
-        if(Table_ListPatient.getSelectedRow()==-1){
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Aucun patient n'est selectioné.");
-        }else{
-            Panel_Accueil.setVisible(false);
-            PanelInfoPatient.setVisible(true);
-
-            URL resource = SA_Accueil.class.getResource("/Images/AccueilOff.png");
-            Icon warnIcon = new ImageIcon(resource);
-            Button_Accueil.setIcon(warnIcon);
-
-            int ligne = jTable1.getSelectedRow();
-            String nom = (String) jTable1.getValueAt(ligne, 0);
-            String prenom = (String) jTable1.getValueAt(ligne, 1);
-            String dateNaiss = (String) jTable1.getValueAt(ligne, 2);
-            monPatient = Patient.AfficherInfoPatient(nom, prenom, dateNaiss);
-
-            Label_Titre.setText("Information Patient : "+prenom+" "+nom);
-            PatientPHNom.setText(monPatient.getNom());
-            PatientPHPrenom.setText(monPatient.getPrenom());
-            PatientPHIPP.setText(monPatient.getIpp());
-            PatientPHSexe.setText(monPatient.getSexe());
-            PatientPHDateNaissance.setText(monPatient.getDateDeNaissance());
-            PatientPHAdresse.setText(monPatient.getAdresse());
-            PatientPHCP.setText(monPatient.getCode_postal());
-            PatientPHVille.setText(monPatient.getVille());
-            PatientPHTelephone.setText(monPatient.getnTel());
-            String idDeLaPersDeConf = monPatient.getId_confiance();
-            
-            if(!idDeLaPersDeConf.equals("")){
-                maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
-                PrenomContact.setText(maPersConf.getPrenom());
-                NomContact.setText(maPersConf.getNom());
-                adresseContact.setText(maPersConf.getAdresse());
-                CPContact.setText(maPersConf.getCode_postal());
-                villeContact.setText(maPersConf.getVille());
-                telContact.setText(maPersConf.getnTel());
-                relationContact.setText(maPersConf.getRelation());
-            }   
-        }
-        
+        Panel_Accueil.setVisible(false);
+        PanelInfoPatient.setVisible(true);
     }//GEN-LAST:event_Btn_InformationPatientActionPerformed
-
-    private void ValiderLettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValiderLettreSortieActionPerformed
-
-        String res = jTextArea1.getText();
-        //       Patient p = new Patient(160000001);
-        //       PH phte = new PH(160000001);
-        Calendar cal = Calendar.getInstance();
-        Date date = new Date();
-        cal.setTime(date);
-        /*       try {
-            LettreDeSortie lettre = new LettreDeSortie(res, phte, p.getDernierSejour().getIdSejour(), cal);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "La Lettre de Sortie est bien rentrée.");
-
-        // Retour à la liste des patients
-        //        AcceuilPH tap = new AcceuilPH(ph);
-        //       tap.setVisible(true);
-        frame.dispose();
-    }//GEN-LAST:event_ValiderLettreSortieActionPerformed
 
 /*****************************************************
          OBSERVATION - AJOUTER UNE OBSERVATION                  
@@ -1497,23 +1425,8 @@ public class PH_Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_AjouterObservationActionPerformed
 
 /*****************************************************
-         RESULTAT - ADLETTRE HOSPITALISATION          
- *****************************************************/      
-    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
-
-        /*     try {
-            Sejour s = p.getDernierSejour(); //Remplacer p par patient
-            s.setTypeSejour(TypeSejour.HOSPITALISATION);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
-    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
-
-/*****************************************************
          RESULTAT - AJOUTER UN RESULTAT               
-*****************************************************/  
+ *****************************************************/  
     private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
         if (jTable4.getSelectedRow() == 1) { // mettre -1
             JFrame frame = new JFrame();
@@ -1570,7 +1483,7 @@ public class PH_Accueil extends javax.swing.JFrame {
 
 /*****************************************************
             SOIN - AJOUTER UNE PRESCRIPTION           
-*****************************************************/  
+ *****************************************************/  
     private void AjouterPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterPrescriptionActionPerformed
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -1626,6 +1539,28 @@ public class PH_Accueil extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_AjouterPrescriptionActionPerformed
 
+    private void ValiderLettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValiderLettreSortieActionPerformed
+
+        String res = jTextArea1.getText();
+        //       Patient p = new Patient(160000001);
+        //       PH phte = new PH(160000001);
+        Calendar cal = Calendar.getInstance();
+        Date date = new Date();
+        cal.setTime(date);
+        /*       try {
+            LettreDeSortie lettre = new LettreDeSortie(res, phte, p.getDernierSejour().getIdSejour(), cal);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "La Lettre de Correspondance est bien entrée.");
+
+        // Retour à la liste des patients
+        //        AcceuilPH tap = new AcceuilPH(ph);
+        //       tap.setVisible(true);
+        frame.dispose();
+    }//GEN-LAST:event_ValiderLettreSortieActionPerformed
+
     private void AjouterResultat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultat1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AjouterResultat1ActionPerformed
@@ -1659,36 +1594,6 @@ public class PH_Accueil extends javax.swing.JFrame {
                 //}
             //}
     }//GEN-LAST:event_jTable1MouseClicked
-
-/*****************************************************
-               RECHERCHER UN PATIENT                  
-*****************************************************/  
-    private void Button_RechercherPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_RechercherPatientActionPerformed
-       if(Text_RshNomPatient.getText().equals("") && Text_RshPrenomPatient.getText().equals("")){
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom ou le prenom du patient.");
-
-        }else{
-            ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(Text_RshNomPatient.getText(), Text_RshPrenomPatient.getText(), "");
-
-            DefaultTableModel model = new DefaultTableModel();
-            Table_ListPatient.setModel(model);
-            model.addColumn("Nom");
-            model.addColumn("Prenom");
-            model.addColumn("Date de Naissance");
-            model.addColumn("Adresse");
-
-            for (Patient p : listeDesPatients) {
-                System.out.println(p.getNom() + " " + p.getPrenom());
-                String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-                model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
-            }
-
-            // clear les 3 zone de texte
-            Text_RshPrenomPatient.setText("");
-            Text_RshNomPatient.setText("");
-       }
-    }//GEN-LAST:event_Button_RechercherPatientActionPerformed
 
     
     
@@ -1800,7 +1705,12 @@ public class PH_Accueil extends javax.swing.JFrame {
         }*/
         dialog2.dispose();
     }
- 
+    
+    
+    
+    
+    
+    
     
     public void validerObservationActionPerformed(java.awt.event.ActionEvent evt) {
   //      Infos infos = new Infos();
@@ -1833,17 +1743,25 @@ public class PH_Accueil extends javax.swing.JFrame {
         dialog3.dispose();
     }
     
-
-    JDialog dialog2;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+     JDialog dialog2;
     JDialog dialog3;
     javax.swing.JComboBox prescriptions;
     javax.swing.JComboBox prescriptionsType;
     JTextField resultat;
     JTextField resultat2;
-    Patient monPatient = new Patient();
-    PersonneDeConfiance maPersConf =new PersonneDeConfiance();
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AdmettreHospitalisation;
     private javax.swing.JButton AjouterObservation;
     private javax.swing.JButton AjouterPrescription;
     private javax.swing.JButton AjouterResultat;
@@ -1851,9 +1769,7 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JButton Btn_InformationPatient;
     private javax.swing.JButton Button_Accueil;
     private javax.swing.JButton Button_Deconexion;
-    private javax.swing.JButton Button_RechercherPatient;
     private javax.swing.JLabel CPContact;
-    private javax.swing.JLabel Label_Titre;
     private javax.swing.JLabel Label_bckgrd;
     private javax.swing.JLabel NomContact;
     private javax.swing.JPanel PanelInfoPatient;
@@ -1863,10 +1779,12 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel PatientPHDateNaissance;
     private javax.swing.JLabel PatientPHIPP;
     private javax.swing.JLabel PatientPHNom;
+    private javax.swing.JLabel PatientPHNom1;
+    private javax.swing.JLabel PatientPHPays;
     private javax.swing.JLabel PatientPHPrenom;
-    private javax.swing.JLabel PatientPHSexe;
     private javax.swing.JLabel PatientPHTelephone;
     private javax.swing.JLabel PatientPHVille;
+    private javax.swing.JLabel PaysContact;
     private javax.swing.JLabel PrenomContact;
     private javax.swing.JPanel Res;
     private javax.swing.JTable Table_ListPatient;
@@ -1875,8 +1793,10 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JButton ValiderLettreSortie;
     private javax.swing.JLabel adresseContact;
     private javax.swing.JLabel chambre;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -1892,6 +1812,7 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
@@ -1901,6 +1822,7 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;

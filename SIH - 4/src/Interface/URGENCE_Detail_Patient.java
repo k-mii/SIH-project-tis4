@@ -147,11 +147,12 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         Res = new javax.swing.JPanel();
-        AjouterResultat = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        AjouterResultat = new javax.swing.JButton();
+        AjouterResultat1 = new javax.swing.JButton();
         AdmettreHospitalisation = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
@@ -825,58 +826,76 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
 
         Res.setBackground(new java.awt.Color(255, 255, 255));
 
-        AjouterResultat.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterResultat.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterResultat.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat.setText("Ajouter Résultat");
-        AjouterResultat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterResultatActionPerformed(evt);
-            }
-        });
-
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102)));
         jPanel11.setPreferredSize(new java.awt.Dimension(678, 214));
 
         jLabel36.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel36.setText("Resultats");
+        jLabel36.setText("Résultats");
 
-        jTable1.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(102, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Prescription", "Demandeur", "Date", "Résultat", "Réalisé par"
+                "Date", "Prescripteur", "Prélèvement/ Acte réalisé"
             }
         ));
-        jScrollPane7.setViewportView(jTable1);
+        jScrollPane5.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel36)
-                        .addGap(0, 589, Short.MAX_VALUE))
-                    .addComponent(jScrollPane7))
-                .addContainerGap())
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        AjouterResultat.setBackground(new java.awt.Color(255, 255, 255));
+        AjouterResultat.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        AjouterResultat.setForeground(new java.awt.Color(102, 102, 102));
+        AjouterResultat.setText("Demander Prestation");
+        AjouterResultat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterResultatActionPerformed(evt);
+            }
+        });
+
+        AjouterResultat1.setBackground(new java.awt.Color(255, 255, 255));
+        AjouterResultat1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        AjouterResultat1.setForeground(new java.awt.Color(102, 102, 102));
+        AjouterResultat1.setText("Demander Résultat");
+        AjouterResultat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterResultat1ActionPerformed(evt);
+            }
+        });
 
         AdmettreHospitalisation.setBackground(new java.awt.Color(255, 255, 255));
         AdmettreHospitalisation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
@@ -888,30 +907,57 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addComponent(AjouterResultat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AjouterResultat1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel11Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(388, Short.MAX_VALUE))
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                    .addContainerGap(59, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout ResLayout = new javax.swing.GroupLayout(Res);
         Res.setLayout(ResLayout);
         ResLayout.setHorizontalGroup(
             ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AjouterResultat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ResLayout.setVerticalGroup(
             ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ResLayout.createSequentialGroup()
-                        .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 351, Short.MAX_VALUE))
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1295,75 +1341,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     }//GEN-LAST:event_AjouterObservationActionPerformed
 
     
-/*****************************************************
-              ADMISSION EN HOSPITALISATION            
-*****************************************************/  
-    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
-
-        /*     try {
-            Sejour s = p.getDernierSejour(); //Remplacer p par patient
-            s.setTypeSejour(TypeSejour.HOSPITALISATION);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
-    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
-
-    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
-        if (jTable4.getSelectedRow() == 1) { // mettre -1
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
-        } else {
-
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JDialog dialog2 = new JDialog();
-                    dialog2.setSize(500, 250);//On lui donne une taille
-                    dialog2.setTitle("Ajouter Un Résultat"); //On lui donne un titre
-                    dialog2.setLocationRelativeTo(null);
-
-                    dialog2.setLayout(new BorderLayout());
-                    dialog2.setVisible(true);//On la rend visible
-
-                    dialog2.setLayout(new BorderLayout());
-                    JButton valider = new JButton("Valider");
-                    JPanel boutons = new JPanel();
-                    boutons.setLayout(new FlowLayout());
-                    dialog2.add(boutons, BorderLayout.SOUTH);
-                    boutons.add(valider);
-
-                    JPanel infosPrescription = new JPanel();
-                    infosPrescription.setLayout(new GridLayout(6, 0));
-                    dialog2.add(infosPrescription, BorderLayout.CENTER);
-
-                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
-                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
-                    infosPrescription.add(titre);
-
-                    Date dateAndTime = Calendar.getInstance().getTime();
-                    JLabel dateTime = new JLabel(dateAndTime.toString());
-                    infosPrescription.add(dateTime);
-
-                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
-
-                    JTextField resultat = new JTextField();
-                    infosPrescription.add(resultat);
-
-                    dialog2.setVisible(true);//On la rend visible
-                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
-
-                    valider.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
- //                           validerResultatActionPerformed(evt);
-                        }
-                    });
-                }
-            });
-        }
-    }//GEN-LAST:event_AjouterResultatActionPerformed
-
     
 /*****************************************************
                AJOUTER UNE PRESCRIPTION               
@@ -1423,6 +1400,76 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_AjouterPrescriptionActionPerformed
 
+    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
+        if (jTable4.getSelectedRow() == 1) { // mettre -1
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
+        } else {
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JDialog dialog2 = new JDialog();
+                    dialog2.setSize(500, 250);//On lui donne une taille
+                    dialog2.setTitle("Demander Un Résultat"); //On lui donne un titre
+                    dialog2.setLocationRelativeTo(null);
+
+                    dialog2.setLayout(new BorderLayout());
+                    dialog2.setVisible(true);//On la rend visible
+
+                    dialog2.setLayout(new BorderLayout());
+                    JButton valider = new JButton("Valider");
+                    JPanel boutons = new JPanel();
+                    boutons.setLayout(new FlowLayout());
+                    dialog2.add(boutons, BorderLayout.SOUTH);
+                    boutons.add(valider);
+
+                    JPanel infosPrescription = new JPanel();
+                    infosPrescription.setLayout(new GridLayout(6, 0));
+                    dialog2.add(infosPrescription, BorderLayout.CENTER);
+
+                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
+                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                    infosPrescription.add(titre);
+
+                    Date dateAndTime = Calendar.getInstance().getTime();
+                    JLabel dateTime = new JLabel(dateAndTime.toString());
+                    infosPrescription.add(dateTime);
+
+                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
+
+                    JTextField resultat = new JTextField();
+                    infosPrescription.add(resultat);
+
+                    dialog2.setVisible(true);//On la rend visible
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
+
+                    valider.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            //validerResultatActionPerformed(evt);
+                        }
+                    });
+                }
+            });
+        }
+    }//GEN-LAST:event_AjouterResultatActionPerformed
+
+    private void AjouterResultat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AjouterResultat1ActionPerformed
+
+    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
+
+        /*     try {
+            Sejour s = p.getDernierSejour(); //Remplacer p par patient
+            s.setTypeSejour(TypeSejour.HOSPITALISATION);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
+    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
+
      JDialog dialog2;
     JDialog dialog3;
     javax.swing.JComboBox prescriptions;
@@ -1434,6 +1481,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JButton AjouterObservation;
     private javax.swing.JButton AjouterPrescription;
     private javax.swing.JButton AjouterResultat;
+    private javax.swing.JButton AjouterResultat1;
     private javax.swing.JButton Button_Accueil;
     private javax.swing.JButton Button_Deconexion;
     private javax.swing.JLabel CPContact;
@@ -1505,8 +1553,8 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;

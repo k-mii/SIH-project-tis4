@@ -1593,27 +1593,31 @@ public class SA_Accueil extends javax.swing.JFrame {
                      RECHERCHER UN PATIENT                        
 *****************************************************************/
     private void Btn_RshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_RshActionPerformed
+        if(Text_RshNom.getText().equals("") && Text_RshPrenom.getText().equals("") && Text_RshNumSS.getText().equals("")){
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom, le prenom ou l'IPP du patient.");
 
-        ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(Text_RshNom.getText(), Text_RshPrenom.getText(), Text_RshNumSS.getText());
+        }else{
+            ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(Text_RshNom.getText(), Text_RshPrenom.getText(), Text_RshNumSS.getText());
 
-        DefaultTableModel model = new DefaultTableModel();
-        jTable1.setModel(model);
-        model.addColumn("Nom");
-        model.addColumn("Prenom");
-        model.addColumn("Date de Naissance");
-        model.addColumn("Adresse");
+            DefaultTableModel model = new DefaultTableModel();
+            jTable1.setModel(model);
+            model.addColumn("Nom");
+            model.addColumn("Prenom");
+            model.addColumn("Date de Naissance");
+            model.addColumn("Adresse");
 
-        for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            for (Patient p : listeDesPatients) {
+                System.out.println(p.getNom() + " " + p.getPrenom());
+                String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
+                model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            }
+
+            // clear les 3 zone de texte
+            Text_RshPrenom.setText("");
+            Text_RshNom.setText("");
+            Text_RshNumSS.setText("");
         }
-
-        // clear les 3 zone de texte
-        Text_RshPrenom.setText("");
-        Text_RshNom.setText("");
-        Text_RshNumSS.setText("");
-
 
     }//GEN-LAST:event_Btn_RshActionPerformed
 
@@ -1653,15 +1657,16 @@ public class SA_Accueil extends javax.swing.JFrame {
             Label_InfoGeneraliste.setText(monPatient.getMedecin());
             Label_InfoSexe.setText(monPatient.getSexe() + "");
             String idDeLaPersDeConf = monPatient.getId_confiance();
-
-            maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
-            Label_InfoPrenomContact.setText(maPersConf.getPrenom());
-            Label_InfoNomContact.setText(maPersConf.getNom());
-            Label_InfoAdresseContact.setText(maPersConf.getAdresse());
-            Label_InfoCPContact.setText(maPersConf.getCode_postal());
-            Label_InfoVilleContact.setText(maPersConf.getVille());
-            Label_InfoTelephoneContact.setText(maPersConf.getnTel());
-            Label_InfoRelation.setText(maPersConf.getRelation());
+            if(!idDeLaPersDeConf.equals("")){
+                maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
+                Label_InfoPrenomContact.setText(maPersConf.getPrenom());
+                Label_InfoNomContact.setText(maPersConf.getNom());
+                Label_InfoAdresseContact.setText(maPersConf.getAdresse());
+                Label_InfoCPContact.setText(maPersConf.getCode_postal());
+                Label_InfoVilleContact.setText(maPersConf.getVille());
+                Label_InfoTelephoneContact.setText(maPersConf.getnTel());
+                Label_InfoRelation.setText(maPersConf.getRelation());
+            }
         }
 
 
