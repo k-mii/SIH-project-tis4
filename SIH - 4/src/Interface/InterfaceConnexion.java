@@ -7,7 +7,7 @@
 package Interface;
 
 
-import fonctionalCore.DB_Link;
+import fonctionalCore.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -141,41 +141,39 @@ public class InterfaceConnexion extends javax.swing.JFrame {
     private void Btn_ConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ConnexionActionPerformed
        
         
-        String identification = DB_Link.Identification(TextField_Identifiant.getText(),TextField_Password.getText());
-        //le if sera du type if(identification=="secretaire"){...}else if(identification=="PH"){...}else{erreur}
-        //autant de else if que de personnel différents
-        if(identification=="secretaire"){  
+  //      String identification = DB_Link.Identification(TextField_Identifiant.getText(),TextField_Password.getText());
+        Personne p = DB_Link.Identification2(TextField_Identifiant.getText(),TextField_Password.getText());
+
+       if(p instanceof Secretaire){  
            SA_Accueil sa_accueil = new SA_Accueil();
            sa_accueil.setVisible(true);
            this.dispose();    
-       }else if(identification=="PH"){
-           PH_Accueil ph_accueil = new PH_Accueil();
-           ph_accueil.setVisible(true);
-            this.dispose(); 
-       }else if(identification =="UR") {
-           URGENCE_Accueil ur_accueil = new URGENCE_Accueil();
-            ur_accueil.setVisible(true);
-            this.dispose(); 
-       }else if(identification =="IN") {
+       }else if(p instanceof PH){
+            if((((PH)p).getSpecialite()).equals("1")){ // urgence
+                URGENCE_Accueil ur_accueil = new URGENCE_Accueil(); // prendre p en param
+                ur_accueil.setVisible(true);
+                this.dispose(); 
+            }else if((((PH)p).getSpecialite()).equals("5")) { //anesthesiste
+                Anesth_Accueil an_accueil = new Anesth_Accueil(); // prendre p en param
+                an_accueil.setVisible(true);
+                this.dispose(); 
+            }else{ // n'importe quel autre type de PH
+                PH_Accueil ph_accueil = new PH_Accueil(p);
+                ph_accueil.setVisible(true);
+                this.dispose(); 
+            } 
+       }else if(p instanceof Infirmier) {
            Infirmiere_Accueil in_accueil = new Infirmiere_Accueil(); 
             in_accueil.setVisible(true);
             this.dispose(); 
-       }else if(identification =="AN") {
-            Anesth_Accueil an_accueil = new Anesth_Accueil();
-            an_accueil.setVisible(true);
-            this.dispose(); 
        }
-       else{ //si echec de connexion on renvoie un message d'erreur (definit dans DB_Link.connecterDB() ou DB_Link.Identification(string,string)
+       else{
             URL resource = SA_Accueil.class.getResource("/Images/iconEror.png");
             Icon icon = new ImageIcon(resource);
             Label_MsgError.setIcon(icon);
-            Label_MsgError.setText(identification);
+            Label_MsgError.setText(p.getNom());
             Label_MsgError.setVisible(true);
-        }
-        
-      //PH_Accueil ph_accueil = new PH_Accueil();
-      //ph_accueil.setVisible(true);
-      
+        }  
       
       
       

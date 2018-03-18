@@ -55,9 +55,9 @@ public class PH_Accueil extends javax.swing.JFrame {
 /****************************************************************
                             CONSTRUCTEUR                         
 ****************************************************************/ 
-    public PH_Accueil() {
-        
-        super("Connexion");
+    public PH_Accueil(Personne leGarsConnecter) {
+         super("Connexion");
+         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(PH_Accueil.MAXIMIZED_BOTH); 
         initComponents();
@@ -65,6 +65,9 @@ public class PH_Accueil extends javax.swing.JFrame {
         Label_bckgrd.setSize(sizeBckgrd);       
         pack();
         this.setVisible(true);
+        quiSuije =new PH(((PH)leGarsConnecter).getId_PH(),((PH)leGarsConnecter).getSpecialite(),((PH)leGarsConnecter).getNom(),((PH)leGarsConnecter).getPrenom(),((PH)leGarsConnecter).getnTel());
+       
+       
         Table_ListPatient.setDefaultEditor(Object.class, null);
         Panel_Accueil.setVisible(true);
         PanelInfoPatient.setVisible(false);
@@ -924,11 +927,11 @@ public class PH_Accueil extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AdmettreHospitalisation))
+                        .addComponent(AdmettreHospitalisation)
+                        .addGap(83, 83, 83))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -940,7 +943,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                     .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
         );
 
@@ -1387,7 +1390,31 @@ public class PH_Accueil extends javax.swing.JFrame {
         }else{
             Panel_Accueil.setVisible(false);
             PanelInfoPatient.setVisible(true);
-
+            // clear tout les champ de text
+            jTextArea1.setText("");
+            PatientPHNom.setText("");
+            PatientPHPrenom.setText("");
+            PatientPHIPP.setText("");
+            PatientPHSexe.setText("");
+            PatientPHDateNaissance.setText("");
+            PatientPHAdresse.setText("");
+            PatientPHCP.setText("");
+            PatientPHVille.setText("");
+            PatientPHTelephone.setText("");
+            PrenomContact.setText("");
+            NomContact.setText("");
+            adresseContact.setText("");
+            CPContact.setText("");
+            villeContact.setText("");
+            telContact.setText("");
+            relationContact.setText("");
+            spe.setText("");
+            secteur.setText("");
+            chambre.setText("");
+            lit.setText("");
+            
+            
+            
             URL resource = SA_Accueil.class.getResource("/Images/AccueilOff.png");
             Icon warnIcon = new ImageIcon(resource);
             Button_Accueil.setIcon(warnIcon);
@@ -1465,24 +1492,18 @@ public class PH_Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_InformationPatientActionPerformed
 
     private void ValiderLettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValiderLettreSortieActionPerformed
-
-        String res = jTextArea1.getText();
-        //       Patient p = new Patient(160000001);
-        //       PH phte = new PH(160000001);
-        Calendar cal = Calendar.getInstance();
-        Date date = new Date();
-        cal.setTime(date);
-        /*       try {
-            LettreDeSortie lettre = new LettreDeSortie(res, phte, p.getDernierSejour().getIdSejour(), cal);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        
+        String lettreDeSortie = jTextArea1.getText();
+        Date dateAndTime = Calendar.getInstance().getTime();
+        String date =  dateAndTime.getYear()+"-"+dateAndTime.getMonth()+"-"+dateAndTime.getDate()+" "+dateAndTime.getHours()+":"+dateAndTime.getMinutes()+":"+dateAndTime.getSeconds();
+        Sejour s = Sejour.RecupererSejour(monPatient.getIpp());
+        String message = Sejour.ajouterLettreDeSortie(date,lettreDeSortie,s.getId_Sejour());
         JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "La Lettre de Sortie est bien rentrée.");
+        JOptionPane.showMessageDialog(frame, message);
 
         // Retour à la liste des patients
-        //        AcceuilPH tap = new AcceuilPH(ph);
-        //       tap.setVisible(true);
+        Panel_Accueil.setVisible(true);
+        PanelInfoPatient.setVisible(false);
         frame.dispose();
     }//GEN-LAST:event_ValiderLettreSortieActionPerformed
 
@@ -1514,7 +1535,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 dialog3.add(infosPrescription, BorderLayout.CENTER);
 
                 JLabel titre = new JLabel("AJOUT D'UNE OBSERVATION", SwingConstants.CENTER);
-                titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                titre.setFont(new Font("Arvo", Font.PLAIN, 22));
                 infosPrescription.add(titre);
 
                 Date dateAndTime = Calendar.getInstance().getTime();
@@ -1531,7 +1552,11 @@ public class PH_Accueil extends javax.swing.JFrame {
 
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        validerObservationActionPerformed(evt);
+                       
+                        String date = dateAndTime.getYear()+"-"+dateAndTime.getMonth()+"-"+dateAndTime.getDate();
+                        String message = Sejour.AjouterObservation(resultat2.getText(),date, monPatient.getIpp());
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, message);
                     }
                 });
             }
@@ -1552,63 +1577,6 @@ public class PH_Accueil extends javax.swing.JFrame {
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
     }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
-
-/*****************************************************
-         RESULTAT - AJOUTER UN RESULTAT               
-*****************************************************/  
-    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
-        if (Tableau_ActeInf.getSelectedRow() == 1) { // mettre -1
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
-        } else {
-
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JDialog dialog2 = new JDialog();
-                    dialog2.setSize(500, 250);//On lui donne une taille
-                    dialog2.setTitle("Ajouter Un Résultat"); //On lui donne un titre
-                    dialog2.setLocationRelativeTo(null);
-
-                    dialog2.setLayout(new BorderLayout());
-                    dialog2.setVisible(true);//On la rend visible
-
-                    dialog2.setLayout(new BorderLayout());
-                    JButton valider = new JButton("Valider");
-                    JPanel boutons = new JPanel();
-                    boutons.setLayout(new FlowLayout());
-                    dialog2.add(boutons, BorderLayout.SOUTH);
-                    boutons.add(valider);
-
-                    JPanel infosPrescription = new JPanel();
-                    infosPrescription.setLayout(new GridLayout(6, 0));
-                    dialog2.add(infosPrescription, BorderLayout.CENTER);
-
-                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
-                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
-                    infosPrescription.add(titre);
-
-                    Date dateAndTime = Calendar.getInstance().getTime();
-                    JLabel dateTime = new JLabel(dateAndTime.toString());
-                    infosPrescription.add(dateTime);
-
-                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
-
-                    JTextField resultat = new JTextField();
-                    infosPrescription.add(resultat);
-
-                    dialog2.setVisible(true);//On la rend visible
-                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
-
-                    valider.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                            validerResultatActionPerformed(evt);
-                        }
-                    });
-                }
-            });
-        }
-    }//GEN-LAST:event_AjouterResultatActionPerformed
 
 /*****************************************************
             SOIN - AJOUTER UNE PRESCRIPTION           
@@ -1637,7 +1605,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 dialog2.add(infosPrescription, BorderLayout.CENTER);
 
                 JLabel titre = new JLabel("NOUVELLE PRESCRIPTION", SwingConstants.CENTER);
-                titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                titre.setFont(new Font("Arvo", Font.PLAIN, 22));
                 infosPrescription.add(titre);
 
                 JLabel patient1;
@@ -1646,22 +1614,35 @@ public class PH_Accueil extends javax.swing.JFrame {
                 JLabel dateTime = new JLabel(dateAndTime.toString());
                 infosPrescription.add(dateTime);
 
-                infosPrescription.add(new JLabel("<html> <br> Type de Prescription : </html>"));
-
-                JComboBox prescriptions = new JComboBox();
-                prescriptions.addItem("");
-                infosPrescription.add(prescriptions);
+                infosPrescription.add(new JLabel("<html> <br> Prescripteur : Dr "+quiSuije.getNom()+" </html>"));
 
                 infosPrescription.add(new JLabel("<html> <br> Prescription : </html>"));
-                JComboBox prescriptionsType = new JComboBox();
-                infosPrescription.add(prescriptionsType);
+                JTextField prescription = new JTextField();
+                infosPrescription.add(prescription);
 
-                dialog2.setVisible(true);//On la rend visible
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
-
+                dialog2.setVisible(true);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        String message = Prescription.AjouterUnePrescription(monPatient.getIpp(),prescription.getText(),quiSuije,dateAndTime);           
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, message);
+                        dialog2.dispose();
+                        
+                        ArrayList<Prescription> listePrescription = Prescription.afficherPrescription(monPatient.getIpp());
+      
+                        DefaultTableModel model = new DefaultTableModel();
+                        model.setRowCount(0);
+                        Tableau_prescription.setModel(model);
+                        model.addColumn("Numéro de Prescription");
+                        model.addColumn("Préscription");
+                        model.addColumn("Date");
+                        model.addColumn("Prescripteur");
 
+                        for (Prescription p : listePrescription) {
+                            model.addRow(new Object[]{p.getId_prescription(), p.getPrescri(), p.getDate(), "Dr "+p.getPh()});
+                        }
                     }
                 });
             }
@@ -1731,6 +1712,63 @@ public class PH_Accueil extends javax.swing.JFrame {
             Text_RshNomPatient.setText("");
        }
     }//GEN-LAST:event_Button_RechercherPatientActionPerformed
+
+/*****************************************************
+         RESULTAT - AJOUTER UN RESULTAT               
+*****************************************************/  
+    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
+        if (Tableau_ActeInf.getSelectedRow() == 1) { // mettre -1
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
+        } else {
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JDialog dialog2 = new JDialog();
+                    dialog2.setSize(500, 250);//On lui donne une taille
+                    dialog2.setTitle("Ajouter Un Résultat"); //On lui donne un titre
+                    dialog2.setLocationRelativeTo(null);
+
+                    dialog2.setLayout(new BorderLayout());
+                    dialog2.setVisible(true);//On la rend visible
+
+                    dialog2.setLayout(new BorderLayout());
+                    JButton valider = new JButton("Valider");
+                    JPanel boutons = new JPanel();
+                    boutons.setLayout(new FlowLayout());
+                    dialog2.add(boutons, BorderLayout.SOUTH);
+                    boutons.add(valider);
+
+                    JPanel infosPrescription = new JPanel();
+                    infosPrescription.setLayout(new GridLayout(6, 0));
+                    dialog2.add(infosPrescription, BorderLayout.CENTER);
+
+                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
+                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                    infosPrescription.add(titre);
+
+                    Date dateAndTime = Calendar.getInstance().getTime();
+                    JLabel dateTime = new JLabel(dateAndTime.toString());
+                    infosPrescription.add(dateTime);
+
+                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
+
+                    JTextField resultat = new JTextField();
+                    infosPrescription.add(resultat);
+
+                    dialog2.setVisible(true);//On la rend visible
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
+
+                    valider.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            validerResultatActionPerformed(evt);
+                        }
+                    });
+                }
+            });
+        }
+    }//GEN-LAST:event_AjouterResultatActionPerformed
 
     
     
@@ -1884,6 +1922,7 @@ public class PH_Accueil extends javax.swing.JFrame {
     JTextField resultat2;
     Patient monPatient = new Patient();
     PersonneDeConfiance maPersConf =new PersonneDeConfiance();
+    PH quiSuije;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdmettreHospitalisation;
     private javax.swing.JButton AjouterObservation;

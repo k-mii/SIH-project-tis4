@@ -1,5 +1,9 @@
 package fonctionalCore;
 
+import static fonctionalCore.DB_Link.cnx;
+import static fonctionalCore.DB_Link.connecterDB;
+import static fonctionalCore.DB_Link.st;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -23,4 +27,25 @@ public class Prestation {
         this.lCodeActes = lCodeActes;
     }
 
+    public static String AjouterResultat(String resultat, String  id_p){
+   
+        try{ 
+
+           // update le champ résultat de la prestation de l'id  correspondant '
+            String query = "UPDATE prestation SET resultat='"+ resultat+"'WHERE id_prestation='"+id_p+"'";
+
+                        cnx=connecterDB();
+                        st=cnx.createStatement();
+                        st.executeUpdate(query);
+
+            String message = "Le résultat a bien été enregistré";
+            return message;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+    
+    
 }

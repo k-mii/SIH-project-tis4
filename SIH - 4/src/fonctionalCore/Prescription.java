@@ -11,6 +11,7 @@ import static fonctionalCore.DB_Link.rst;
 import static fonctionalCore.DB_Link.st;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -162,5 +163,61 @@ public class Prescription {
         
         return listPrescription;
     }
+    
+    
+    public static String AjouterUnePrescription(String ipp,String prescrip, PH p,Date date) {
+         String message;
+         try{                 
+            String idph = p.getId_PH();
+            String ladate = date.getYear()+"-"+date.getMonth()+"-"+date.getDate();
+            String query="INSERT INTO prescription(prescri,id_Ph,date) VALUE ('"+prescrip+"','"+idph+"','"+ladate+"')";     
+                  
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            st.executeUpdate(query);           
+            query="SELECT id_prescription FROM prescription WHERE prescri='"+prescrip+"' AND id_Ph='"+idph+"' AND date='"+ladate+"'";            
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            String idprescrip=rst.getString("id_prescription");           
+            Sejour s = Sejour.RecupererSejour(ipp);
+            String id_dm="";
+            if(!p.getSpecialite().equals("5")){// si pas anesthesiste
+                query="SELECT id_DMcli FROM dmcli WHERE id_sejour='"+s.getId_Sejour()+"'";
+                cnx=connecterDB();
+                st=cnx.createStatement();
+                rst=st.executeQuery(query);
+                rst.next();
+                id_dm =rst.getString("id_DMcli");          
+                query="INSERT INTO prescription_iddmcli(id_prescription,id_DMcli) VALUE ('"+idprescrip+"','"+id_dm+"')"; 
+                cnx=connecterDB();
+                st=cnx.createStatement();
+                st.executeUpdate(query);              
+                message = "La prescription à bien été ajouter.";
+            }else{
+                query="SELECT id_DMane FROM dmcli WHERE id_sejour='"+s.getId_Sejour()+"'";
+                cnx=connecterDB();
+                st=cnx.createStatement();
+                rst=st.executeQuery(query);
+                rst.next();
+                id_dm =rst.getString("id_DMane");        
+                query="INSERT INTO prescription_iddmane(id_prescription,id_DMid_DMane) VALUE ('"+idprescrip+"','"+id_dm+"')"; 
+                cnx=connecterDB();
+                st=cnx.createStatement();
+                st.executeUpdate(query);          
+                message = "La prescription à bien été ajouter.";
+            }
+            
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }  
+         return message;
+    }
+    
            
+                        
 }

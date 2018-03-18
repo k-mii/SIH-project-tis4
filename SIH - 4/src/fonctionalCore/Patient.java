@@ -232,7 +232,6 @@ public class Patient extends Personne {
 
         try{ 
             String query="SELECT COUNT(*) as nombreP FROM patient WHERE IPP LIKE '18%' ";
-    /*TEST CONSOLE */ System.out.println("la requete pour compter le nombre de patient : "+query);
             cnx=connecterDB();
             st=cnx.createStatement();
             rst=st.executeQuery(query);
@@ -272,7 +271,8 @@ public class Patient extends Personne {
                           NOUVELLE ADMISSION                            
 ***********************************************************************/
     public static String NouvelleAdmission(String ipp,int hospi_consult,String date,String id_ph,String motifAdmission, String service ){
-        try{          
+        try{     
+            
             String query="INSERT INTO sejour(IPP,hospitalisation,dateEntree,idPHref,motifAdmission) VALUE ('"+Integer.parseInt(ipp)+"','"+hospi_consult+"','"+date+"','"+Integer.parseInt(id_ph)+"','"+motifAdmission+"')";     
             cnx=connecterDB();
             st=cnx.createStatement();
@@ -284,6 +284,22 @@ public class Patient extends Personne {
                      idService = s.getId_service();
                 }
             }
+            query="SELECT id_Sejour FROM sejour WHERE IPP='"+ipp+"' AND dateSortie IS NULL ";
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            String idSejour=rst.getString("id_Sejour");
+            
+            query="INSERT INTO dmane(IPP,id_sejour) VALUE ('"+ipp+"','"+idSejour+"'";     
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            st.executeUpdate(query);
+            query="INSERT INTO dmcli(IPP,id_sejour) VALUE ('"+ipp+"','"+idSejour+"'";     
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            st.executeUpdate(query);
+            
             
             if(hospi_consult==1){
                 ArrayList<Localisation> listDesLoca =DefinirListChambre(service);                            

@@ -72,7 +72,7 @@ public class SA_Accueil extends javax.swing.JFrame {
 
         for (Patient p : listeDesPatients) {
             Localisation loca = Localisation.TrouverPatient(p.getIpp());
-            String localisation="";
+            String localisation="Sorti";
             if(!loca.getSecteur().equals("NA")&&!loca.getChambre().equals("NA")){
                 localisation=loca.getSecteur()+" Cham. "+loca.getChambre();
             }
@@ -1403,11 +1403,16 @@ public class SA_Accueil extends javax.swing.JFrame {
         model.addColumn("Prenom");
         model.addColumn("Date de Naissance");
         model.addColumn("Adresse");
+        model.addColumn("Service/Chambre");
 
         for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            Localisation loca = Localisation.TrouverPatient(p.getIpp());
+            String localisation="Sorti";
+            if(!loca.getSecteur().equals("NA")&&!loca.getChambre().equals("NA")){
+                localisation=loca.getSecteur()+" Cham. "+loca.getChambre();
+            }
+            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); 
+            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse,localisation});
         }
 
         URL resource = SA_Accueil.class.getResource("/Images/AccueilOn.png");
@@ -1889,6 +1894,7 @@ public class SA_Accueil extends javax.swing.JFrame {
             int hospi_consult=1;
             if(Radio_Consult.isSelected()){
                 hospi_consult=0;
+                
             }
 
             String message = Patient.NouvelleAdmission(monPatient.getIpp(),hospi_consult,date,lePH.getId_PH(),motifAdmission,service );
