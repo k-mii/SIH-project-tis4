@@ -11,9 +11,9 @@ public class Personne {
 
   private String nTel;
 
-  private Sexe sexe;
+  private String sexe;
 
-    public Personne(String nom, String prenom, String nTel, Sexe sexe) {
+    public Personne(String nom, String prenom, String nTel, String sexe) {
         this.nom = nom;
         this.prenom = prenom;
         this.nTel = nTel;
@@ -67,14 +67,14 @@ public Personne() {
     /**
      * @return the sexe
      */
-    public Sexe getSexe() {
+    public String getSexe() {
         return sexe;
     }
 
     /**
      * @param sexe the sexe to set
      */
-    public void setSexe(Sexe sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 

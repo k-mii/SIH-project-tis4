@@ -157,11 +157,11 @@ public class InterfaceConnexion extends javax.swing.JFrame {
             ur_accueil.setVisible(true);
             this.dispose(); 
        }else if(identification =="IN") {
-           INFIRMIER_Accueil in_accueil = new INFIRMIER_Accueil(); 
+           Infirmiere_Accueil in_accueil = new Infirmiere_Accueil(); 
             in_accueil.setVisible(true);
             this.dispose(); 
        }else if(identification =="AN") {
-            ANESTHESISTE_Accueil an_accueil = new ANESTHESISTE_Accueil();
+            Anesth_Accueil an_accueil = new Anesth_Accueil();
             an_accueil.setVisible(true);
             this.dispose(); 
        }

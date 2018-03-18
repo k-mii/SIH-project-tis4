@@ -61,18 +61,23 @@ public class SA_Accueil extends javax.swing.JFrame {
 
         /* Initialisation du tableau avec la liste des patients */
         ArrayList<Patient> listeDesPatients = Patient.rechercherPatient("A", "A", "A");
-
+              
         DefaultTableModel model = new DefaultTableModel();
         jTable1.setModel(model);
         model.addColumn("Nom");
         model.addColumn("Prenom");
         model.addColumn("Date de Naissance");
         model.addColumn("Adresse");
+        model.addColumn("Service/Chambre");
 
         for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            Localisation loca = Localisation.TrouverPatient(p.getIpp());
+            String localisation="";
+            if(!loca.getSecteur().equals("NA")&&!loca.getChambre().equals("NA")){
+                localisation=loca.getSecteur()+" Cham. "+loca.getChambre();
+            }
+            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); 
+            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse,localisation});
         }
 
         /* Image btn accueil */
@@ -1593,27 +1598,31 @@ public class SA_Accueil extends javax.swing.JFrame {
                      RECHERCHER UN PATIENT                        
 *****************************************************************/
     private void Btn_RshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_RshActionPerformed
+        if(Text_RshNom.getText().equals("") && Text_RshPrenom.getText().equals("") && Text_RshNumSS.getText().equals("")){
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Veuillez saisir le nom, le prenom ou l'IPP du patient.");
 
-        ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(Text_RshNom.getText(), Text_RshPrenom.getText(), Text_RshNumSS.getText());
+        }else{
+            ArrayList<Patient> listeDesPatients = Patient.rechercherPatient(Text_RshNom.getText(), Text_RshPrenom.getText(), Text_RshNumSS.getText());
 
-        DefaultTableModel model = new DefaultTableModel();
-        jTable1.setModel(model);
-        model.addColumn("Nom");
-        model.addColumn("Prenom");
-        model.addColumn("Date de Naissance");
-        model.addColumn("Adresse");
+            DefaultTableModel model = new DefaultTableModel();
+            jTable1.setModel(model);
+            model.addColumn("Nom");
+            model.addColumn("Prenom");
+            model.addColumn("Date de Naissance");
+            model.addColumn("Adresse");
 
-        for (Patient p : listeDesPatients) {
-            System.out.println(p.getNom() + " " + p.getPrenom());
-            String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
-            model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            for (Patient p : listeDesPatients) {
+                System.out.println(p.getNom() + " " + p.getPrenom());
+                String Ladresse = p.getAdresse() + " " + p.getCode_postal() + " " + p.getVille(); // AJouter les cp et ville -> aussi a faire dans la classe patient et donc modifier linsertion d'un nouveau patient
+                model.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateDeNaissance(), Ladresse});
+            }
+
+            // clear les 3 zone de texte
+            Text_RshPrenom.setText("");
+            Text_RshNom.setText("");
+            Text_RshNumSS.setText("");
         }
-
-        // clear les 3 zone de texte
-        Text_RshPrenom.setText("");
-        Text_RshNom.setText("");
-        Text_RshNumSS.setText("");
-
 
     }//GEN-LAST:event_Btn_RshActionPerformed
 
@@ -1653,15 +1662,16 @@ public class SA_Accueil extends javax.swing.JFrame {
             Label_InfoGeneraliste.setText(monPatient.getMedecin());
             Label_InfoSexe.setText(monPatient.getSexe() + "");
             String idDeLaPersDeConf = monPatient.getId_confiance();
-
-            maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
-            Label_InfoPrenomContact.setText(maPersConf.getPrenom());
-            Label_InfoNomContact.setText(maPersConf.getNom());
-            Label_InfoAdresseContact.setText(maPersConf.getAdresse());
-            Label_InfoCPContact.setText(maPersConf.getCode_postal());
-            Label_InfoVilleContact.setText(maPersConf.getVille());
-            Label_InfoTelephoneContact.setText(maPersConf.getnTel());
-            Label_InfoRelation.setText(maPersConf.getRelation());
+            if(!idDeLaPersDeConf.equals("")){
+                maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
+                Label_InfoPrenomContact.setText(maPersConf.getPrenom());
+                Label_InfoNomContact.setText(maPersConf.getNom());
+                Label_InfoAdresseContact.setText(maPersConf.getAdresse());
+                Label_InfoCPContact.setText(maPersConf.getCode_postal());
+                Label_InfoVilleContact.setText(maPersConf.getVille());
+                Label_InfoTelephoneContact.setText(maPersConf.getnTel());
+                Label_InfoRelation.setText(maPersConf.getRelation());
+            }
         }
 
 
@@ -1731,8 +1741,8 @@ public class SA_Accueil extends javax.swing.JFrame {
             Text_NumTel1.setText(monPatient.getnTel());
             Text_Adresse.setText(monPatient.getAdresse());
 
-            ComboBox_CP.setSelectedItem(monPatient.getCode_postal());
-
+            ComboBox_CP.setSelectedItem(monPatient.getCode_postal());            
+ 
             Text_MedecinGeneralist.setText(monPatient.getMedecin());
 
             String idDeLaPersDeConf = monPatient.getId_confiance();
@@ -1741,7 +1751,7 @@ public class SA_Accueil extends javax.swing.JFrame {
                 maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
                 Text_PrenomContact.setText(maPersConf.getPrenom());
                 Text_NomContact.setText(maPersConf.getNom());
-                Text_AdresseContact.setText(maPersConf.getAdresse());
+                Text_AdresseContact.setText(maPersConf.getAdresse());              
                 ComboBox_CPContact.setSelectedItem(maPersConf.getCode_postal());
                 Text_NumTelContact.setText(maPersConf.getnTel());
                 Text_RelationContact.setText(maPersConf.getRelation());
@@ -1865,23 +1875,28 @@ public class SA_Accueil extends javax.swing.JFrame {
                     ENREGISTRER NOUVELLE ADMISSION                 
 ******************************************************************/
     private void Btn_EnregistrerAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_EnregistrerAdmissionActionPerformed
-        String motifAdmission = Text_MotifAdmission.getText();
-       
-        String date =Text_AdmissionAAAA.getText()+"-"+Text_AdmissionMM.getText()+"-"+Text_AdmissionJJ.getText()+" "+Text_AdmissionHeure.getText()+":"+Text_AdmissionMin.getText()+":"+dateAndTime.getSeconds();
-        int ligne = ComboBox_NomMedecin.getSelectedIndex();
-        PH lePH = listPh.get(ligne);
-        
-        String service = (String)ComboBox_Service.getSelectedItem();
-        int hospi_consult=1;
-        if(Radio_Consult.isSelected()){
-            hospi_consult=0;
+        if(Text_MotifAdmission.equals("")){
+            JFrame frame = new JFrame();
+           JOptionPane.showMessageDialog(frame, "Veuillez saisir un motif d'admission");
+        }else{
+            String motifAdmission = Text_MotifAdmission.getText();
+
+            String date =Text_AdmissionAAAA.getText()+"-"+Text_AdmissionMM.getText()+"-"+Text_AdmissionJJ.getText()+" "+Text_AdmissionHeure.getText()+":"+Text_AdmissionMin.getText()+":"+dateAndTime.getSeconds();
+            int ligne = ComboBox_NomMedecin.getSelectedIndex();
+            PH lePH = listPh.get(ligne);
+
+            String service = (String)ComboBox_Service.getSelectedItem();
+            int hospi_consult=1;
+            if(Radio_Consult.isSelected()){
+                hospi_consult=0;
+            }
+
+            String message = Patient.NouvelleAdmission(monPatient.getIpp(),hospi_consult,date,lePH.getId_PH(),motifAdmission,service );
+
+
+           JFrame frame = new JFrame();
+           JOptionPane.showMessageDialog(frame, message);
         }
-        
-        String message = Patient.NouvelleAdmission(monPatient.getIpp(),hospi_consult,date,lePH.getId_PH(),motifAdmission,service );
-        
-        
-       JFrame frame = new JFrame();
-       JOptionPane.showMessageDialog(frame, "Le patient à bien été admis.");
     }//GEN-LAST:event_Btn_EnregistrerAdmissionActionPerformed
 
     
