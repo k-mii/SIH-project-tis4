@@ -10,8 +10,11 @@ import static fonctionalCore.DB_Link.connecterDB;
 import static fonctionalCore.DB_Link.rst;
 import static fonctionalCore.DB_Link.st;
 import static fonctionalCore.Localisation.*;
+import static java.lang.Math.log10;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

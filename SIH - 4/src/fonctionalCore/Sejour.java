@@ -2,23 +2,27 @@ package fonctionalCore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
 public class Sejour {
 
   public boolean hospitalisation;
+  
+  public int IPP;
 
-  public SimpleDateFormat dateEntree;
+  public Date dateEntree;
 
-  public SimpleDateFormat dateSortie;
+  public Date dateSortie;
 
   public String lettreSortie;
 
 public ArrayList<Prestation> lPrestation;
     public PH phRef;
+    public String motifA;
 
-    public Sejour(boolean hospitalisation, SimpleDateFormat dateEntree,  PH phRef) {
+    public Sejour(boolean hospitalisation, Date dateEntree,  PH phRef) {
         this.hospitalisation = hospitalisation;
         this.dateEntree = dateEntree;
         this.phRef = phRef;
@@ -27,5 +31,7 @@ public ArrayList<Prestation> lPrestation;
    public Sejour() {
         lPrestation = new ArrayList<Prestation>();
     } 
-  
+  public Sejour(boolean hospitalisation,Date dateEntree,Date dateSortie, PH phRef){
+      
+  }
 }

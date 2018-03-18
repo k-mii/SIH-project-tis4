@@ -15,7 +15,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -38,7 +40,7 @@ public class DB_Link {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 /* TEST console */   System.out.println("Drivers Check"); 
-            String url="jdbc:mysql://localhost:3306/sih-v6";   // a modifier en fonction du nom de la BDD définitive
+            String url="jdbc:mysql://localhost:3306/sih-v7";   // a modifier en fonction du nom de la BDD définitive
             String usr="root"; // a modifier en fonction du nom du usr pr l'acces a la DB
             String password="sihsql"; // a modifier en fonction du mdp du usr pr l'acces a la DB
             Connection cnx=DriverManager.getConnection(url,usr,password);
@@ -257,7 +259,52 @@ public static void AjouterObservation(String obs,int id_dmane,int id_dmcli, int 
     
 }
 
+/* public static ArrayList<Sejour> InfoSejours(int IPP){
+    ArrayList<Sejour> lSej= new ArrayList<Sejour>();
+    try{ 
+        String query="SELECT * FROM `sejour` WHERE IPP="+IPP;
+        
+TEST CONSOLE     System.out.println("La requete pour l'obtention desséjours: "+query);   
+        cnx=connecterDB();
+        st=cnx.createStatement();
+        
+       
+       while(rst.next()){
+        
+            st.executeUpdate(query);
+            rst=st.executeQuery(query);
+            rst.next();
 
+            String ipp=rst.getString("IPP");
+            String idSej =rst.getString("id_Sejour");
+            String hospi =rst.getString("hospitalisation");
+            String dateE =rst.getString("dateEntree");
+            String dateS=rst.getString("dateSortie");
+            String letrreS =rst.getString("lettreSortie");
+            String idPH=rst.getString("idPHref");
+            String motifA =rst.getString("motifAdmission");
+            boolean hospit=Boolean.parseBoolean(hospi);
+            SimpleDateFormat dateEm= new SimpleDateFormat("dd/MM/yy hh:mi:ss");
+            Date dateEt= dateEm.parse(dateE);
+            Date dateSt= dateEm.parse(dateS);
+            
+            String query2="SELECT Specialite FROM `ph` WHERE id_PH="+idPH;
+            
+            st.executeUpdate(query2);
+            ResultSet rst2=st.executeQuery(query2);
+            rst2.next();
+            String spe= rst2.getString("Specialite");
+            PH phFictif=new PH(spe);
+            
+            Sejour sej= new Sejour(hospit,dateEt,dateSt, phFictif);
+            lSej.add(sej);
+    }
+    }catch(Exception e){
+        System.out.println(e.getMessage());
+    }
+    return lSej;
+    
+}*/
 
 	
 	  

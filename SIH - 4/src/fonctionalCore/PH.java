@@ -25,6 +25,9 @@ public class PH extends Personne {
         super();
     }
     
+    public PH(String specialite) {
+        this.specialite=specialite;
+    }
 
 /************************************************************
               DEFINIR LISTE PH EN FONCTION SERVICE           
