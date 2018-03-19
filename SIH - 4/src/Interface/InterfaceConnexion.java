@@ -150,7 +150,7 @@ public class InterfaceConnexion extends javax.swing.JFrame {
            this.dispose();    
        }else if(p instanceof PH){
             if((((PH)p).getSpecialite()).equals("1")){ // urgence
-                URGENCE_Accueil ur_accueil = new URGENCE_Accueil(); // prendre p en param
+                URGENCE_Accueil ur_accueil = new URGENCE_Accueil(p); // prendre p en param
                 ur_accueil.setVisible(true);
                 this.dispose(); 
             }else if((((PH)p).getSpecialite()).equals("5")) { //anesthesiste

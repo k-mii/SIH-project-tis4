@@ -8,6 +8,7 @@ import static fonctionalCore.DB_Link.st;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
@@ -21,6 +22,7 @@ public class Sejour {
   private String dateSortie;
 
   private String lettreSortie;
+  private String motif;
 
     private String phRef;
 
@@ -32,12 +34,25 @@ public class Sejour {
         this.IPP=IPP;
         
     }
+    
+     public Sejour(String idsejour,String IPP,String hospitalisation, String dateEntree,String dateSortie,String lettre,  String phRef,String motif) {
+       this.id_Sejour = idsejour;
+        this.hospitalisation = hospitalisation;
+        this.dateEntree = dateEntree;
+        this.phRef = phRef;
+        this.IPP=IPP;
+        this.dateSortie=dateSortie;
+        this.lettreSortie=lettre;
+        this.motif=motif;
+        
+    }
    public Sejour() {
         
     } 
    
    
-   public static Sejour RecupererSejour(String ipp){
+    public static Sejour RecupererSejour(String ipp){
+        Sejour s=new Sejour();
         try{    
             String query="SELECT * FROM sejour WHERE IPP='"+ipp+"' AND dateSortie IS NULL";
             cnx=connecterDB();
@@ -45,16 +60,40 @@ public class Sejour {
             rst=st.executeQuery(query);
             rst.next();
                  
-            Sejour s = new Sejour(rst.getString("id_Sejour"),ipp,rst.getString("hospitalisation"),rst.getString("dateEntree"),rst.getString("idPHref"));
+            s = new Sejour(rst.getString("id_Sejour"),ipp,rst.getString("hospitalisation"),rst.getString("dateEntree"),rst.getString("dateSortie"),rst.getString("lettreSortie"),rst.getString("idPHref"),rst.getString("motifAdmission"));
             
-            return s;
+            
             
             
         }catch(SQLException e){
             System.out.println(e.getMessage());
-            Sejour s=new Sejour();
+           
             return s;
-        }       
+        } 
+        return s;
+   }
+    
+     public static String checkSejour(String ipp){
+        String s="NoSej";
+        try{    
+            String query="SELECT * FROM sejour WHERE IPP='"+ipp+"' AND dateSortie IS NULL";    
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            if(rst.getRow()>=1){
+                s="sejourEnCour";
+            }  
+            
+            
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+           
+            return s;
+        } 
+        return s;
    }
    
    public static String ajouterLettreDeSortie(String date,String lettre,String idsej){
@@ -74,74 +113,52 @@ public class Sejour {
         }       
    }
    
-   
-   
-   
-   /****************************AJOUTER OBSERVATION*********************************/
-
-public static String AjouterObservation(String obs,String date, String ipp){
-    
-    try{ 
-        String query="INSERT INTO observation(obs,date) VALUE('"+obs+"','"+date+"')";  
-        cnx=connecterDB();
-        st=cnx.createStatement();
-        st.executeUpdate(query);
-       
-        String query2="Select id_observation FROM observation WHERE obs='"+obs+"' AND date='"+date+"'";
-        rst=st.executeQuery(query2);
-        rst.next();
-        String idDeLObs =rst.getString("id_observation");
-
-        Sejour s = RecupererSejour(ipp);
-        query2="Select id_DMane FROM dmane WHERE id_sejour='"+s.getId_Sejour()+"'";
-        rst=st.executeQuery(query2);
-        rst.next();
-        String idDmAnes ="";
-        
-       // lier a dm anesthesie
-        if(rst.getRow()>=1){
-            idDmAnes =rst.getString("id_observation");
-            String query3="INSERT INTO observation_iddmane VALUES('"+idDeLObs+"','"+idDmAnes+"')";
-            st.executeUpdate(query3);
-        }
-        
-        //liaison avec dm clinique
-        query2="Select id_DMcli FROM dmcli WHERE id_sejour='"+s.getId_Sejour()+"'";
-        rst=st.executeQuery(query2);
-        rst.next();
-        String idDmCli ="";
-  
-        if(rst.getRow()>=1){
-            idDmCli =rst.getString("id_observation");
+   public static ArrayList ListDesHospitalisation(String ipp){
+        ArrayList<Sejour> ListHospi = new ArrayList();
+       try{    
+            String query="SELECT * FROM sejour WHERE IPP='"+ipp+"' AND hospitalisation = 1";
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
             
-    
-            String query4="INSERT INTO observation_iddmcli  VALUES ('"+idDeLObs+"','"+idDmCli+"')";
-            st.executeUpdate(query4);
-        }
-        
-        
-         
-    
-    // liaison avec dm medico tehnique
+            while(rst.next()){
+                Sejour s = new Sejour(rst.getString("id_Sejour"),ipp,rst.getString("hospitalisation"),rst.getString("dateEntree"),rst.getString("dateSortie"),rst.getString("lettreSortie"),rst.getString("idPHref"),rst.getString("motifAdmission"));
+            
+                ListHospi.add(s);
+            }
+                 
+            
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }    
+       return ListHospi;
+   }
+   
+    public static ArrayList ListDesConsultation(String ipp){
+        ArrayList<Sejour> ListConsult = new ArrayList();
+       try{    
+            String query="SELECT * FROM sejour WHERE IPP='"+ipp+"' AND hospitalisation = 0";
+            cnx=connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            while(rst.next()){     
+                Sejour s = new Sejour(rst.getString("id_Sejour"),ipp,rst.getString("hospitalisation"),rst.getString("dateEntree"),rst.getString("dateSortie"),rst.getString("lettreSortie"),rst.getString("idPHref"),rst.getString("motifAdmission"));
+            
+                ListConsult.add(s);
+            }
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }    
+       return ListConsult;
+   }
+   
+   
 
-        query2="Select id_DMmt FROM dmmt WHERE id_sejour='"+s.getId_Sejour()+"'";
-        rst=st.executeQuery(query2);
-        rst.next();
-        String idDmMt ="";
-  
-        if(rst.getRow()>=1){
-            idDmMt =rst.getString("id_observation");
-            String query5="INSERT INTO observation_iddmmt  VALUES ('"+idDeLObs+"','"+idDmMt+"')";
-            st.executeUpdate(query5);
-        }
-        
-    }catch(SQLException e){
-        return e.getMessage();
-    }
-    return "L'observation à bien été ajoutée";
-    
-    
-}
 
     /**
      * @return the id_Sejour
@@ -161,7 +178,7 @@ public static String AjouterObservation(String obs,String date, String ipp){
      * @return the hospitalisation
      */
     public String isHospitalisation() {
-        return hospitalisation;
+        return getHospitalisation();
     }
 
     /**
@@ -226,6 +243,41 @@ public static String AjouterObservation(String obs,String date, String ipp){
      */
     public void setPhRef(String phRef) {
         this.phRef = phRef;
+    }
+
+    /**
+     * @return the hospitalisation
+     */
+    public String getHospitalisation() {
+        return hospitalisation;
+    }
+
+    /**
+     * @return the IPP
+     */
+    public String getIPP() {
+        return IPP;
+    }
+
+    /**
+     * @param IPP the IPP to set
+     */
+    public void setIPP(String IPP) {
+        this.IPP = IPP;
+    }
+
+    /**
+     * @return the motif
+     */
+    public String getMotif() {
+        return motif;
+    }
+
+    /**
+     * @param motif the motif to set
+     */
+    public void setMotif(String motif) {
+        this.motif = motif;
     }
   
 }

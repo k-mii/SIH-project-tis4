@@ -25,6 +25,9 @@ public class PH extends Personne {
         super();
     }
     
+    public PH(String specialite) {
+        this.specialite=specialite;
+    }
 
 /************************************************************
               DEFINIR LISTE PH EN FONCTION SERVICE           
@@ -64,6 +67,26 @@ public class PH extends Personne {
            System.out.println(e.getMessage());
            return "";
         }
+    }
+     
+      public static PH AfficherPH(String idph){
+        PH p=new PH();
+        String query ="SELECT * FROM ph WHERE id_PH='"+idph+"'";
+        try{
+            cnx=DB_Link.connecterDB();
+            st=cnx.createStatement();
+            rst=st.executeQuery(query);
+            rst.next();
+            p.setId_Ph(idph);
+            p.setNom(rst.getString("nom"));
+            p.setPrenom(rst.getString("prenom"));
+            p.setSpecialite(rst.getString("Specialite"));
+            p.setnTel(rst.getString("ntel"));
+    
+        }catch(SQLException e){
+           System.out.println(e.getMessage());
+        }
+        return p;
     }
     
     public String getSpecialite() {return specialite;}

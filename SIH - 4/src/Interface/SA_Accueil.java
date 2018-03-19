@@ -1784,7 +1784,9 @@ public class SA_Accueil extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, "Aucun patient n'est selectioné");
         }else{
             Date dateAndTime = Calendar.getInstance().getTime();
-
+            int mois = dateAndTime.getMonth()+1;
+            int annee = 1900 + dateAndTime.getYear();
+            String date = annee +"-"+mois+"-"+dateAndTime.getDate();
             
             Btn_NewPatient.setBackground(Color.white);
             Panel_DataPatient.setVisible(false);

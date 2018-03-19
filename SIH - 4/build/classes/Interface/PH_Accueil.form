@@ -1362,7 +1362,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel11" pref="967" max="32767" attributes="0"/>
+                          <Component id="jPanel11" pref="893" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1399,22 +1399,20 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jScrollPane5" min="-2" pref="869" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
                                       <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="AjouterResultat" min="-2" pref="184" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="AjouterResultat1" min="-2" pref="184" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Bouton_DemanderAnalyse" min="-2" pref="184" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="AdmettreHospitalisation" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jScrollPane5" min="-2" pref="943" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1426,9 +1424,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="AjouterResultat" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                   <Component id="AdmettreHospitalisation" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="AjouterResultat1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="Bouton_DemanderAnalyse" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane5" pref="366" max="32767" attributes="0"/>
@@ -1449,23 +1446,6 @@
                         <Property name="text" type="java.lang.String" value="R&#xe9;sultats"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="AjouterResultat">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arvo" size="14" style="0"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="66" green="66" red="66" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Demander Prestation"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterResultatActionPerformed"/>
-                      </Events>
-                    </Component>
                     <Component class="javax.swing.JButton" name="AdmettreHospitalisation">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1483,7 +1463,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmettreHospitalisationActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="AjouterResultat1">
+                    <Component class="javax.swing.JButton" name="Bouton_DemanderAnalyse">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1494,10 +1474,10 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="66" green="66" red="66" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Demander R&#xe9;sultat"/>
+                        <Property name="text" type="java.lang.String" value="Demander Analyse"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterResultat1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_DemanderAnalyseActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane5">
@@ -1507,7 +1487,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable1">
+                        <Component class="javax.swing.JTable" name="Tableau_Prestation">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="34">
@@ -1521,7 +1501,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Tableau_PrestationMouseClicked"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1637,7 +1617,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable2">
+                        <Component class="javax.swing.JTable" name="Tableau_Observation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1922,7 +1902,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable7">
+                        <Component class="javax.swing.JTable" name="Tableau_Hospitalisation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1947,7 +1927,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable8">
+                        <Component class="javax.swing.JTable" name="Tableau_Consultation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>

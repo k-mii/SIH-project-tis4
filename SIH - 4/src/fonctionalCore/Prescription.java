@@ -165,17 +165,17 @@ public class Prescription {
     }
     
     
-    public static String AjouterUnePrescription(String ipp,String prescrip, PH p,Date date) {
+    public static String AjouterUnePrescription(String ipp,String prescrip, PH p,String date) {
          String message;
          try{                 
             String idph = p.getId_PH();
-            String ladate = date.getYear()+"-"+date.getMonth()+"-"+date.getDate();
-            String query="INSERT INTO prescription(prescri,id_Ph,date) VALUE ('"+prescrip+"','"+idph+"','"+ladate+"')";     
+            
+            String query="INSERT INTO prescription(prescri,id_Ph,date) VALUE ('"+prescrip+"','"+idph+"','"+date+"')";     
                   
             cnx=connecterDB();
             st=cnx.createStatement();
             st.executeUpdate(query);           
-            query="SELECT id_prescription FROM prescription WHERE prescri='"+prescrip+"' AND id_Ph='"+idph+"' AND date='"+ladate+"'";            
+            query="SELECT id_prescription FROM prescription WHERE prescri='"+prescrip+"' AND id_Ph='"+idph+"' AND date='"+date+"'";            
             cnx=connecterDB();
             st=cnx.createStatement();
             rst=st.executeQuery(query);
@@ -196,7 +196,7 @@ public class Prescription {
                 st.executeUpdate(query);              
                 message = "La prescription à bien été ajouter.";
             }else{
-                query="SELECT id_DMane FROM dmcli WHERE id_sejour='"+s.getId_Sejour()+"'";
+                query="SELECT id_DMane FROM dmane WHERE id_sejour='"+s.getId_Sejour()+"'";
                 cnx=connecterDB();
                 st=cnx.createStatement();
                 rst=st.executeQuery(query);

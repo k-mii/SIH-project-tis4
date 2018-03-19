@@ -7,6 +7,7 @@
 
 package Interface;
 
+import fonctionalCore.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -22,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -57,7 +59,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
 /****************************************************************
                             CONSTRUCTEUR                         
 ****************************************************************/ 
-    public URGENCE_Detail_Patient() {
+    public URGENCE_Detail_Patient(Personne leGarsConnecter,Patient lePatient) {
         
         super("Connexion");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,7 +72,161 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         URL resource = SA_Accueil.class.getResource("/Images/AccueilOn.png");
         Icon warnIcon = new ImageIcon(resource);
         Button_Accueil.setIcon(warnIcon);
+        quiSuisJe =new PH(((PH)leGarsConnecter).getId_PH(),((PH)leGarsConnecter).getSpecialite(),((PH)leGarsConnecter).getNom(),((PH)leGarsConnecter).getPrenom(),((PH)leGarsConnecter).getnTel());
+        monPatient = new Patient(lePatient.getIpp(), lePatient.getNom(),lePatient.getPrenom(),lePatient.getnTel(),lePatient.getNomDeNaissance(),lePatient.getLieuDeNaissance(),lePatient.getMedecin(),lePatient.getAdresse(),lePatient.getDateDeNaissance(),lePatient.getSexe(),lePatient.getId_confiance(),lePatient.getCode_postal(),lePatient.getVille());
+        
+            // clear tout les champ de text
+            jTextArea1.setText("");
+            PatientPHNom.setText("");
+            PatientPHPrenom.setText("");
+            PatientPHIPP.setText("");
+            PatientPHDateNaissance.setText("");
+            PatientPHAdresse.setText("");
+            PatientPHCP.setText("");
+            PatientPHVille.setText("");
+            PatientPHTelephone.setText("");
+            PrenomContact.setText("");
+            NomContact.setText("");
+            adresseContact.setText("");
+            CPContact.setText("");
+            villeContact.setText("");
+            telContact.setText("");
+            relationContact.setText("");
+            spe.setText("");
+            secteur.setText("");
+            chambre.setText("");
+            lit.setText("");
+            
+           
+            Label_Titre.setText("Information Patient : "+monPatient.getPrenom()+" "+monPatient.getNom());
+            PatientPHNom.setText(monPatient.getNom());
+            PatientPHPrenom.setText(monPatient.getPrenom());
+            PatientPHIPP.setText(monPatient.getIpp());
+            PatientPHDateNaissance.setText(monPatient.getDateDeNaissance());
+            PatientPHAdresse.setText(monPatient.getAdresse());
+            PatientPHCP.setText(monPatient.getCode_postal());
+            PatientPHVille.setText(monPatient.getVille());
+            PatientPHTelephone.setText(monPatient.getnTel());
+            String idDeLaPersDeConf = monPatient.getId_confiance();
+            
+            if(!idDeLaPersDeConf.equals("")){
+                maPersConf = PersonneDeConfiance.AfficherInfoPersonneConfiance(idDeLaPersDeConf);
+                PrenomContact.setText(maPersConf.getPrenom());
+                NomContact.setText(maPersConf.getNom());
+                adresseContact.setText(maPersConf.getAdresse());
+                CPContact.setText(maPersConf.getCode_postal());
+                villeContact.setText(maPersConf.getVille());
+                telContact.setText(maPersConf.getnTel());
+                relationContact.setText(maPersConf.getRelation());
+            }  
+            
+            Localisation locaDuPatient = Patient.afficherLocalisationPatient(monPatient.getIpp());
+            spe.setText(locaDuPatient.getService());
+            secteur.setText(locaDuPatient.getSecteur());
+            chambre.setText(locaDuPatient.getChambre());
+            lit.setText(locaDuPatient.getLit());
+            
+    
+                    
+                    
+            ArrayList<Prescription> listePrescription = Prescription.afficherPrescription(monPatient.getIpp());
+      
+            DefaultTableModel model = new DefaultTableModel();
+            model.setRowCount(0);
+            Tableau_prescription.setModel(model);
+            model.addColumn("Numéro de Prescription");
+            model.addColumn("Préscription");
+            model.addColumn("Date");
+            model.addColumn("Prescripteur");
 
+            for (Prescription p : listePrescription) {
+                model.addRow(new Object[]{p.getId_prescription(), p.getPrescri(), p.getDate(), "Dr "+p.getPh()});
+            }
+            
+            
+            ArrayList<Acte_Infirmier> listActeInf = Acte_Infirmier.afficherActe(monPatient.getIpp());
+            
+            DefaultTableModel model2 = new DefaultTableModel();
+            model2.setRowCount(0);
+            model2 = new DefaultTableModel();
+            Tableau_ActeInf.setModel(model2);
+            model2.addColumn("Acte");
+            model2.addColumn("Résultat");
+            model2.addColumn("Date");
+            model2.addColumn("Soigant");
+
+            for (Acte_Infirmier ac : listActeInf) {
+                model2.addRow(new Object[]{ac.getActe(), ac.getResultat(), ac.getDate(), ac.getInfirmier()});
+            }
+            
+            
+            
+            ArrayList<Obersvation> listObservation = Obersvation.afficherObservation(monPatient.getIpp());
+            
+            DefaultTableModel model3 = new DefaultTableModel();
+            model3.setRowCount(0);
+            model3 = new DefaultTableModel();
+            Tableau_Observation.setModel(model3);
+            model3.addColumn("Observation");
+            model3.addColumn("Date");
+            for (Obersvation obs : listObservation) {
+                model3.addRow(new Object[]{obs.getObs(), obs.getDate()});
+            }
+
+      
+            ArrayList<Sejour> listHospi = Sejour.ListDesHospitalisation(monPatient.getIpp());
+            
+            DefaultTableModel model4 = new DefaultTableModel();
+            model4.setRowCount(0);
+            model4 = new DefaultTableModel();
+            Tableau_Hospitalisation.setModel(model4);
+            model4.addColumn("Motif");
+            model4.addColumn("Service");
+            model4.addColumn("Date Entrée");
+            model4.addColumn("Date Sortie");
+            model4.addColumn("Medecin");
+            
+            for (Sejour s : listHospi) {
+                PH p = PH.AfficherPH(s.getPhRef());
+                model4.addRow(new Object[]{s.getMotif(), p.getSpecialite(),s.getDateEntree(),s.getDateSortie(),"Dr "+p.getNom()});
+            }
+            
+            
+            ArrayList<Sejour> listConsult = Sejour.ListDesConsultation(monPatient.getIpp());
+            
+            DefaultTableModel model5 = new DefaultTableModel();
+            model5.setRowCount(0);
+            model5 = new DefaultTableModel();
+            Tableau_Consultation.setModel(model5);
+            model5.addColumn("Motif");
+            model5.addColumn("Service"); 
+            model5.addColumn("Date Entrée");
+            model5.addColumn("Medecin");
+            
+            for (Sejour s : listConsult) {
+                PH p = PH.AfficherPH(s.getPhRef());
+                String service = Service.AfficherServices(p.getSpecialite());
+                model5.addRow(new Object[]{s.getMotif(), service,s.getDateEntree(),"Dr "+p.getNom()});
+            }
+            
+            
+            
+            
+            ArrayList<Prestation> listPresta = Prestation.ListDesPrestation(monPatient.getIpp());
+            
+            DefaultTableModel model6 = new DefaultTableModel();
+            model6.setRowCount(0);
+            model6 = new DefaultTableModel();
+            Tableau_Prestation.setModel(model6);
+            model6.addColumn("Date");
+            model6.addColumn("Prelevement / Acte"); 
+            model6.addColumn("Resultat");
+            
+            for (Prestation p : listPresta) {
+                model6.addRow(new Object[]{p.getDate(),p.getType(),p.getResultat()});
+            }
+            
+        
     }
 
     /**
@@ -114,9 +270,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         PatientPHVille = new javax.swing.JLabel();
         PatientPHCP = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
-        PatientPHPays = new javax.swing.JLabel();
         PatientPHTelephone = new javax.swing.JLabel();
         PatientPHNom1 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
@@ -130,35 +284,31 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         CPContact = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         villeContact = new javax.swing.JLabel();
-        PaysContact = new javax.swing.JLabel();
         telContact = new javax.swing.JLabel();
         relationContact = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
         jpanel150 = new javax.swing.JPanel();
         AjouterPrescription = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        Tableau_prescription = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        Tableau_ActeInf = new javax.swing.JTable();
         Res = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        AjouterResultat = new javax.swing.JButton();
-        AjouterResultat1 = new javax.swing.JButton();
-        AdmettreHospitalisation = new javax.swing.JButton();
+        Tableau_Prestation = new javax.swing.JTable();
+        Bouton_DemanderAnalyse = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tableau_Observation = new javax.swing.JTable();
         AjouterObservation = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
@@ -170,11 +320,11 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jPanel29 = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        Tableau_Hospitalisation = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        Tableau_Consultation = new javax.swing.JTable();
         jLabel44 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Label_Titre = new javax.swing.JLabel();
         Label_bckgrd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -383,20 +533,10 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel66.setForeground(new java.awt.Color(102, 102, 102));
         jLabel66.setText("Code Postal :");
 
-        jLabel67.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel67.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel67.setText("Pays :");
-
         jLabel68.setBackground(new java.awt.Color(255, 255, 255));
         jLabel68.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(102, 102, 102));
         jLabel68.setText("Telephone :");
-
-        PatientPHPays.setBackground(new java.awt.Color(255, 255, 255));
-        PatientPHPays.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        PatientPHPays.setForeground(new java.awt.Color(102, 102, 102));
-        PatientPHPays.setText("PatientPHPays");
 
         PatientPHTelephone.setBackground(new java.awt.Color(255, 255, 255));
         PatientPHTelephone.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
@@ -442,10 +582,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PatientPHDateNaissance))
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel67)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PatientPHPays, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PatientPHTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -487,11 +623,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                     .addComponent(PatientPHCP)
                     .addComponent(jLabel63)
                     .addComponent(PatientPHVille))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel67)
-                    .addComponent(PatientPHPays))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
                     .addComponent(PatientPHTelephone))
@@ -551,11 +683,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         villeContact.setForeground(new java.awt.Color(102, 102, 102));
         villeContact.setText("villeContact");
 
-        PaysContact.setBackground(new java.awt.Color(255, 255, 255));
-        PaysContact.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        PaysContact.setForeground(new java.awt.Color(102, 102, 102));
-        PaysContact.setText("PaysContact");
-
         telContact.setBackground(new java.awt.Color(255, 255, 255));
         telContact.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         telContact.setForeground(new java.awt.Color(102, 102, 102));
@@ -576,11 +703,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel85.setForeground(new java.awt.Color(102, 102, 102));
         jLabel85.setText("Telephone :");
 
-        jLabel86.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel86.setFont(new java.awt.Font("Arvo", 1, 14)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel86.setText("Pays :");
-
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -595,7 +717,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PrenomContact, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel84)
                         .addGap(11, 11, 11)
@@ -609,11 +731,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                         .addComponent(jLabel79)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(villeContact, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addComponent(jLabel86)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PaysContact, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
@@ -646,9 +764,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                     .addComponent(jLabel77)
                     .addComponent(CPContact)
                     .addComponent(jLabel79)
-                    .addComponent(villeContact)
-                    .addComponent(jLabel86)
-                    .addComponent(PaysContact))
+                    .addComponent(villeContact))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel85)
@@ -719,9 +835,9 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel34.setForeground(new java.awt.Color(102, 102, 102));
         jLabel34.setText("Prescriptions");
 
-        jTable3.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable3.setForeground(new java.awt.Color(102, 102, 102));
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_prescription.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_prescription.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_prescription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -729,7 +845,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Numéro Prescription", "Prescription", "Date", "Prescripteur"
             }
         ));
-        jScrollPane2.setViewportView(jTable3);
+        jScrollPane2.setViewportView(Tableau_prescription);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -762,9 +878,9 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(102, 102, 102));
         jLabel35.setText("Actes Infirmiers");
 
-        jTable4.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable4.setForeground(new java.awt.Color(102, 102, 102));
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_ActeInf.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_ActeInf.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_ActeInf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -772,7 +888,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Prescription", "Etat", "Date", "Soignant", "Résultats"
             }
         ));
-        jScrollPane3.setViewportView(jTable4);
+        jScrollPane3.setViewportView(Tableau_ActeInf);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -834,7 +950,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel36.setForeground(new java.awt.Color(102, 102, 102));
         jLabel36.setText("Résultats");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Prestation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -875,35 +991,15 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Date", "Prescripteur", "Prélèvement/ Acte réalisé"
             }
         ));
-        jScrollPane5.setViewportView(jTable1);
+        jScrollPane5.setViewportView(Tableau_Prestation);
 
-        AjouterResultat.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterResultat.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterResultat.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat.setText("Demander Prestation");
-        AjouterResultat.addActionListener(new java.awt.event.ActionListener() {
+        Bouton_DemanderAnalyse.setBackground(new java.awt.Color(255, 255, 255));
+        Bouton_DemanderAnalyse.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        Bouton_DemanderAnalyse.setForeground(new java.awt.Color(102, 102, 102));
+        Bouton_DemanderAnalyse.setText("Demander Analyse");
+        Bouton_DemanderAnalyse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterResultatActionPerformed(evt);
-            }
-        });
-
-        AjouterResultat1.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterResultat1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterResultat1.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat1.setText("Demander Résultat");
-        AjouterResultat1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterResultat1ActionPerformed(evt);
-            }
-        });
-
-        AdmettreHospitalisation.setBackground(new java.awt.Color(255, 255, 255));
-        AdmettreHospitalisation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AdmettreHospitalisation.setForeground(new java.awt.Color(102, 102, 102));
-        AdmettreHospitalisation.setText("Admettre Hospitalisation");
-        AdmettreHospitalisation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdmettreHospitalisationActionPerformed(evt);
+                Bouton_DemanderAnalyseActionPerformed(evt);
             }
         });
 
@@ -914,12 +1010,8 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-                .addComponent(AjouterResultat)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AjouterResultat1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 573, Short.MAX_VALUE)
+                .addComponent(Bouton_DemanderAnalyse)
                 .addContainerGap())
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel11Layout.createSequentialGroup()
@@ -933,9 +1025,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
-                    .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Bouton_DemanderAnalyse, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(388, Short.MAX_VALUE))
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
@@ -973,9 +1063,9 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel39.setForeground(new java.awt.Color(102, 102, 102));
         jLabel39.setText("Observations");
 
-        jTable2.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(102, 102, 102));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Observation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Observation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Observation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -983,7 +1073,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Date", "Personnel", "Observation"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
+        jScrollPane6.setViewportView(Tableau_Observation);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1111,9 +1201,9 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
         jLabel43.setForeground(new java.awt.Color(102, 102, 102));
         jLabel43.setText("Liste des Consultations");
 
-        jTable7.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable7.setForeground(new java.awt.Color(102, 102, 102));
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Hospitalisation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Hospitalisation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Hospitalisation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1121,11 +1211,11 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Date", "Service"
             }
         ));
-        jScrollPane9.setViewportView(jTable7);
+        jScrollPane9.setViewportView(Tableau_Hospitalisation);
 
-        jTable8.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable8.setForeground(new java.awt.Color(102, 102, 102));
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Consultation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Consultation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Consultation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1133,7 +1223,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 "Date", "PH Responsable"
             }
         ));
-        jScrollPane10.setViewportView(jTable8);
+        jScrollPane10.setViewportView(Tableau_Consultation);
 
         jLabel44.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
@@ -1188,10 +1278,10 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("HISTORIQUE", jPanel7);
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Information Patient : + Nom Prenom patient");
+        Label_Titre.setBackground(new java.awt.Color(255, 255, 255));
+        Label_Titre.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
+        Label_Titre.setForeground(new java.awt.Color(102, 102, 102));
+        Label_Titre.setText("Information Patient : + Nom Prenom patient");
 
         javax.swing.GroupLayout Panel_AccueilLayout = new javax.swing.GroupLayout(Panel_Accueil);
         Panel_Accueil.setLayout(Panel_AccueilLayout);
@@ -1199,7 +1289,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
             Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AccueilLayout.createSequentialGroup()
                 .addContainerGap(338, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Titre, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(260, 260, 260))
             .addGroup(Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(Panel_AccueilLayout.createSequentialGroup()
@@ -1211,7 +1301,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
             Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_AccueilLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Titre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(581, Short.MAX_VALUE))
             .addGroup(Panel_AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(Panel_AccueilLayout.createSequentialGroup()
@@ -1239,7 +1329,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                         RETOUR ACCUEIL                 
  /****************************************************/ 
     private void Button_AccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AccueilActionPerformed
-    URGENCE_Accueil ur_accP =new URGENCE_Accueil();
+    URGENCE_Accueil ur_accP =new URGENCE_Accueil(quiSuisJe);
     ur_accP.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_Button_AccueilActionPerformed
@@ -1267,23 +1357,13 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
 *****************************************************/  
     private void ValiderLettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValiderLettreSortieActionPerformed
 
-        String res = jTextArea1.getText();
-        //       Patient p = new Patient(160000001);
-        //       PH phte = new PH(160000001);
-        Calendar cal = Calendar.getInstance();
-        Date date = new Date();
-        cal.setTime(date);
-        /*       try {
-            LettreDeSortie lettre = new LettreDeSortie(res, phte, p.getDernierSejour().getIdSejour(), cal);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        String lettreDeSortie = jTextArea1.getText();
+        Date dateAndTime = Calendar.getInstance().getTime();
+        String date =  dateAndTime.getYear()+"-"+dateAndTime.getMonth()+"-"+dateAndTime.getDate()+" "+dateAndTime.getHours()+":"+dateAndTime.getMinutes()+":"+dateAndTime.getSeconds();
+        Sejour s = Sejour.RecupererSejour(monPatient.getIpp());
+        String message = Sejour.ajouterLettreDeSortie(date,lettreDeSortie,s.getId_Sejour());
         JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "La Lettre de Sortie est bien rentrée.");
-
-        // Retour à la liste des patients
-        //        AcceuilPH tap = new AcceuilPH(ph);
-        //       tap.setVisible(true);
+        JOptionPane.showMessageDialog(frame, message);
         frame.dispose();
     }//GEN-LAST:event_ValiderLettreSortieActionPerformed
 
@@ -1292,8 +1372,7 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 AJOUTER UNE OBSERVATION               
 *****************************************************/  
     private void AjouterObservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterObservationActionPerformed
-
-        SwingUtilities.invokeLater(new Runnable() {
+SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JDialog dialog3 = new JDialog();
@@ -1316,10 +1395,13 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 dialog3.add(infosPrescription, BorderLayout.CENTER);
 
                 JLabel titre = new JLabel("AJOUT D'UNE OBSERVATION", SwingConstants.CENTER);
-                titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                titre.setFont(new Font("Arvo", Font.PLAIN, 22));
                 infosPrescription.add(titre);
 
                 Date dateAndTime = Calendar.getInstance().getTime();
+                int mois = dateAndTime.getMonth()+1;
+                int annee = 1900 + dateAndTime.getYear();
+                String date = annee +"-"+mois+"-"+dateAndTime.getDate();
                 JLabel dateTime = new JLabel(dateAndTime.toString());
                 infosPrescription.add(dateTime);
 
@@ -1333,8 +1415,25 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
 
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
- //                       validerObservationActionPerformed(evt);
+      
+                        String message = Obersvation.AjouterObservation(resultat2.getText(),date, monPatient.getIpp());
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, message);
+                         
+                        ArrayList<Obersvation> listObservation = Obersvation.afficherObservation(monPatient.getIpp());
+            
+                        DefaultTableModel model3 = new DefaultTableModel();
+                        model3.setRowCount(0);
+                        model3 = new DefaultTableModel();
+                        Tableau_Observation.setModel(model3);
+                        model3.addColumn("Observation");
+                        model3.addColumn("Date");
+                        for (Obersvation obs : listObservation) {
+                            model3.addRow(new Object[]{obs.getObs(), obs.getDate()});
+                        }
+                        dialog3.dispose();
                     }
+                    
                 });
             }
         });
@@ -1369,106 +1468,130 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
                 dialog2.add(infosPrescription, BorderLayout.CENTER);
 
                 JLabel titre = new JLabel("NOUVELLE PRESCRIPTION", SwingConstants.CENTER);
-                titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                titre.setFont(new Font("Arvo", Font.PLAIN, 22));
                 infosPrescription.add(titre);
 
                 JLabel patient1;
 
                 Date dateAndTime = Calendar.getInstance().getTime();
                 JLabel dateTime = new JLabel(dateAndTime.toString());
+                int mois = dateAndTime.getMonth()+1;
+                int annee = 1900 + dateAndTime.getYear();
+                String date = annee +"-"+mois+"-"+dateAndTime.getDate();
                 infosPrescription.add(dateTime);
 
-                infosPrescription.add(new JLabel("<html> <br> Type de Prescription : </html>"));
-
-                JComboBox prescriptions = new JComboBox();
-                prescriptions.addItem("");
-                infosPrescription.add(prescriptions);
+                infosPrescription.add(new JLabel("<html> <br> Prescripteur : Dr "+quiSuisJe.getNom()+" </html>"));
 
                 infosPrescription.add(new JLabel("<html> <br> Prescription : </html>"));
-                JComboBox prescriptionsType = new JComboBox();
-                infosPrescription.add(prescriptionsType);
+                JTextField prescription = new JTextField();
+                infosPrescription.add(prescription);
 
-                dialog2.setVisible(true);//On la rend visible
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
-
+                dialog2.setVisible(true);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        String message = Prescription.AjouterUnePrescription(monPatient.getIpp(),prescription.getText(),quiSuisJe,date);           
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, message);
+                        dialog2.dispose();
+                        
+                        ArrayList<Prescription> listePrescription = Prescription.afficherPrescription(monPatient.getIpp());
+      
+                        DefaultTableModel model = new DefaultTableModel();
+                        model.setRowCount(0);
+                        Tableau_prescription.setModel(model);
+                        model.addColumn("Numéro de Prescription");
+                        model.addColumn("Préscription");
+                        model.addColumn("Date");
+                        model.addColumn("Prescripteur");
 
+                        for (Prescription p : listePrescription) {
+                            model.addRow(new Object[]{p.getId_prescription(), p.getPrescri(), p.getDate(), "Dr "+p.getPh()});
+                        }
                     }
                 });
             }
         });
     }//GEN-LAST:event_AjouterPrescriptionActionPerformed
 
-    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
-        if (jTable4.getSelectedRow() == 1) { // mettre -1
+    private void Bouton_DemanderAnalyseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_DemanderAnalyseActionPerformed
+         String s = Sejour.checkSejour(monPatient.getIpp());
+        if(s.equals("NoSej")){
             JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
-        } else {
-
+            JOptionPane.showMessageDialog(frame, "Ce patient n'est pas hospitalisé ou en consultation : demande d'analyse impossible");
+        }else{
+        
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JDialog dialog2 = new JDialog();
-                    dialog2.setSize(500, 250);//On lui donne une taille
-                    dialog2.setTitle("Demander Un Résultat"); //On lui donne un titre
-                    dialog2.setLocationRelativeTo(null);
+                    @Override
+                    public void run() {
+                        JDialog dialog3 = new JDialog();
+                        dialog3.setSize(500, 250);//On lui donne une taille
+                        dialog3.setTitle("Demande d'Analyse"); //On lui donne un titre
+                        dialog3.setLocationRelativeTo(null);
 
-                    dialog2.setLayout(new BorderLayout());
-                    dialog2.setVisible(true);//On la rend visible
+                        dialog3.setLayout(new BorderLayout());
+                        dialog3.setVisible(true);//On la rend visible
 
-                    dialog2.setLayout(new BorderLayout());
-                    JButton valider = new JButton("Valider");
-                    JPanel boutons = new JPanel();
-                    boutons.setLayout(new FlowLayout());
-                    dialog2.add(boutons, BorderLayout.SOUTH);
-                    boutons.add(valider);
+                        dialog3.setLayout(new BorderLayout());
+                        JButton valider = new JButton("Valider");
+                        JPanel boutons = new JPanel();
+                        boutons.setLayout(new FlowLayout());
+                        dialog3.add(boutons, BorderLayout.SOUTH);
+                        boutons.add(valider);
 
-                    JPanel infosPrescription = new JPanel();
-                    infosPrescription.setLayout(new GridLayout(6, 0));
-                    dialog2.add(infosPrescription, BorderLayout.CENTER);
+                        JPanel infosPrescription = new JPanel();
+                        infosPrescription.setLayout(new GridLayout(6, 0));
+                        dialog3.add(infosPrescription, BorderLayout.CENTER);
 
-                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
-                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
-                    infosPrescription.add(titre);
+                        JLabel titre = new JLabel("Demande d'Analyse", SwingConstants.CENTER);
+                        titre.setFont(new Font("Arvo", Font.PLAIN, 22));
+                        infosPrescription.add(titre);
 
-                    Date dateAndTime = Calendar.getInstance().getTime();
-                    JLabel dateTime = new JLabel(dateAndTime.toString());
-                    infosPrescription.add(dateTime);
+                        Date dateAndTime = Calendar.getInstance().getTime();
+                        int mois = dateAndTime.getMonth()+1;
+                        int annee = 1900 + dateAndTime.getYear();
+                        String date = annee +"-"+mois+"-"+dateAndTime.getDate();
+                        JLabel dateTime = new JLabel(dateAndTime.toString());
+                        infosPrescription.add(dateTime);
 
-                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
+                        infosPrescription.add(new JLabel("<html> <br> Type d'analyse demandée : </html>"));
 
-                    JTextField resultat = new JTextField();
-                    infosPrescription.add(resultat);
+                        JTextField resultat2 = new JTextField();
+                        infosPrescription.add(resultat2);
 
-                    dialog2.setVisible(true);//On la rend visible
-                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
+                        dialog3.setVisible(true);//On la rend visible
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
 
-                    valider.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                            //validerResultatActionPerformed(evt);
-                        }
-                    });
-                }
+                        valider.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                                String message = Prestation.DemandeDePrestation(monPatient.getIpp(), date,resultat2.getText(),quiSuisJe);
+                                JFrame frame = new JFrame();
+                                JOptionPane.showMessageDialog(frame, message);
+                                dialog3.dispose();
+
+                                 ArrayList<Prestation> listPresta = Prestation.ListDesPrestation(monPatient.getIpp());
+
+                                DefaultTableModel model6 = new DefaultTableModel();
+                                model6.setRowCount(0);
+                                model6 = new DefaultTableModel();
+                                Tableau_Prestation.setModel(model6);
+                                model6.addColumn("Date");
+                                model6.addColumn("Prelevement / Acte"); 
+                                model6.addColumn("Resultat");
+
+                                for (Prestation p : listPresta) {
+                                    model6.addRow(new Object[]{p.getDate(),p.getType(),p.getResultat()});
+                                }
+
+                            }
+
+                        });
+                    }
             });
         }
-    }//GEN-LAST:event_AjouterResultatActionPerformed
-
-    private void AjouterResultat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultat1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AjouterResultat1ActionPerformed
-
-    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
-
-        /*     try {
-            Sejour s = p.getDernierSejour(); //Remplacer p par patient
-            s.setTypeSejour(TypeSejour.HOSPITALISATION);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
-    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
+    }//GEN-LAST:event_Bouton_DemanderAnalyseActionPerformed
 
      JDialog dialog2;
     JDialog dialog3;
@@ -1476,15 +1599,17 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     javax.swing.JComboBox prescriptionsType;
     JTextField resultat;
     JTextField resultat2;
+    PH quiSuisJe;
+    Patient monPatient;
+    PersonneDeConfiance maPersConf = new PersonneDeConfiance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AdmettreHospitalisation;
     private javax.swing.JButton AjouterObservation;
     private javax.swing.JButton AjouterPrescription;
-    private javax.swing.JButton AjouterResultat;
-    private javax.swing.JButton AjouterResultat1;
+    private javax.swing.JButton Bouton_DemanderAnalyse;
     private javax.swing.JButton Button_Accueil;
     private javax.swing.JButton Button_Deconexion;
     private javax.swing.JLabel CPContact;
+    private javax.swing.JLabel Label_Titre;
     private javax.swing.JLabel Label_bckgrd;
     private javax.swing.JLabel NomContact;
     private javax.swing.JPanel Panel_Accueil;
@@ -1494,17 +1619,20 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JLabel PatientPHIPP;
     private javax.swing.JLabel PatientPHNom;
     private javax.swing.JLabel PatientPHNom1;
-    private javax.swing.JLabel PatientPHPays;
     private javax.swing.JLabel PatientPHPrenom;
     private javax.swing.JLabel PatientPHTelephone;
     private javax.swing.JLabel PatientPHVille;
-    private javax.swing.JLabel PaysContact;
     private javax.swing.JLabel PrenomContact;
     private javax.swing.JPanel Res;
+    private javax.swing.JTable Tableau_ActeInf;
+    private javax.swing.JTable Tableau_Consultation;
+    private javax.swing.JTable Tableau_Hospitalisation;
+    private javax.swing.JTable Tableau_Observation;
+    private javax.swing.JTable Tableau_Prestation;
+    private javax.swing.JTable Tableau_prescription;
     private javax.swing.JButton ValiderLettreSortie;
     private javax.swing.JLabel adresseContact;
     private javax.swing.JLabel chambre;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -1520,7 +1648,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
@@ -1530,7 +1657,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
-    private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
@@ -1557,12 +1683,6 @@ public class URGENCE_Detail_Patient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel jpanel150;
     private javax.swing.JLabel lit;

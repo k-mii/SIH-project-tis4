@@ -6,10 +6,14 @@
  *************************************************************************************/
 package Interface;
 
+import fonctionalCore.PH;
+import fonctionalCore.Patient;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.lang.Math.log10;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +30,7 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
 /****************************************************************
                             CONSTRUCTEUR                         
 ****************************************************************/
-    public URGENCE_NewPatient() {
+    public URGENCE_NewPatient(PH leGarsConnecter) {
         initComponents();
         this.setTitle("Nouveau Patient");
         Date dateAndTime = Calendar.getInstance().getTime();
@@ -36,13 +40,16 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         group.add(inconnu);
         group.add(nouveau);
         inconnu.setSelected(true);
-        textNom.setEditable(false);
-        textPrenom.setEditable(false);
-        textNom.setText("Doe");
-        textPrenom.setText("John");
+        Text_Nom.setEditable(false);
+        Text_Prenom.setEditable(false);
+        Text_Nom.setText("Doe");
+        Text_Prenom.setText("John");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
+        
+        quiSuisJe =new PH(((PH)leGarsConnecter).getId_PH(),((PH)leGarsConnecter).getSpecialite(),((PH)leGarsConnecter).getNom(),((PH)leGarsConnecter).getPrenom(),((PH)leGarsConnecter).getnTel());
+       
     }
 
     /**
@@ -61,10 +68,10 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         nouveau = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        textNom = new javax.swing.JTextField();
-        textPrenom = new javax.swing.JTextField();
+        Text_Nom = new javax.swing.JTextField();
+        Text_Prenom = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        comboBox_MotifAdmission = new javax.swing.JComboBox<>();
+        Text_Motif = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,16 +112,13 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         jLabel4.setText("Prenom :");
 
-        textNom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        textNom.setText("jTextField1");
+        Text_Nom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
 
-        textPrenom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        textPrenom.setText("jTextField1");
+        Text_Prenom.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        Text_Prenom.setText("jTextField1");
 
         jLabel5.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         jLabel5.setText("Motif d'admission : ");
-
-        comboBox_MotifAdmission.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,19 +144,19 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textNom, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(Text_Nom, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(69, 69, 69)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nouveau)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(Text_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboBox_MotifAdmission, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Text_Motif)))
                         .addGap(0, 134, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,13 +174,13 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(textNom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                    .addComponent(Text_Nom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Text_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBox_MotifAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(126, 126, 126)
+                    .addComponent(Text_Motif, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(127, 127, 127)
                 .addComponent(Btn_Enregistrer, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -189,18 +193,18 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
         RADIO BUTTON SI PATIENT = INCONNU                    
  *****************************************************/  
     private void inconnuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inconnuActionPerformed
-       textNom.setEditable(false);
-       textPrenom.setEditable(false);
-       textNom.setText("Doe");
-       textPrenom.setText("John");
+       Text_Nom.setEditable(false);
+       Text_Prenom.setEditable(false);
+       Text_Nom.setText("Doe");
+       Text_Prenom.setText("John");
     }//GEN-LAST:event_inconnuActionPerformed
 
 /*****************************************************
         RADIO BUTTON SI PATIENT = CONNU                    
  *****************************************************/  
     private void nouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveauActionPerformed
-        textNom.setEditable(true);
-        textPrenom.setEditable(true);
+        Text_Nom.setEditable(true);
+        Text_Prenom.setEditable(true);
 
     }//GEN-LAST:event_nouveauActionPerformed
 
@@ -208,6 +212,54 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
      ENREGISTRER LE PATIENT + ADMISSION AUTOMATIQUE   
 *****************************************************/  
     private void Btn_EnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_EnregistrerActionPerformed
+        if ((!Text_Nom.getText().equals("")) && (!Text_Prenom.getText().equals(""))) { 
+            if ((Pattern.matches("^[\\p{L} .'-]+$", Text_Nom.getText())) && (Pattern.matches("^[\\p{L} .'-]+$", Text_Prenom.getText()))) {
+ 
+                    Date dateAndTime = Calendar.getInstance().getTime();
+                    int annee = 1900+dateAndTime.getYear();
+                    int digit = annee % 100;
+
+                    String lipp = Integer.toString(digit);
+                    int nbDePatientCetteAnnee = Patient.CountLeNombreDePatientCetteAnnee(digit);
+                    int numDePatient = nbDePatientCetteAnnee + 1;
+                    int log = (int) (log10((numDePatient)) + 1);
+                    int nbDeChiffreAAjouter = 7 - log;
+                    for (int i = 0; i < nbDeChiffreAAjouter; i++) {
+                        lipp = lipp + "0";
+                    }
+
+                    lipp = lipp + (numDePatient + 1);
+                    int IPP = Integer.parseInt(lipp);
+
+                    String message = Patient.AjouterPatient(IPP, Text_Prenom.getText(), Text_Nom.getText(), "","","", "", "", "","", "", "",0);
+                    
+                    if(Text_Motif.equals("")){
+                        JFrame frame = new JFrame();
+                       JOptionPane.showMessageDialog(frame, "Veuillez saisir un motif d'admission");
+                    }else{
+                        String motifAdmission = Text_Motif.getText();
+
+                        int mois = dateAndTime.getMonth()+1;
+                        String date =annee+"-"+mois+"-"+dateAndTime.getDate()+" "+dateAndTime.getHours()+":"+dateAndTime.getMinutes()+":"+dateAndTime.getSeconds();
+                        
+                        int hospi_consult=1;
+                       
+
+                        message = Patient.NouvelleAdmission(lipp,hospi_consult,date,quiSuisJe.getId_PH(),motifAdmission,"urgence");
+                    }
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, "Le patient à été ajouter et admis en hospitalisation au urgence");
+                    
+
+            } else {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "Le nom et/ou le prenom du patient contient des caractères invalides");
+            }
+        } else {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, " Le nom et/ou le prenom du patient est manquant.");
+        }
+
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé en urgence.");
         this.dispose();
@@ -217,10 +269,12 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
-
+PH quiSuisJe;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Enregistrer;
-    private javax.swing.JComboBox<String> comboBox_MotifAdmission;
+    private javax.swing.JTextField Text_Motif;
+    private javax.swing.JTextField Text_Nom;
+    private javax.swing.JTextField Text_Prenom;
     private javax.swing.JRadioButton inconnu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -228,7 +282,5 @@ public class URGENCE_NewPatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JRadioButton nouveau;
-    private javax.swing.JTextField textNom;
-    private javax.swing.JTextField textPrenom;
     // End of variables declaration//GEN-END:variables
 }

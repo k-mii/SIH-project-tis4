@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,7 +76,7 @@ public class PH_Accueil extends javax.swing.JFrame {
         Icon warnIcon = new ImageIcon(resource);
         Button_Accueil.setIcon(warnIcon);
         AjouterPrescription.setText("<html>Nouvelle<br />Prescription</html>");
-        AjouterResultat.setText("<html>Ajouter<br />Résultat</html>");
+        Bouton_DemanderAnalyse.setText("<html>Demander<br />Analyse</html>");
         AdmettreHospitalisation.setText("<html>Admettre<br />Hospitalisation</html>");
         AjouterObservation.setText("<html>Ajouter<br />Observation</html>");
         
@@ -171,16 +172,15 @@ public class PH_Accueil extends javax.swing.JFrame {
         Res = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        AjouterResultat = new javax.swing.JButton();
         AdmettreHospitalisation = new javax.swing.JButton();
-        AjouterResultat1 = new javax.swing.JButton();
+        Bouton_DemanderAnalyse = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tableau_Prestation = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tableau_Observation = new javax.swing.JTable();
         AjouterObservation = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
@@ -192,9 +192,9 @@ public class PH_Accueil extends javax.swing.JFrame {
         jPanel29 = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        Tableau_Hospitalisation = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        Tableau_Consultation = new javax.swing.JTable();
         jLabel44 = new javax.swing.JLabel();
         Label_Titre = new javax.swing.JLabel();
         Panel_Accueil = new javax.swing.JPanel();
@@ -835,16 +835,6 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel36.setForeground(new java.awt.Color(102, 102, 102));
         jLabel36.setText("Résultats");
 
-        AjouterResultat.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterResultat.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterResultat.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat.setText("Demander Prestation");
-        AjouterResultat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterResultatActionPerformed(evt);
-            }
-        });
-
         AdmettreHospitalisation.setBackground(new java.awt.Color(255, 255, 255));
         AdmettreHospitalisation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
         AdmettreHospitalisation.setForeground(new java.awt.Color(102, 102, 102));
@@ -855,17 +845,17 @@ public class PH_Accueil extends javax.swing.JFrame {
             }
         });
 
-        AjouterResultat1.setBackground(new java.awt.Color(255, 255, 255));
-        AjouterResultat1.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
-        AjouterResultat1.setForeground(new java.awt.Color(102, 102, 102));
-        AjouterResultat1.setText("Demander Résultat");
-        AjouterResultat1.addActionListener(new java.awt.event.ActionListener() {
+        Bouton_DemanderAnalyse.setBackground(new java.awt.Color(255, 255, 255));
+        Bouton_DemanderAnalyse.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
+        Bouton_DemanderAnalyse.setForeground(new java.awt.Color(102, 102, 102));
+        Bouton_DemanderAnalyse.setText("Demander Analyse");
+        Bouton_DemanderAnalyse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterResultat1ActionPerformed(evt);
+                Bouton_DemanderAnalyseActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Prestation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -906,12 +896,12 @@ public class PH_Accueil extends javax.swing.JFrame {
                 "Date", "Prescripteur", "Prélèvement/ Acte réalisé"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tableau_Prestation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                Tableau_PrestationMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(jTable1);
+        jScrollPane5.setViewportView(Tableau_Prestation);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -921,17 +911,15 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel36)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Bouton_DemanderAnalyse, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(AdmettreHospitalisation)
-                        .addGap(83, 83, 83))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(125, 125, 125))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -939,9 +927,8 @@ public class PH_Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
-                    .addComponent(AjouterResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AdmettreHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AjouterResultat1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Bouton_DemanderAnalyse, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
@@ -953,7 +940,7 @@ public class PH_Accueil extends javax.swing.JFrame {
             ResLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ResLayout.setVerticalGroup(
@@ -976,9 +963,9 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel39.setForeground(new java.awt.Color(102, 102, 102));
         jLabel39.setText("Observations");
 
-        jTable2.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(102, 102, 102));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Observation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Observation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Observation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -986,7 +973,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 "Date", "Personnel", "Observation"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
+        jScrollPane6.setViewportView(Tableau_Observation);
 
         AjouterObservation.setBackground(new java.awt.Color(255, 255, 255));
         AjouterObservation.setFont(new java.awt.Font("Arvo", 0, 14)); // NOI18N
@@ -1113,9 +1100,9 @@ public class PH_Accueil extends javax.swing.JFrame {
         jLabel43.setForeground(new java.awt.Color(102, 102, 102));
         jLabel43.setText("Liste des Consultations");
 
-        jTable7.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable7.setForeground(new java.awt.Color(102, 102, 102));
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Hospitalisation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Hospitalisation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Hospitalisation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1123,11 +1110,11 @@ public class PH_Accueil extends javax.swing.JFrame {
                 "Date", "Service"
             }
         ));
-        jScrollPane9.setViewportView(jTable7);
+        jScrollPane9.setViewportView(Tableau_Hospitalisation);
 
-        jTable8.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
-        jTable8.setForeground(new java.awt.Color(102, 102, 102));
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        Tableau_Consultation.setFont(new java.awt.Font("Arvo", 0, 11)); // NOI18N
+        Tableau_Consultation.setForeground(new java.awt.Color(102, 102, 102));
+        Tableau_Consultation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1135,7 +1122,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 "Date", "PH Responsable"
             }
         ));
-        jScrollPane10.setViewportView(jTable8);
+        jScrollPane10.setViewportView(Tableau_Consultation);
 
         jLabel44.setFont(new java.awt.Font("Arvo", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
@@ -1486,7 +1473,74 @@ public class PH_Accueil extends javax.swing.JFrame {
             for (Acte_Infirmier ac : listActeInf) {
                 model2.addRow(new Object[]{ac.getActe(), ac.getResultat(), ac.getDate(), ac.getInfirmier()});
             }
+            
+            
+            
+            ArrayList<Obersvation> listObservation = Obersvation.afficherObservation(monPatient.getIpp());
+            
+            DefaultTableModel model3 = new DefaultTableModel();
+            model3.setRowCount(0);
+            model3 = new DefaultTableModel();
+            Tableau_Observation.setModel(model3);
+            model3.addColumn("Observation");
+            model3.addColumn("Date");
+            for (Obersvation obs : listObservation) {
+                model3.addRow(new Object[]{obs.getObs(), obs.getDate()});
+            }
 
+      
+            ArrayList<Sejour> listHospi = Sejour.ListDesHospitalisation(monPatient.getIpp());
+            
+            DefaultTableModel model4 = new DefaultTableModel();
+            model4.setRowCount(0);
+            model4 = new DefaultTableModel();
+            Tableau_Hospitalisation.setModel(model4);
+            model4.addColumn("Motif");
+            model4.addColumn("Service");
+            model4.addColumn("Date Entrée");
+            model4.addColumn("Date Sortie");
+            model4.addColumn("Medecin");
+            
+            for (Sejour s : listHospi) {
+                PH p = PH.AfficherPH(s.getPhRef());
+                model4.addRow(new Object[]{s.getMotif(), p.getSpecialite(),s.getDateEntree(),s.getDateSortie(),"Dr "+p.getNom()});
+            }
+            
+            
+            ArrayList<Sejour> listConsult = Sejour.ListDesConsultation(monPatient.getIpp());
+            
+            DefaultTableModel model5 = new DefaultTableModel();
+            model5.setRowCount(0);
+            model5 = new DefaultTableModel();
+            Tableau_Consultation.setModel(model5);
+            model5.addColumn("Motif");
+            model5.addColumn("Service"); 
+            model5.addColumn("Date Entrée");
+            model5.addColumn("Medecin");
+            
+            for (Sejour s : listConsult) {
+                PH p = PH.AfficherPH(s.getPhRef());
+                String service = Service.AfficherServices(p.getSpecialite());
+                model5.addRow(new Object[]{s.getMotif(), service,s.getDateEntree(),"Dr "+p.getNom()});
+            }
+            
+            
+            
+            
+            ArrayList<Prestation> listPresta = Prestation.ListDesPrestation(monPatient.getIpp());
+            
+            DefaultTableModel model6 = new DefaultTableModel();
+            model6.setRowCount(0);
+            model6 = new DefaultTableModel();
+            Tableau_Prestation.setModel(model6);
+            model6.addColumn("Date");
+            model6.addColumn("Prelevement / Acte"); 
+            model6.addColumn("Resultat");
+            
+            for (Prestation p : listPresta) {
+                model6.addRow(new Object[]{p.getDate(),p.getType(),p.getResultat()});
+            }
+            
         }
         
     }//GEN-LAST:event_Btn_InformationPatientActionPerformed
@@ -1539,6 +1593,9 @@ public class PH_Accueil extends javax.swing.JFrame {
                 infosPrescription.add(titre);
 
                 Date dateAndTime = Calendar.getInstance().getTime();
+                int mois = dateAndTime.getMonth()+1;
+                int annee = 1900 + dateAndTime.getYear();
+                String date = annee +"-"+mois+"-"+dateAndTime.getDate();
                 JLabel dateTime = new JLabel(dateAndTime.toString());
                 infosPrescription.add(dateTime);
 
@@ -1552,31 +1609,29 @@ public class PH_Accueil extends javax.swing.JFrame {
 
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                       
-                        String date = dateAndTime.getYear()+"-"+dateAndTime.getMonth()+"-"+dateAndTime.getDate();
-                        String message = Sejour.AjouterObservation(resultat2.getText(),date, monPatient.getIpp());
+      
+                        String message = Obersvation.AjouterObservation(resultat2.getText(),date, monPatient.getIpp());
                         JFrame frame = new JFrame();
                         JOptionPane.showMessageDialog(frame, message);
+                         
+                        ArrayList<Obersvation> listObservation = Obersvation.afficherObservation(monPatient.getIpp());
+            
+                        DefaultTableModel model3 = new DefaultTableModel();
+                        model3.setRowCount(0);
+                        model3 = new DefaultTableModel();
+                        Tableau_Observation.setModel(model3);
+                        model3.addColumn("Observation");
+                        model3.addColumn("Date");
+                        for (Obersvation obs : listObservation) {
+                            model3.addRow(new Object[]{obs.getObs(), obs.getDate()});
+                        }
+                        dialog3.dispose();
                     }
+                    
                 });
             }
         });
     }//GEN-LAST:event_AjouterObservationActionPerformed
-
-/*****************************************************
-         RESULTAT - ADLETTRE HOSPITALISATION          
- *****************************************************/      
-    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
-
-        /*     try {
-            Sejour s = p.getDernierSejour(); //Remplacer p par patient
-            s.setTypeSejour(TypeSejour.HOSPITALISATION);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientPH.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Le patient est désormais hospitalisé.");
-    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
 
 /*****************************************************
             SOIN - AJOUTER UNE PRESCRIPTION           
@@ -1612,6 +1667,9 @@ public class PH_Accueil extends javax.swing.JFrame {
 
                 Date dateAndTime = Calendar.getInstance().getTime();
                 JLabel dateTime = new JLabel(dateAndTime.toString());
+                int mois = dateAndTime.getMonth()+1;
+                int annee = 1900 + dateAndTime.getYear();
+                String date = annee +"-"+mois+"-"+dateAndTime.getDate();
                 infosPrescription.add(dateTime);
 
                 infosPrescription.add(new JLabel("<html> <br> Prescripteur : Dr "+quiSuije.getNom()+" </html>"));
@@ -1625,7 +1683,7 @@ public class PH_Accueil extends javax.swing.JFrame {
                 
                 valider.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        String message = Prescription.AjouterUnePrescription(monPatient.getIpp(),prescription.getText(),quiSuije,dateAndTime);           
+                        String message = Prescription.AjouterUnePrescription(monPatient.getIpp(),prescription.getText(),quiSuije,date);           
                         JFrame frame = new JFrame();
                         JOptionPane.showMessageDialog(frame, message);
                         dialog2.dispose();
@@ -1648,40 +1706,6 @@ public class PH_Accueil extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_AjouterPrescriptionActionPerformed
-
-    private void AjouterResultat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultat1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AjouterResultat1ActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        //int row = jTable1.getSelectedRow();
-
-        //int i = 0;
-        //int j = 0;
-        //while (i < dm.getListeDossiersPatient().size() && !(dm.getListeDossiersPatient().get(i).getPatient().toStringT().equals(jTable1.getValueAt(row, 1)))) {
-            //i++;
-            //}
-        //if (i < dm.getListeDossiersPatient().size()) {
-            //while (i < dm.getListeDossiersPatient().get(i).getListeFicheDeSoins().size() && !(dm.getListeDossiersPatient().get(i).getListeFicheDeSoins().get(j).getMedecin().toStringT().equals(jTable1.getValueAt(row, 2)))) {
-                //j++;
-                //}
-            //if (j < dm.getListeDossiersPatient().get(i).getListeFicheDeSoins().size()) {
-                //FicheDeSoins fds = dm.getListeDossiersPatient().get(i).getListeFicheDeSoins().get(j);
-
-                //String actes = "";
-                //for (Acte a : fds.getActes()) {
-                    //actes += a.toString() + "\n" + "\n";
-                    //}
-
-                //jTextArea1.setText("Date : " + fds.getDate().toString()
-                    //+ "\n" + "\n" + "Médecin : " + "\n" + fds.getMedecin().toString()
-                    //+ "\n" + "\n" + "Patient : " + "\n" + fds.getPatient().toString()
-                    //+ "\n" + "\n" + "Actes : " + "\n" + actes);
-                //jTextArea1.setEditable(false);
-                //}
-            //}
-    }//GEN-LAST:event_jTable1MouseClicked
 
 /*****************************************************
                RECHERCHER UN PATIENT                  
@@ -1713,62 +1737,153 @@ public class PH_Accueil extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_Button_RechercherPatientActionPerformed
 
-/*****************************************************
-         RESULTAT - AJOUTER UN RESULTAT               
-*****************************************************/  
-    private void AjouterResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterResultatActionPerformed
-        if (Tableau_ActeInf.getSelectedRow() == 1) { // mettre -1
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Aucune ligne n'est sélectionnée.");
-        } else {
+    private void Tableau_PrestationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tableau_PrestationMouseClicked
 
+    }//GEN-LAST:event_Tableau_PrestationMouseClicked
+
+    private void Bouton_DemanderAnalyseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_DemanderAnalyseActionPerformed
+        String s = Sejour.checkSejour(monPatient.getIpp());
+        if(s.equals("NoSej")){
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Ce patient n'est pas hospitalisé ou en consultation : demande d'analyse impossible");
+        }else{
+        
+            SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JDialog dialog3 = new JDialog();
+                        dialog3.setSize(500, 250);//On lui donne une taille
+                        dialog3.setTitle("Demande d'Analyse"); //On lui donne un titre
+                        dialog3.setLocationRelativeTo(null);
+
+                        dialog3.setLayout(new BorderLayout());
+                        dialog3.setVisible(true);//On la rend visible
+
+                        dialog3.setLayout(new BorderLayout());
+                        JButton valider = new JButton("Valider");
+                        JPanel boutons = new JPanel();
+                        boutons.setLayout(new FlowLayout());
+                        dialog3.add(boutons, BorderLayout.SOUTH);
+                        boutons.add(valider);
+
+                        JPanel infosPrescription = new JPanel();
+                        infosPrescription.setLayout(new GridLayout(6, 0));
+                        dialog3.add(infosPrescription, BorderLayout.CENTER);
+
+                        JLabel titre = new JLabel("Demande d'Analyse", SwingConstants.CENTER);
+                        titre.setFont(new Font("Arvo", Font.PLAIN, 22));
+                        infosPrescription.add(titre);
+
+                        Date dateAndTime = Calendar.getInstance().getTime();
+                        int mois = dateAndTime.getMonth()+1;
+                        int annee = 1900 + dateAndTime.getYear();
+                        String date = annee +"-"+mois+"-"+dateAndTime.getDate();
+                        JLabel dateTime = new JLabel(dateAndTime.toString());
+                        infosPrescription.add(dateTime);
+
+                        infosPrescription.add(new JLabel("<html> <br> Type d'analyse demandée : </html>"));
+
+                        JTextField resultat2 = new JTextField();
+                        infosPrescription.add(resultat2);
+
+                        dialog3.setVisible(true);//On la rend visible
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
+
+                        valider.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                                String message = Prestation.DemandeDePrestation(monPatient.getIpp(), date,resultat2.getText(),quiSuije);
+                                JFrame frame = new JFrame();
+                                JOptionPane.showMessageDialog(frame, message);
+                                dialog3.dispose();
+
+                                 ArrayList<Prestation> listPresta = Prestation.ListDesPrestation(monPatient.getIpp());
+
+                                DefaultTableModel model6 = new DefaultTableModel();
+                                model6.setRowCount(0);
+                                model6 = new DefaultTableModel();
+                                Tableau_Prestation.setModel(model6);
+                                model6.addColumn("Date");
+                                model6.addColumn("Prelevement / Acte"); 
+                                model6.addColumn("Resultat");
+
+                                for (Prestation p : listPresta) {
+                                    model6.addRow(new Object[]{p.getDate(),p.getType(),p.getResultat()});
+                                }
+
+                            }
+
+                        });
+                    }
+            });
+        }
+    }//GEN-LAST:event_Bouton_DemanderAnalyseActionPerformed
+
+/*****************************************************
+         RESULTAT - ADLETTRE HOSPITALISATION          
+ *****************************************************/      
+    private void AdmettreHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmettreHospitalisationActionPerformed
+        String message = Patient.checkSiPatientEstHospitaliser(monPatient.getIpp());
+        if(message.equals("")){
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    JDialog dialog2 = new JDialog();
-                    dialog2.setSize(500, 250);//On lui donne une taille
-                    dialog2.setTitle("Ajouter Un Résultat"); //On lui donne un titre
-                    dialog2.setLocationRelativeTo(null);
+                    JDialog dialog3 = new JDialog();
+                    dialog3.setSize(500, 250);//On lui donne une taille
+                    dialog3.setTitle("Hospitalisation"); //On lui donne un titre
+                    dialog3.setLocationRelativeTo(null);
 
-                    dialog2.setLayout(new BorderLayout());
-                    dialog2.setVisible(true);//On la rend visible
+                    dialog3.setLayout(new BorderLayout());
+                    dialog3.setVisible(true);//On la rend visible
 
-                    dialog2.setLayout(new BorderLayout());
+                    dialog3.setLayout(new BorderLayout());
                     JButton valider = new JButton("Valider");
                     JPanel boutons = new JPanel();
                     boutons.setLayout(new FlowLayout());
-                    dialog2.add(boutons, BorderLayout.SOUTH);
+                    dialog3.add(boutons, BorderLayout.SOUTH);
                     boutons.add(valider);
 
                     JPanel infosPrescription = new JPanel();
                     infosPrescription.setLayout(new GridLayout(6, 0));
-                    dialog2.add(infosPrescription, BorderLayout.CENTER);
+                    dialog3.add(infosPrescription, BorderLayout.CENTER);
 
-                    JLabel titre = new JLabel("AJOUT DE RÉSULTAT", SwingConstants.CENTER);
-                    titre.setFont(new Font("Serif", Font.PLAIN, 22));
+                    JLabel titre = new JLabel("Hospitalisation du patient", SwingConstants.CENTER);
+                    titre.setFont(new Font("Arvo", Font.PLAIN, 22));
                     infosPrescription.add(titre);
 
                     Date dateAndTime = Calendar.getInstance().getTime();
+                    int mois = dateAndTime.getMonth()+1;
+                    int annee = 1900 + dateAndTime.getYear();
+                    String date = annee +"-"+mois+"-"+dateAndTime.getDate();
                     JLabel dateTime = new JLabel(dateAndTime.toString());
                     infosPrescription.add(dateTime);
 
-                    infosPrescription.add(new JLabel("<html> <br> Résultat de la Prescription : </html>"));
+                    infosPrescription.add(new JLabel("<html> <br> Motif de l'admission : </html>"));
 
-                    JTextField resultat = new JTextField();
-                    infosPrescription.add(resultat);
+                    JTextField resultat2 = new JTextField();
+                    infosPrescription.add(resultat2);
 
-                    dialog2.setVisible(true);//On la rend visible
+                    dialog3.setVisible(true);//On la rend visible
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
 
                     valider.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                            validerResultatActionPerformed(evt);
+                            String service = Service.AfficherServices(quiSuije.getSpecialite());
+                            String message = Patient.NouvelleAdmission(monPatient.getIpp(),1,date,quiSuije.getId_PH(),resultat2.getText(), service);
+                            JFrame frame = new JFrame();
+                            JOptionPane.showMessageDialog(frame, message);
+                            dialog3.dispose();
                         }
+
                     });
                 }
             });
+        }else{
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, message);
+
         }
-    }//GEN-LAST:event_AjouterResultatActionPerformed
+    }//GEN-LAST:event_AdmettreHospitalisationActionPerformed
 
     
     
@@ -1824,7 +1939,7 @@ public class PH_Accueil extends javax.swing.JFrame {
 
         // MaJ Tableau Liste des résultats
         DefaultTableModel listeResultat;
-        listeResultat = (DefaultTableModel) this.jTable1.getModel();
+        listeResultat = (DefaultTableModel) this.Tableau_Prestation.getModel();
         int l = listeResultat.getRowCount();
         for (int i = l - 1; i >= 0; --i) {
             listeResultat.removeRow(i);
@@ -1847,8 +1962,8 @@ public class PH_Accueil extends javax.swing.JFrame {
   //      Patient ptest = new Patient(160000001);       // A enlever
   //      PH phtest = new PH(160000001);
 
-        int acteSelectionne = jTable1.getSelectedRow();
-        long ligne = Long.parseLong((String) jTable1.getValueAt(acteSelectionne, 0), 10);
+        int acteSelectionne = Tableau_Prestation.getSelectedRow();
+        long ligne = Long.parseLong((String) Tableau_Prestation.getValueAt(acteSelectionne, 0), 10);
    /*     try {
             Sejour s = ptest.getDernierSejour(); //Remplacer ptest par patient
             Prescription pres = new Prescription(ligne, s);
@@ -1865,7 +1980,7 @@ public class PH_Accueil extends javax.swing.JFrame {
 */
         // MaJ Tableau Liste des résultats
         DefaultTableModel listeResultat;
-        listeResultat = (DefaultTableModel) this.jTable1.getModel();
+        listeResultat = (DefaultTableModel) this.Tableau_Prestation.getModel();
         int n = listeResultat.getRowCount();
         for (int i = n - 1; i >= 0; --i) {
             listeResultat.removeRow(i);
@@ -1896,7 +2011,7 @@ public class PH_Accueil extends javax.swing.JFrame {
 */
         // MaJ Liste Observations
         DefaultTableModel listeObservation;
-        listeObservation = (DefaultTableModel) this.jTable2.getModel();
+        listeObservation = (DefaultTableModel) this.Tableau_Observation.getModel();
         int n = listeObservation.getRowCount();
         for (int i = n - 1; i >= 0; --i) {
             listeObservation.removeRow(i);
@@ -1927,8 +2042,7 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JButton AdmettreHospitalisation;
     private javax.swing.JButton AjouterObservation;
     private javax.swing.JButton AjouterPrescription;
-    private javax.swing.JButton AjouterResultat;
-    private javax.swing.JButton AjouterResultat1;
+    private javax.swing.JButton Bouton_DemanderAnalyse;
     private javax.swing.JButton Btn_InformationPatient;
     private javax.swing.JButton Button_Accueil;
     private javax.swing.JButton Button_Deconexion;
@@ -1952,6 +2066,10 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JPanel Res;
     private javax.swing.JTable Table_ListPatient;
     private javax.swing.JTable Tableau_ActeInf;
+    private javax.swing.JTable Tableau_Consultation;
+    private javax.swing.JTable Tableau_Hospitalisation;
+    private javax.swing.JTable Tableau_Observation;
+    private javax.swing.JTable Tableau_Prestation;
     private javax.swing.JTable Tableau_prescription;
     private javax.swing.JTextField Text_RshNomPatient;
     private javax.swing.JTextField Text_RshPrenomPatient;
@@ -2011,10 +2129,6 @@ public class PH_Accueil extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel jpanel150;
     private javax.swing.JLabel lit;

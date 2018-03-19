@@ -97,7 +97,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="338" max="32767" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="522" max="-2" attributes="0"/>
+                  <Component id="Label_Titre" min="-2" pref="522" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -113,7 +113,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="Label_Titre" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="581" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -446,11 +446,6 @@
                                                   <Component id="PatientPHDateNaissance" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel67" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="PatientPHPays" min="-2" pref="114" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel68" min="-2" pref="93" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="PatientPHTelephone" min="-2" pref="161" max="-2" attributes="0"/>
@@ -503,12 +498,7 @@
                                       <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="PatientPHVille" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel67" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PatientPHPays" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                                  <EmptySpace pref="53" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel68" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="PatientPHTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -729,20 +719,6 @@
                             <Property name="text" type="java.lang.String" value="Code Postal :"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel67">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                            </Property>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Arvo" size="14" style="1"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="66" green="66" red="66" type="rgb"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Pays :"/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="jLabel68">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -755,20 +731,6 @@
                               <Color blue="66" green="66" red="66" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Telephone :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="PatientPHPays">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                            </Property>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Arvo" size="14" style="0"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="66" green="66" red="66" type="rgb"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="PatientPHPays"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="PatientPHTelephone">
@@ -829,7 +791,7 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel72" min="-2" pref="74" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="PrenomContact" max="32767" attributes="0"/>
+                                          <Component id="PrenomContact" pref="165" max="32767" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -844,11 +806,7 @@
                                           <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="villeContact" min="-2" pref="127" max="-2" attributes="0"/>
-                                          <EmptySpace pref="76" max="32767" attributes="0"/>
-                                          <Component id="jLabel86" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="PaysContact" min="-2" pref="114" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -892,8 +850,6 @@
                                       <Component id="CPContact" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel79" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="villeContact" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel86" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PaysContact" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1046,20 +1002,6 @@
                             <Property name="text" type="java.lang.String" value="villeContact"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="PaysContact">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                            </Property>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Arvo" size="14" style="0"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="66" green="66" red="66" type="rgb"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="PaysContact"/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="telContact">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1114,20 +1056,6 @@
                               <Color blue="66" green="66" red="66" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Telephone :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel86">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                            </Property>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Arvo" size="14" style="1"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="66" green="66" red="66" type="rgb"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Pays :"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1263,7 +1191,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable3">
+                        <Component class="javax.swing.JTable" name="Tableau_prescription">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1350,7 +1278,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable4">
+                        <Component class="javax.swing.JTable" name="Tableau_ActeInf">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1434,12 +1362,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="181" max="32767" attributes="0"/>
-                              <Component id="AjouterResultat" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AjouterResultat1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AdmettreHospitalisation" min="-2" pref="205" max="-2" attributes="0"/>
+                              <EmptySpace pref="573" max="32767" attributes="0"/>
+                              <Component id="Bouton_DemanderAnalyse" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -1457,9 +1381,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="AjouterResultat" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="AjouterResultat1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="AdmettreHospitalisation" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="Bouton_DemanderAnalyse" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="388" max="32767" attributes="0"/>
                           </Group>
@@ -1492,7 +1414,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable1">
+                        <Component class="javax.swing.JTable" name="Tableau_Prestation">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="34">
@@ -1508,7 +1430,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="AjouterResultat">
+                    <Component class="javax.swing.JButton" name="Bouton_DemanderAnalyse">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1519,44 +1441,10 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="66" green="66" red="66" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Demander Prestation"/>
+                        <Property name="text" type="java.lang.String" value="Demander Analyse"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterResultatActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="AjouterResultat1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arvo" size="14" style="0"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="66" green="66" red="66" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Demander R&#xe9;sultat"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterResultat1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="AdmettreHospitalisation">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arvo" size="14" style="0"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="66" green="66" red="66" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Admettre Hospitalisation"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmettreHospitalisationActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bouton_DemanderAnalyseActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1671,7 +1559,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable2">
+                        <Component class="javax.swing.JTable" name="Tableau_Observation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1934,7 +1822,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable7">
+                        <Component class="javax.swing.JTable" name="Tableau_Hospitalisation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1959,7 +1847,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable8">
+                        <Component class="javax.swing.JTable" name="Tableau_Consultation">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arvo" size="11" style="0"/>
@@ -1994,7 +1882,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="Label_Titre">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -10,8 +10,11 @@ import static fonctionalCore.DB_Link.connecterDB;
 import static fonctionalCore.DB_Link.rst;
 import static fonctionalCore.DB_Link.st;
 import static fonctionalCore.Localisation.*;
+import static java.lang.Math.log10;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -353,6 +356,7 @@ public class Patient extends Personne {
     }
 
 
+
     public static Localisation afficherLocalisationPatient(String ipp){
         Localisation locaDuPatient = new Localisation();
         try{
@@ -382,4 +386,22 @@ public class Patient extends Personne {
     
     
     
+=======
+public static int generIPP(){
+    Date dateAndTime = Calendar.getInstance().getTime();
+    int annee = dateAndTime.getYear();
+
+    int digit = annee % 100;
+
+                    String lipp = Integer.toString(digit);
+                    int nbDePatientCetteAnnee = Patient.CountLeNombreDePatientCetteAnnee(digit);
+                    int numDePatient = nbDePatientCetteAnnee + 1;
+                    int log = (int) (log10((numDePatient)) + 1);
+                    int nbDeChiffreAAjouter = 7 - log;
+                    for (int i = 0; i < nbDeChiffreAAjouter; i++) {
+                        lipp = lipp + "0";}
+                     lipp = lipp + (numDePatient + 1);
+                    int IPP = Integer.parseInt(lipp);
+                    return IPP;}
+
 }
